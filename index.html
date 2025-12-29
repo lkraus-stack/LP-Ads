@@ -2,21 +2,28 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta name="theme-color" content="#000000">
   <title>Franco Consulting GmbH</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <div>
-      <div class="logo">
-        <img src="assets/logo/logo.svg" alt="Franco Consulting GmbH">
-      </div>
+      <a href="#" class="logo" aria-label="Zur Startseite">
+        <img src="assets/logo/LogoFrancoConsulting-weiß.png" alt="Franco Consulting GmbH" loading="lazy" decoding="async">
+      </a>
+      <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
       <nav>
         <ul>
-          <li><a href="#leistungen">Leistungen</a></li>
+          <li><a href="#ads-services">Leistungen</a></li>
           <li><a href="#prozess-modern">Prozess</a></li>
-          <li><a href="#ueber-uns">Über Uns</a></li>
+          <li><a href="#pricing">Preise</a></li>
+          <li><a href="#about">Über Uns</a></li>
         </ul>
       </nav>
     </div>
@@ -24,8 +31,7 @@
 
   <section id="hero">
     <div class="hero-inner">
-      <div class="hero-badge">FRANCO CONSULTING GMBH</div>
-      <h1>Mit Paid Ads die Lösung für den deutschen Mittelstand.</h1>
+      <h1>Mit Paid Ads<br>die Lösung für den deutschen Mittelstand.</h1>
       <h2>Mit bewährten Marktführer Strategien!</h2>
       <p>Durch Google Ads, Meta Ads, TikTok Ads, LinkedIn Ads uvm. erreichen wir die besten Ergebnisse</p>
       <div class="hero-buttons">
@@ -49,6 +55,58 @@
           <div class="stat-number">Top</div>
           <div class="stat-label">Branchen-Experten</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ads-services" class="section-premium">
+    <div class="container">
+      <div class="ads-divider">
+        <div class="gold-divider-line"></div>
+      </div>
+      <h2 class="section-title">Unsere Ads-Expertise</h2>
+      <p class="ads-subtitle">Wir sind zertifizierte Experten auf allen relevanten Plattformen</p>
+      <div class="ads-grid">
+        <article class="ads-card" data-popup="google">
+          <div class="ads-logo-placeholder" aria-label="Google Ads Logo">
+            <img src="https://cdn.simpleicons.org/googleads/ffffff" alt="Google Ads" class="ads-logo-img">
+          </div>
+          <h3>Google Ads</h3>
+        </article>
+        <article class="ads-card" data-popup="meta">
+          <div class="ads-logo-placeholder" aria-label="Meta Ads Logo">
+            <img src="https://cdn.simpleicons.org/meta/ffffff" alt="Meta" class="ads-logo-img">
+          </div>
+          <h3>Meta Ads</h3>
+        </article>
+        <article class="ads-card" data-popup="tiktok">
+          <div class="ads-logo-placeholder" aria-label="TikTok Ads Logo">
+            <img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok" class="ads-logo-img">
+          </div>
+          <h3>TikTok Ads</h3>
+        </article>
+        <article class="ads-card" data-popup="linkedin">
+          <div class="ads-logo-placeholder" aria-label="LinkedIn Ads Logo">
+            <svg class="ads-logo-svg" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </div>
+          <h3>LinkedIn Ads</h3>
+        </article>
+        <article class="ads-card" data-popup="pinterest">
+          <div class="ads-logo-placeholder" aria-label="Pinterest Ads Logo">
+            <img src="https://cdn.simpleicons.org/pinterest/ffffff" alt="Pinterest" class="ads-logo-img">
+          </div>
+          <h3>Pinterest Ads</h3>
+        </article>
+        <article class="ads-card" data-popup="amazon">
+          <div class="ads-logo-placeholder" aria-label="Amazon Ads Logo">
+            <svg class="ads-logo-svg" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 01-.753.077c-1.058-.878-1.247-1.287-1.826-2.124-1.746 1.778-2.981 2.309-5.242 2.309-2.678 0-4.762-1.653-4.762-4.96 0-2.583 1.399-4.339 3.394-5.198 1.728-.754 4.143-.888 5.988-1.096v-.41c0-.753.058-1.642-.383-2.292-.385-.576-1.124-.814-1.776-.814-1.206 0-2.282.619-2.545 1.902-.054.285-.263.566-.55.581l-3.083-.333c-.259-.058-.547-.266-.472-.66.704-3.716 4.06-4.838 7.065-4.838 1.537 0 3.543.41 4.758 1.574 1.537 1.439 1.39 3.357 1.39 5.448v4.932c0 1.482.615 2.132 1.193 2.932.205.287.25.629-.01.839-.649.541-1.805 1.545-2.442 2.108l.056.002zM21.894 20.296c-1.817 1.343-4.443 2.054-6.707 2.054-3.174 0-6.031-1.172-8.191-3.122-.17-.154-.019-.364.185-.245 2.332 1.359 5.217 2.175 8.195 2.175 2.009 0 4.22-.416 6.252-1.279.307-.131.564.202.266.417zm.756-1.726c-.231-.296-1.532-.14-2.115-.071-.178.021-.205-.133-.046-.245.639-.445 1.66-.316 1.778-.168.119.148-.031 1.178-.553 1.671-.095.089-.186.042-.144-.074.139-.347.449-1.118.218-1.414z"/>
+            </svg>
+          </div>
+          <h3>Amazon Ads</h3>
+        </article>
       </div>
     </div>
   </section>
@@ -143,8 +201,388 @@
     </div>
   </section>
 
+  <section id="prozess-modern" class="section-premium section-process-new">
+    <div class="container">
+      <h2 class="section-title">In 3 Schritten zum Erfolg</h2>
+      <p class="process-subtitle">Unser erprobter Prozess für messbare Ergebnisse</p>
+      
+      <div class="process-timeline">
+        <!-- Verbindungslinie -->
+        <div class="timeline-connector" aria-hidden="true"></div>
+        
+        <article class="process-step">
+          <div class="step-header">
+            <div class="step-number-ring">
+              <span class="step-number">01</span>
+            </div>
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="step-content">
+            <h3>Strategie-Workshop</h3>
+            <p>Wir klären Ziele, Zielgruppen und Prioritäten für ein klares Fundament.</p>
+            <ul class="step-features">
+              <li>Zielanalyse</li>
+              <li>Wettbewerb</li>
+              <li>KPI-Definition</li>
+            </ul>
+          </div>
+          <div class="step-glow" aria-hidden="true"></div>
+        </article>
+
+        <article class="process-step">
+          <div class="step-header">
+            <div class="step-number-ring">
+              <span class="step-number">02</span>
+            </div>
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="step-content">
+            <h3>Umsetzung &amp; Design</h3>
+            <p>Konzeption, Design und Entwicklung greifen ineinander für ein stimmiges Ergebnis.</p>
+            <ul class="step-features">
+              <li>Creatives</li>
+              <li>Kampagnen</li>
+              <li>Tracking</li>
+            </ul>
+          </div>
+          <div class="step-glow" aria-hidden="true"></div>
+        </article>
+
+        <article class="process-step">
+          <div class="step-header">
+            <div class="step-number-ring">
+              <span class="step-number">03</span>
+            </div>
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="step-content">
+            <h3>Live-Schaltung &amp; Optimierung</h3>
+            <p>Go-live mit Monitoring und laufender Verbesserung auf Basis realer Daten.</p>
+            <ul class="step-features">
+              <li>A/B-Tests</li>
+              <li>Reporting</li>
+              <li>Skalierung</li>
+            </ul>
+          </div>
+          <div class="step-glow" aria-hidden="true"></div>
+        </article>
+      </div>
+
+      <div class="process-cta">
+        <button type="button" class="btn btn-gradient">Prozess starten
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section-premium section-pricing">
+    <div class="container">
+      <div class="pricing-divider">
+        <div class="gold-divider-line"></div>
+      </div>
+      <span class="pricing-badge">Unsere Angebote & Preise</span>
+      <h2 class="section-title">Wähle das passende Level für deine Skalierung</h2>
+      <p class="pricing-subtitle">Unsere Kunden bekommen die Art von Marketing und Expertise, die sich sonst nur die Big Player am Markt leisten können.</p>
+      
+      <div class="pricing-grid">
+        <!-- Basic Paket -->
+        <article class="pricing-card">
+          <div class="pricing-card-header">
+            <span class="pricing-tier">Basic</span>
+            <h3>Performance Ads</h3>
+            <p class="pricing-tagline">Der Einstieg in professionelles Media Buying. Perfekt für Unternehmen, die einen Kanal meistern wollen.</p>
+          </div>
+          <div class="pricing-card-body">
+            <div class="pricing-meta">
+              <div class="pricing-meta-item">
+                <span class="pricing-meta-label">Werbebudget</span>
+                <span class="pricing-meta-value">ab 1.500 € / Monat</span>
+              </div>
+              <div class="pricing-meta-item">
+                <span class="pricing-meta-label">Plattformen</span>
+                <span class="pricing-meta-value">1 Fokus-Plattform</span>
+              </div>
+            </div>
+            <ul class="pricing-features">
+              <li>Setup, Tracking & Account-Struktur auf Top-Niveau</li>
+              <li>Social Ads inkl. Copywriting (Werbetexte)</li>
+              <li>Laufende Betreuung & datenbasierte Optimierung</li>
+              <li>Monatliches Reporting</li>
+              <li>Fokus auf Traffic & Lead-Generierung</li>
+            </ul>
+          </div>
+          <div class="pricing-card-footer">
+            <div class="pricing-price">
+              <span class="pricing-amount">4.000 €</span>
+              <span class="pricing-period">pauschal / Monat</span>
+            </div>
+            <button type="button" class="btn btn-outline pricing-btn">Jetzt starten</button>
+          </div>
+        </article>
+
+        <!-- Pro Paket (Featured - Mitte) -->
+        <article class="pricing-card pricing-card-featured">
+          <div class="pricing-featured-badge">Beliebteste Wahl</div>
+          <div class="pricing-card-header">
+            <span class="pricing-tier">Pro</span>
+            <h3>Full Service Performance Ads</h3>
+            <p class="pricing-tagline">Für Unternehmen, die ihre Reichweite ausbauen und omnipräsent werden wollen.</p>
+          </div>
+          <div class="pricing-card-body">
+            <div class="pricing-meta">
+              <div class="pricing-meta-item">
+                <span class="pricing-meta-label">Werbebudget</span>
+                <span class="pricing-meta-value">ab 3.000 € / Monat</span>
+              </div>
+              <div class="pricing-meta-item">
+                <span class="pricing-meta-label">Plattformen</span>
+                <span class="pricing-meta-value">2 Plattformen</span>
+              </div>
+            </div>
+            <ul class="pricing-features">
+              <li>Alles aus dem "Performance Ads" Paket</li>
+              <li>Ganzheitliche Werbestrategie & Funnel-Logik</li>
+              <li>Ad Designs & Creative Strategy</li>
+              <li>Erweiterte Zielgruppen-Analyse</li>
+              <li>Detaillierte Funnel-Strategie (Customer Journey)</li>
+            </ul>
+          </div>
+          <div class="pricing-card-footer">
+            <div class="pricing-price">
+              <span class="pricing-amount">6.500 €</span>
+              <span class="pricing-period">pauschal / Monat</span>
+            </div>
+            <button type="button" class="btn btn-gradient pricing-btn">Jetzt starten</button>
+          </div>
+        </article>
+
+        <!-- Enterprise Paket -->
+        <article class="pricing-card">
+          <div class="pricing-card-header">
+            <span class="pricing-tier">Enterprise</span>
+            <h3>Full Funnel Growth Partner</h3>
+            <p class="pricing-tagline">Wir agieren als deine externe Marketing-Abteilung. Maximale Skalierung über alle Kanäle.</p>
+          </div>
+          <div class="pricing-card-body">
+            <div class="pricing-meta">
+              <div class="pricing-meta-item">
+                <span class="pricing-meta-label">Werbebudget</span>
+                <span class="pricing-meta-value">ab 5.000 € / Monat</span>
+              </div>
+              <div class="pricing-meta-item">
+                <span class="pricing-meta-label">Plattformen</span>
+                <span class="pricing-meta-value">Multi-Channel</span>
+              </div>
+            </div>
+            <ul class="pricing-features">
+              <li>Alles aus dem "Full Service" Paket</li>
+              <li>Omnichannel-Strategie & Attribution</li>
+              <li>Laufende strategische Funnel-Anpassung</li>
+              <li>Copywriting für Video-Skripte (für Ads)</li>
+              <li>Erweiterte Creative-Strategie für alle Kanäle</li>
+            </ul>
+          </div>
+          <div class="pricing-card-footer">
+            <div class="pricing-price">
+              <span class="pricing-amount">8.000 €</span>
+              <span class="pricing-period">pauschal / Monat</span>
+            </div>
+            <p class="pricing-note">Zzgl. 10% Ad Spend Share ab 15.000 € Werbebudget</p>
+            <button type="button" class="btn btn-outline pricing-btn">Jetzt starten</button>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="portfolio" class="section-premium section-portfolio">
+    <div class="container">
+      <div class="portfolio-divider">
+        <div class="gold-divider-line"></div>
+      </div>
+      <span class="portfolio-badge">Unsere Arbeiten</span>
+      <h2 class="section-title">Projekte, die überzeugen</h2>
+      <p class="portfolio-subtitle">Ein Auszug aus unseren erfolgreichen Kundenprojekten und Kampagnen.</p>
+    </div>
+    
+    <div class="portfolio-slider-wrapper">
+      <div class="portfolio-slider">
+        <div class="portfolio-track">
+          <!-- Erste Reihe - Original -->
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">E-Commerce</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">Meta & Google Ads</span>
+                <h4>Fashion Brand</h4>
+                <p>+340% ROAS in 6 Monaten</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">SaaS</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">LinkedIn & Google Ads</span>
+                <h4>B2B Software</h4>
+                <p>85% mehr Leads bei -30% CPL</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">Immobilien</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">Meta Ads</span>
+                <h4>Immobilienmakler</h4>
+                <p>2x Umsatz im ersten Jahr</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">Fitness</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">TikTok & Meta Ads</span>
+                <h4>Fitness Studio</h4>
+                <p>+500 Neukunden in 90 Tagen</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">Automotive</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">Google & YouTube Ads</span>
+                <h4>Autohaus</h4>
+                <p>150% mehr Probefahrten</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">Healthcare</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">Meta & Google Ads</span>
+                <h4>Arztpraxis</h4>
+                <p>Auslastung auf 100%</p>
+              </div>
+            </div>
+          </article>
+          <!-- Duplikat für nahtloses Looping -->
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">E-Commerce</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">Meta & Google Ads</span>
+                <h4>Fashion Brand</h4>
+                <p>+340% ROAS in 6 Monaten</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">SaaS</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">LinkedIn & Google Ads</span>
+                <h4>B2B Software</h4>
+                <p>85% mehr Leads bei -30% CPL</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">Immobilien</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">Meta Ads</span>
+                <h4>Immobilienmakler</h4>
+                <p>2x Umsatz im ersten Jahr</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">Fitness</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">TikTok & Meta Ads</span>
+                <h4>Fitness Studio</h4>
+                <p>+500 Neukunden in 90 Tagen</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">Automotive</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">Google & YouTube Ads</span>
+                <h4>Autohaus</h4>
+                <p>150% mehr Probefahrten</p>
+              </div>
+            </div>
+          </article>
+          <article class="portfolio-item">
+            <div class="portfolio-item-inner">
+              <div class="portfolio-item-image">
+                <div class="portfolio-placeholder">Healthcare</div>
+              </div>
+              <div class="portfolio-item-overlay">
+                <span class="portfolio-category">Meta & Google Ads</span>
+                <h4>Arztpraxis</h4>
+                <p>Auslastung auf 100%</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="about" class="section-premium section-about">
     <div class="container">
+      <div class="about-divider">
+        <div class="gold-divider-line"></div>
+      </div>
       <div class="about-grid">
         <div class="about-text">
           <h2>Wer steckt hinter Franco Consulting?</h2>
@@ -152,112 +590,219 @@
           <button type="button" class="btn btn-outline">Jetzt Anfragen</button>
         </div>
         <div class="about-media">
-          <img src="assets/images/Franco-Consulting-Partner.png" alt="Verified Agency Partner Badge" class="verified-badge-image">
+          <img src="assets/images/Franco-Consulting-Partner.png" alt="Verified Agency Partner Badge" class="verified-badge-image" loading="lazy" decoding="async">
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="trust" class="section-premium section-trust">
-    <div class="container">
-      <div class="trust-logos" aria-label="Kundenlogos">
-        <div class="trust-logo">Logo</div>
-        <div class="trust-logo">Logo</div>
-        <div class="trust-logo">Logo</div>
-        <div class="trust-logo">Logo</div>
-        <div class="trust-logo">Logo</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="leistungen">
-    <div class="container">
-      <h2>Unsere Kernkompetenzen</h2>
-      <div class="leistungen-grid">
-      <article class="leistung">
-        <div class="icon" aria-hidden="true">[Icon]</div>
-        <h3>Websites &amp; Apps</h3>
-        <p>Individuelle digitale Produkte, die Performance und Usability vereinen.</p>
-      </article>
-      <article class="leistung">
-        <div class="icon" aria-hidden="true">[Icon]</div>
-        <h3>Marketing</h3>
-        <p>Gezielte Kampagnen, die Reichweite ausbauen und Leads steigern.</p>
-      </article>
-      <article class="leistung">
-        <div class="icon" aria-hidden="true">[Icon]</div>
-        <h3>Branding</h3>
-        <p>Markenerlebnisse, die Identität schärfen und Vertrauen schaffen.</p>
-      </article>
-      <article class="leistung">
-        <div class="icon" aria-hidden="true">[Icon]</div>
-        <h3>Automatisierung</h3>
-        <p>Effiziente Prozesse durch smarte Integrationen und Workflows.</p>
-      </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="ueber-uns">
-    <div class="container">
-      <div class="ueber-uns-grid">
-      <div class="ueber-uns-bild" aria-hidden="true">[Bildplatzhalter]</div>
-      <div class="ueber-uns-text">
-        <h2>Ihre Vision, unser Antrieb</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus ut libero egestas faucibus.</p>
-        <p>Integer laoreet, purus eget pharetra rhoncus, eros felis fermentum urna, at pretium metus erat eget nisl.</p>
-      </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="prozess-modern" class="section-premium section-process">
-    <div class="container">
-      <h2 class="section-title">In 3 Schritten zum Erfolg</h2>
-      <div class="process-grid">
-        <article class="process-card">
-          <div class="process-number">01</div>
-          <div class="process-line"></div>
-          <h3>Strategie-Workshop</h3>
-          <p>Wir klären Ziele, Zielgruppen und Prioritäten für ein klares Fundament.</p>
-        </article>
-        <article class="process-card">
-          <div class="process-number">02</div>
-          <div class="process-line"></div>
-          <h3>Umsetzung &amp; Design</h3>
-          <p>Konzeption, Design und Entwicklung greifen ineinander für ein stimmiges Ergebnis.</p>
-        </article>
-        <article class="process-card">
-          <div class="process-number">03</div>
-          <div class="process-line"></div>
-          <h3>Live-Schaltung &amp; Optimierung</h3>
-          <p>Go-live mit Monitoring und laufender Verbesserung auf Basis realer Daten.</p>
-        </article>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="footer-grid">
-      <div class="footer-spalte">
-        <div class="footer-logo">Franco Consulting GmbH</div>
-        <address>Beispielstraße 1<br>12345 Musterstadt</address>
-      </div>
-      <div class="footer-spalte">
-        <ul>
-          <li><a href="#impressum">Impressum</a></li>
-          <li><a href="#datenschutz">Datenschutz</a></li>
-        </ul>
-      </div>
-      <div class="footer-spalte">
-        <div class="social-icons" aria-label="Social Media">
-          <span aria-hidden="true">[Icon]</span>
-          <span aria-hidden="true">[Icon]</span>
-          <span aria-hidden="true">[Icon]</span>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-spalte footer-brand">
+          <a href="#" class="footer-logo-link" aria-label="Zur Startseite">
+            <img src="assets/logo/LogoFrancoConsulting-weiß.png" alt="Franco Consulting GmbH" class="footer-logo-img" loading="lazy" decoding="async">
+          </a>
+          <div class="footer-company-name">Franco Consulting GmbH</div>
+          <address class="footer-address">
+            Beispielstraße 1<br>12345 Musterstadt
+          </address>
         </div>
+        <div class="footer-spalte footer-links">
+          <h4 class="footer-heading">Rechtliches</h4>
+          <ul class="footer-menu">
+            <li><a href="#impressum">Impressum</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+            <li><a href="#datenschutz">Datenschutzerklärung</a></li>
+          </ul>
+        </div>
+        <div class="footer-spalte footer-navigation">
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-menu">
+            <li><a href="#ads-services">Leistungen</a></li>
+            <li><a href="#prozess-modern">Prozess</a></li>
+            <li><a href="#pricing">Preise</a></li>
+            <li><a href="#about">Über Uns</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2024 Franco Consulting GmbH. Alle Rechte vorbehalten.</p>
       </div>
     </div>
   </footer>
+
+  <!-- Popup Overlays -->
+  <div class="popup-overlay" id="popup-google">
+    <div class="popup-content">
+      <button class="popup-close" aria-label="Schließen">&times;</button>
+      <div class="popup-logo-placeholder">
+        <img src="https://cdn.simpleicons.org/googleads/ffffff" alt="Google Ads" class="popup-logo-img">
+      </div>
+      <h3>Google Ads</h3>
+      <p>Mit Google Ads erreichen Sie potenzielle Kunden genau dann, wenn sie aktiv nach Ihren Produkten oder Dienstleistungen suchen. Wir erstellen hochperformante Kampagnen für Search, Display, Shopping und YouTube.</p>
+      <h4 class="popup-section-title">Unsere Leistungen</h4>
+      <ul class="popup-features">
+        <li>Keyword-Recherche & Optimierung</li>
+        <li>Conversion-Tracking & Analytics</li>
+        <li>A/B-Testing für maximale Performance</li>
+        <li>Remarketing & Audience Targeting</li>
+        <li>YouTube Video Ads & Discovery</li>
+      </ul>
+      <h4 class="popup-section-title">Anwendungsfälle</h4>
+      <ul class="popup-usecases">
+        <li>Neukunden gewinnen</li>
+        <li>Leads generieren</li>
+        <li>Online-Verkäufe steigern</li>
+        <li>Lokale Sichtbarkeit</li>
+        <li>Markenbekanntheit</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="popup-meta">
+    <div class="popup-content">
+      <button class="popup-close" aria-label="Schließen">&times;</button>
+      <div class="popup-logo-placeholder">
+        <img src="https://cdn.simpleicons.org/meta/ffffff" alt="Meta" class="popup-logo-img">
+      </div>
+      <h3>Meta Ads</h3>
+      <p>Facebook und Instagram bieten unvergleichliche Reichweite und präzises Targeting. Wir nutzen die volle Power der Meta-Plattformen für Ihre Kundengewinnung und Markenbekanntheit.</p>
+      <h4 class="popup-section-title">Unsere Leistungen</h4>
+      <ul class="popup-features">
+        <li>Custom & Lookalike Audiences</li>
+        <li>Creative-Strategie & Ad Design</li>
+        <li>Funnel-basierte Kampagnenstruktur</li>
+        <li>Instagram Reels & Stories Ads</li>
+        <li>Messenger & WhatsApp Ads</li>
+      </ul>
+      <h4 class="popup-section-title">Anwendungsfälle</h4>
+      <ul class="popup-usecases">
+        <li>Neukunden gewinnen</li>
+        <li>Neue Mitarbeiter finden</li>
+        <li>Markenbekanntheit steigern</li>
+        <li>Community aufbauen</li>
+        <li>E-Commerce Sales</li>
+        <li>App-Installationen</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="popup-tiktok">
+    <div class="popup-content">
+      <button class="popup-close" aria-label="Schließen">&times;</button>
+      <div class="popup-logo-placeholder">
+        <img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="TikTok" class="popup-logo-img">
+      </div>
+      <h3>TikTok Ads</h3>
+      <p>TikTok ist die am schnellsten wachsende Social-Media-Plattform. Wir helfen Ihnen, die junge, engagierte Zielgruppe mit authentischen, viralen Inhalten zu erreichen.</p>
+      <h4 class="popup-section-title">Unsere Leistungen</h4>
+      <ul class="popup-features">
+        <li>Native Content-Erstellung</li>
+        <li>Spark Ads & In-Feed Videos</li>
+        <li>Creator-Kooperationen</li>
+        <li>Trend-basiertes Marketing</li>
+        <li>TikTok Shop Integration</li>
+      </ul>
+      <h4 class="popup-section-title">Anwendungsfälle</h4>
+      <ul class="popup-usecases">
+        <li>Gen Z & Millennials erreichen</li>
+        <li>Neue Mitarbeiter finden</li>
+        <li>Virale Reichweite</li>
+        <li>Markenimage verjüngen</li>
+        <li>Produkt-Launches</li>
+        <li>Employer Branding</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="popup-linkedin">
+    <div class="popup-content">
+      <button class="popup-close" aria-label="Schließen">&times;</button>
+      <div class="popup-logo-placeholder">
+        <svg class="popup-logo-svg" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </div>
+      <h3>LinkedIn Ads</h3>
+      <p>Die B2B-Plattform schlechthin. Mit LinkedIn Ads erreichen Sie Entscheidungsträger direkt und generieren hochwertige Leads für Ihr Unternehmen.</p>
+      <h4 class="popup-section-title">Unsere Leistungen</h4>
+      <ul class="popup-features">
+        <li>Account-Based Marketing</li>
+        <li>Lead Gen Forms & InMail</li>
+        <li>Präzises B2B-Targeting</li>
+        <li>Thought Leadership Ads</li>
+        <li>Event & Webinar Promotion</li>
+      </ul>
+      <h4 class="popup-section-title">Anwendungsfälle</h4>
+      <ul class="popup-usecases">
+        <li>B2B-Leads generieren</li>
+        <li>Fachkräfte rekrutieren</li>
+        <li>Geschäftskunden gewinnen</li>
+        <li>Expertenstatus aufbauen</li>
+        <li>Webinar-Teilnehmer</li>
+        <li>Entscheider erreichen</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="popup-pinterest">
+    <div class="popup-content">
+      <button class="popup-close" aria-label="Schließen">&times;</button>
+      <div class="popup-logo-placeholder">
+        <img src="https://cdn.simpleicons.org/pinterest/ffffff" alt="Pinterest" class="popup-logo-img">
+      </div>
+      <h3>Pinterest Ads</h3>
+      <p>Pinterest ist eine visuelle Suchmaschine mit kaufbereiten Nutzern. Perfekt für E-Commerce, Lifestyle und Design-orientierte Marken mit hoher Kaufintention.</p>
+      <h4 class="popup-section-title">Unsere Leistungen</h4>
+      <ul class="popup-features">
+        <li>Shopping & Catalog Ads</li>
+        <li>Idea Pins & Video Content</li>
+        <li>Keyword & Interest Targeting</li>
+        <li>Saisonale Kampagnen-Planung</li>
+        <li>Produktfeed-Optimierung</li>
+      </ul>
+      <h4 class="popup-section-title">Anwendungsfälle</h4>
+      <ul class="popup-usecases">
+        <li>E-Commerce Verkäufe</li>
+        <li>Inspiration & Discovery</li>
+        <li>Lifestyle-Produkte</li>
+        <li>DIY & Heimwerker</li>
+        <li>Mode & Beauty</li>
+        <li>Saisonales Marketing</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="popup-overlay" id="popup-amazon">
+    <div class="popup-content">
+      <button class="popup-close" aria-label="Schließen">&times;</button>
+      <div class="popup-logo-placeholder">
+        <svg class="popup-logo-svg" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.66.66 0 01-.753.077c-1.058-.878-1.247-1.287-1.826-2.124-1.746 1.778-2.981 2.309-5.242 2.309-2.678 0-4.762-1.653-4.762-4.96 0-2.583 1.399-4.339 3.394-5.198 1.728-.754 4.143-.888 5.988-1.096v-.41c0-.753.058-1.642-.383-2.292-.385-.576-1.124-.814-1.776-.814-1.206 0-2.282.619-2.545 1.902-.054.285-.263.566-.55.581l-3.083-.333c-.259-.058-.547-.266-.472-.66.704-3.716 4.06-4.838 7.065-4.838 1.537 0 3.543.41 4.758 1.574 1.537 1.439 1.39 3.357 1.39 5.448v4.932c0 1.482.615 2.132 1.193 2.932.205.287.25.629-.01.839-.649.541-1.805 1.545-2.442 2.108l.056.002zM21.894 20.296c-1.817 1.343-4.443 2.054-6.707 2.054-3.174 0-6.031-1.172-8.191-3.122-.17-.154-.019-.364.185-.245 2.332 1.359 5.217 2.175 8.195 2.175 2.009 0 4.22-.416 6.252-1.279.307-.131.564.202.266.417zm.756-1.726c-.231-.296-1.532-.14-2.115-.071-.178.021-.205-.133-.046-.245.639-.445 1.66-.316 1.778-.168.119.148-.031 1.178-.553 1.671-.095.089-.186.042-.144-.074.139-.347.449-1.118.218-1.414z"/>
+        </svg>
+      </div>
+      <h3>Amazon Ads</h3>
+      <p>Als größter Online-Marktplatz bietet Amazon direkten Zugang zu kaufbereiten Kunden. Wir optimieren Ihre Produktsichtbarkeit und maximieren Ihren Umsatz.</p>
+      <h4 class="popup-section-title">Unsere Leistungen</h4>
+      <ul class="popup-features">
+        <li>Sponsored Products & Brands</li>
+        <li>Amazon DSP & Retargeting</li>
+        <li>Keyword-Optimierung & Bidding</li>
+        <li>A+ Content & Storefront</li>
+        <li>Review-Management</li>
+      </ul>
+      <h4 class="popup-section-title">Anwendungsfälle</h4>
+      <ul class="popup-usecases">
+        <li>Produkt-Launches</li>
+        <li>Umsatz steigern</li>
+        <li>Bestseller-Ranking</li>
+        <li>Konkurrenz überholen</li>
+        <li>Marke auf Amazon</li>
+        <li>Saisonale Peaks</li>
+      </ul>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
