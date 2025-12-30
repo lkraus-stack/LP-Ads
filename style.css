@@ -1128,6 +1128,8 @@ footer .footer-menu a:hover {
 
 /* ===== Ads Services Sektion ===== */
 #ads-services {
+  display: block;
+  visibility: visible;
   background: #000;
   padding-top: var(--spacing-lg);
   padding-bottom: var(--spacing-2xl);
