@@ -1,0 +1,16 @@
+# robots.txt für Franco Consulting GmbH
+# https://www.robotstxt.org/
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.franco-consulting.com/sitemap.xml
+
+# Crawl-Delay (optional - für freundlicheres Crawling)
+Crawl-delay: 1
+
+# Spezifische Ausschlüsse (falls nötig)
+# Disallow: /admin/
+# Disallow: /private/
+

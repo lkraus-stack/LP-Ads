@@ -83,22 +83,62 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // ===== Popup-Funktionalität für Ads-Services =====
+  // ===== Popup-Funktionalität für Ads-Services und Outcome-Cards =====
   const adsCards = document.querySelectorAll('.ads-card[data-popup]');
+  const outcomeCards = document.querySelectorAll('.outcome-card[data-popup]');
+  const processSteps = document.querySelectorAll('.process-step[data-popup]');
   const popupOverlays = document.querySelectorAll('.popup-overlay');
   
-  // Öffne Popup beim Klick auf Karte
+  // Prozess Popup Variablen - werden später initialisiert
+  let currentProcessSlide = 0;
+  let processPopupFunctions = {
+    updateSlides: null,
+    resetPopup: null
+  };
+  
+  // Funktion zum Öffnen eines Popups
+  function openPopup(card) {
+    const popupId = card.getAttribute('data-popup');
+    const popup = document.getElementById(`popup-${popupId}`);
+    
+    if (popup) {
+      popup.classList.add('active');
+      document.body.classList.add('popup-open');
+      // Verhindere Scrollen im Hintergrund
+      document.body.style.overflow = 'hidden';
+      
+      // Wenn es das Prozess-Popup ist, öffne den entsprechenden Slide
+      if (popupId === 'prozess') {
+        const slideIndex = card.getAttribute('data-slide');
+        if (slideIndex !== null && processPopupFunctions.updateSlides) {
+          const slideNum = parseInt(slideIndex);
+          currentProcessSlide = slideNum;
+          processPopupFunctions.updateSlides(slideNum > 0 ? 'right' : 'left');
+        } else if (processPopupFunctions.resetPopup) {
+          processPopupFunctions.resetPopup(popup);
+        }
+      }
+    }
+  }
+  
+  // Öffne Popup beim Klick auf Ads-Karte
   adsCards.forEach(card => {
     card.addEventListener('click', function() {
-      const popupId = this.getAttribute('data-popup');
-      const popup = document.getElementById(`popup-${popupId}`);
-      
-      if (popup) {
-        popup.classList.add('active');
-        document.body.classList.add('popup-open');
-        // Verhindere Scrollen im Hintergrund
-        document.body.style.overflow = 'hidden';
-      }
+      openPopup(this);
+    }, { passive: true });
+  });
+  
+  // Öffne Popup beim Klick auf Outcome-Karte
+  outcomeCards.forEach(card => {
+    card.addEventListener('click', function() {
+      openPopup(this);
+    }, { passive: true });
+  });
+  
+  // Öffne Popup beim Klick auf Process-Step
+  processSteps.forEach(step => {
+    step.addEventListener('click', function() {
+      openPopup(this);
     }, { passive: true });
   });
   
@@ -135,6 +175,256 @@ document.addEventListener('DOMContentLoaded', function() {
     popup.classList.remove('active');
     document.body.classList.remove('popup-open');
     document.body.style.overflow = '';
+    
+    // Wenn es das Prozess-Popup ist, reset auf ersten Slide
+    if (popup.id === 'popup-prozess' && processPopupFunctions.resetPopup) {
+      processPopupFunctions.resetPopup(popup);
+    }
+  }
+  
+  // ===== Prozess Popup Multi-Slide Funktionalität =====
+  const processPopup = document.getElementById('popup-prozess');
+  const totalProcessSlides = 3;
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  processPopupFunctions.resetPopup = function(popup) {
+    currentProcessSlide = 0;
+    if (processPopupFunctions.updateSlides) {
+      processPopupFunctions.updateSlides('right');
+    }
+  };
+  
+  processPopupFunctions.updateSlides = function(direction = 'right') {
+    if (!processPopup) return;
+    
+    const slides = processPopup.querySelectorAll('.process-slide');
+    const indicators = processPopup.querySelectorAll('.process-indicator');
+    const prevBtn = processPopup.querySelector('.process-prev-btn');
+    const nextBtn = processPopup.querySelector('.process-next-btn');
+    
+    slides.forEach((slide, index) => {
+      // Entferne alle Animation-Klassen
+      slide.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-left', 'slide-out-right');
+      
+      if (index === currentProcessSlide) {
+        // Aktiviere aktuellen Slide mit Animation
+        slide.classList.add('active');
+        if (direction === 'right') {
+          slide.classList.add('slide-in-right');
+        } else {
+          slide.classList.add('slide-in-left');
+        }
+      } else {
+        // Deaktiviere andere Slides
+        slide.classList.remove('active');
+        if (index < currentProcessSlide) {
+          slide.classList.add('slide-out-left');
+        } else if (index > currentProcessSlide) {
+          slide.classList.add('slide-out-right');
+        }
+      }
+    });
+    
+    indicators.forEach((indicator, index) => {
+      if (index === currentProcessSlide) {
+        indicator.classList.add('active');
+      } else {
+        indicator.classList.remove('active');
+      }
+    });
+    
+    // Update Navigation Buttons (nur noch für nextBtn, prevBtn wurde entfernt)
+    if (nextBtn) {
+      nextBtn.disabled = currentProcessSlide === totalProcessSlides - 1;
+      // Verstecke Next-Button beim letzten Slide
+      if (currentProcessSlide === totalProcessSlides - 1) {
+        nextBtn.style.display = 'none';
+      } else {
+        nextBtn.style.display = 'flex';
+      }
+    }
+    
+    // Update Floating Next Button
+    const floatingNextBtn = processPopup.querySelector('.process-floating-next-btn');
+    if (floatingNextBtn) {
+      if (currentProcessSlide === totalProcessSlides - 1) {
+        floatingNextBtn.style.display = 'none';
+      } else {
+        floatingNextBtn.style.display = 'flex';
+      }
+    }
+    
+    // Update Floating Prev Button
+    const floatingPrevBtn = processPopup.querySelector('.process-floating-prev-btn');
+    if (floatingPrevBtn) {
+      if (currentProcessSlide === 0) {
+        floatingPrevBtn.style.display = 'none';
+      } else {
+        floatingPrevBtn.disabled = false;
+        floatingPrevBtn.style.display = 'flex';
+      }
+    }
+  }
+  
+  function goToProcessSlide(index) {
+    if (index < 0 || index >= totalProcessSlides) return;
+    const direction = index > currentProcessSlide ? 'right' : 'left';
+    currentProcessSlide = index;
+    if (processPopupFunctions.updateSlides) {
+      processPopupFunctions.updateSlides(direction);
+    }
+  }
+  
+  function nextProcessSlide() {
+    if (currentProcessSlide < totalProcessSlides - 1) {
+      goToProcessSlide(currentProcessSlide + 1);
+    }
+  }
+  
+  function prevProcessSlide() {
+    if (currentProcessSlide > 0) {
+      goToProcessSlide(currentProcessSlide - 1);
+    }
+  }
+  
+  // Event Listeners für Prozess Popup Navigation
+  if (processPopup) {
+    const nextBtn = processPopup.querySelector('.process-next-btn');
+    const floatingNextBtn = processPopup.querySelector('.process-floating-next-btn');
+    const prevBtn = processPopup.querySelector('.process-prev-btn');
+    const indicators = processPopup.querySelectorAll('.process-indicator');
+    const anfrageBtn = processPopup.querySelector('.process-anfrage-btn');
+    
+    if (nextBtn) {
+      nextBtn.addEventListener('click', nextProcessSlide);
+    }
+    
+    if (floatingNextBtn) {
+      floatingNextBtn.addEventListener('click', nextProcessSlide);
+    }
+    
+    const floatingPrevBtn = processPopup.querySelector('.process-floating-prev-btn');
+    if (floatingPrevBtn) {
+      floatingPrevBtn.addEventListener('click', prevProcessSlide);
+    }
+    
+    // Indicator Klicks
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        goToProcessSlide(index);
+      });
+    });
+    
+    // Anfrage Button
+    if (anfrageBtn) {
+      anfrageBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        closePopup(processPopup);
+        // Öffne Formular-Modal
+        if (window.openFormModal) {
+          setTimeout(() => {
+            window.openFormModal();
+          }, 300);
+        }
+      });
+    }
+    
+    
+    
+    // Swipe-Funktionalität
+    let isDragging = false;
+    let startX = 0;
+    let currentX = 0;
+    let translateX = 0;
+    
+    const slidesContainer = processPopup.querySelector('.process-slides-container');
+    
+    if (slidesContainer) {
+      // Touch Events
+      slidesContainer.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      
+      slidesContainer.addEventListener('touchmove', function(e) {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+        touchEndX = e.touches[0].clientX;
+        translateX = currentX - startX;
+      }, { passive: true });
+      
+      slidesContainer.addEventListener('touchend', function(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const swipeThreshold = 50;
+        const diff = touchEndX - touchStartX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            // Swipe nach rechts = vorheriger Slide
+            prevProcessSlide();
+          } else {
+            // Swipe nach links = nächster Slide
+            nextProcessSlide();
+          }
+        }
+        
+        touchStartX = 0;
+        touchEndX = 0;
+      }, { passive: true });
+      
+      // Mouse Events für Desktop (optional)
+      let mouseDown = false;
+      let mouseStartX = 0;
+      
+      slidesContainer.addEventListener('mousedown', function(e) {
+        mouseDown = true;
+        mouseStartX = e.clientX;
+        startX = e.clientX;
+      });
+      
+      slidesContainer.addEventListener('mousemove', function(e) {
+        if (!mouseDown) return;
+        currentX = e.clientX;
+        translateX = currentX - startX;
+      });
+      
+      slidesContainer.addEventListener('mouseup', function(e) {
+        if (!mouseDown) return;
+        mouseDown = false;
+        
+        const swipeThreshold = 50;
+        const diff = e.clientX - mouseStartX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+          if (diff > 0) {
+            prevProcessSlide();
+          } else {
+            nextProcessSlide();
+          }
+        }
+      });
+      
+      slidesContainer.addEventListener('mouseleave', function() {
+        mouseDown = false;
+      });
+    }
+    
+    // Keyboard Navigation
+    document.addEventListener('keydown', function(e) {
+      if (!processPopup.classList.contains('active')) return;
+      
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevProcessSlide();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        nextProcessSlide();
+      }
+    });
   }
   
   // ===== Smooth Scroll für Anchor-Links (Mobile optimiert) =====
@@ -237,6 +527,18 @@ document.addEventListener('DOMContentLoaded', function() {
         input.value = '';
       });
       
+      // Reset Datenschutz-Checkbox
+      const privacyCheckbox = document.getElementById('privacy-checkbox');
+      if (privacyCheckbox) {
+        privacyCheckbox.checked = false;
+      }
+      
+      // Verstecke Terminbuchungsoption
+      const bookingOption = document.getElementById('formBookingOption');
+      if (bookingOption) {
+        bookingOption.style.display = 'none';
+      }
+      
       updateFormSteps();
       updateFormProgress();
   }
@@ -312,6 +614,13 @@ document.addEventListener('DOMContentLoaded', function() {
   function submitForm(e) {
     e.preventDefault();
     
+    // Prüfe Datenschutz-Checkbox
+    const privacyCheckbox = document.getElementById('privacy-checkbox');
+    if (!privacyCheckbox || !privacyCheckbox.checked) {
+      alert('Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.');
+      return;
+    }
+    
     // Sammle Daten aus Step 4
     formData.company = document.getElementById('company').value.trim();
     formData.role = document.getElementById('role').value.trim();
@@ -323,6 +632,17 @@ document.addEventListener('DOMContentLoaded', function() {
     updateFormSteps();
     if (formProgressBar) {
       formProgressBar.style.width = '100%';
+    }
+    
+    // Zeige Terminbuchungsoption nur bei Budget >= 10000
+    const bookingOption = document.getElementById('formBookingOption');
+    if (bookingOption) {
+      const budget = parseInt(formData.budget);
+      if (budget >= 10000) {
+        bookingOption.style.display = 'block';
+      } else {
+        bookingOption.style.display = 'none';
+      }
     }
     
     // Hier könnten Sie die Daten an einen Server senden
@@ -439,6 +759,15 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Export openFormModal function for use with buttons
   window.openFormModal = openFormModal;
+  
+  // ===== Footer Kontakt-Link =====
+  const footerContactLink = document.querySelector('.footer-contact-trigger');
+  if (footerContactLink) {
+    footerContactLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      openFormModal();
+    });
+  }
   
   // ===== Formular-Buttons Event Listeners =====
   // Alle Buttons, die das Formular öffnen sollen
