@@ -83,10 +83,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
-  // ===== Popup-Funktionalität für Ads-Services und Outcome-Cards =====
+  // ===== Popup-Funktionalität für Ads-Services, Outcome-Cards und Portfolio-Items =====
   const adsCards = document.querySelectorAll('.ads-card[data-popup]');
   const outcomeCards = document.querySelectorAll('.outcome-card[data-popup]');
   const processSteps = document.querySelectorAll('.process-step[data-popup]');
+  const portfolioItems = document.querySelectorAll('.portfolio-item[data-popup]');
   const popupOverlays = document.querySelectorAll('.popup-overlay');
   
   // Prozess Popup Variablen - werden später initialisiert
@@ -140,6 +141,15 @@ document.addEventListener('DOMContentLoaded', function() {
     step.addEventListener('click', function() {
       openPopup(this);
     }, { passive: true });
+  });
+  
+  // Öffne Popup beim Klick auf Portfolio-Item
+  portfolioItems.forEach(item => {
+    item.addEventListener('click', function(e) {
+      // Verhindere, dass die Animation pausiert wird
+      e.stopPropagation();
+      openPopup(this);
+    });
   });
   
   // Schließe Popup beim Klick auf Schließen-Button
@@ -900,15 +910,23 @@ document.addEventListener('DOMContentLoaded', function() {
       buttonText.includes('jetzt anfragen') ||
       buttonText.includes('kostenloser audit') ||
       buttonText.includes('prozess starten') ||
+      buttonText.includes('ähnliche ergebnisse') ||
       innerText.includes('kostenloses erstgespräch') ||
       innerText.includes('jetzt starten') ||
       innerText.includes('jetzt anfragen') ||
       innerText.includes('kostenloser audit') ||
-      innerText.includes('prozess starten');
+      innerText.includes('prozess starten') ||
+      innerText.includes('ähnliche ergebnisse');
     
     if (isFormButton && !button.hasAttribute('data-no-form')) {
       button.addEventListener('click', function(e) {
         e.preventDefault();
+        // Schließe alle offenen Popups bevor das Formular geöffnet wird
+        document.querySelectorAll('.popup-overlay.active').forEach(popup => {
+          popup.classList.remove('active');
+        });
+        document.body.classList.remove('popup-open');
+        document.body.style.overflow = '';
         openFormModal();
       });
     }
