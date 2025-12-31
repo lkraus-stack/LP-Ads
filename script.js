@@ -474,15 +474,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const formProgressBar = document.getElementById('formProgressBar');
   const formStepCounter = document.getElementById('formStepCounter');
   let currentStep = 1;
-  const totalSteps = 4;
+  const totalSteps = 6;
   const formData = {
     need: null,
     budget: null,
     timeline: null,
+    message: '',
+    fullname: '',
     company: '',
     role: '',
     phone: '',
-    email: ''
+    email: '',
+    bookedAppointment: false
   };
   
   // Öffne Formular-Modal
@@ -513,34 +516,37 @@ document.addEventListener('DOMContentLoaded', function() {
     formData.need = null;
     formData.budget = null;
     formData.timeline = null;
-      formData.company = '';
-      formData.role = '';
-      formData.phone = '';
-      formData.email = '';
-      
-      // Reset UI
-      document.querySelectorAll('.form-option-btn, .form-budget-btn, .form-timeline-btn').forEach(btn => {
-        btn.classList.remove('selected');
-      });
-      
-      document.querySelectorAll('.form-field input').forEach(input => {
-        input.value = '';
-      });
-      
-      // Reset Datenschutz-Checkbox
-      const privacyCheckbox = document.getElementById('privacy-checkbox');
-      if (privacyCheckbox) {
-        privacyCheckbox.checked = false;
-      }
-      
-      // Verstecke Terminbuchungsoption
-      const bookingOption = document.getElementById('formBookingOption');
-      if (bookingOption) {
-        bookingOption.style.display = 'none';
-      }
-      
-      updateFormSteps();
-      updateFormProgress();
+    formData.message = '';
+    formData.fullname = '';
+    formData.company = '';
+    formData.role = '';
+    formData.phone = '';
+    formData.email = '';
+    formData.bookedAppointment = false;
+    
+    // Reset UI
+    document.querySelectorAll('.form-option-btn, .form-budget-btn, .form-timeline-btn').forEach(btn => {
+      btn.classList.remove('selected');
+    });
+    
+    document.querySelectorAll('.form-field input, .form-field textarea').forEach(input => {
+      input.value = '';
+    });
+    
+    // Reset Datenschutz-Checkbox
+    const privacyCheckbox = document.getElementById('privacy-checkbox');
+    if (privacyCheckbox) {
+      privacyCheckbox.checked = false;
+    }
+    
+    // Verstecke Buchungsbestätigung
+    const bookingConfirmation = document.getElementById('formBookingConfirmation');
+    if (bookingConfirmation) {
+      bookingConfirmation.style.display = 'none';
+    }
+    
+    updateFormSteps();
+    updateFormProgress();
   }
   
   // Update Formular-Schritte
@@ -568,9 +574,9 @@ document.addEventListener('DOMContentLoaded', function() {
       formProgressBar.style.width = `${progress}%`;
     }
     if (formStepCounter) {
-      // Beim Success-Step (5) zeige totalSteps/totalSteps
+      // Beim Success-Step (6) zeige totalSteps/totalSteps
       const displayStep = currentStep <= totalSteps ? currentStep : totalSteps;
-      formStepCounter.textContent = `${displayStep}/${totalSteps}`;
+      formStepCounter.textContent = `${displayStep}`;
     }
   }
   
@@ -612,36 +618,37 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Formular absenden
   function submitForm(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
     
-    // Prüfe Datenschutz-Checkbox
-    const privacyCheckbox = document.getElementById('privacy-checkbox');
-    if (!privacyCheckbox || !privacyCheckbox.checked) {
-      alert('Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.');
-      return;
-    }
+    // Sammle alle Daten
+    const messageInput = document.getElementById('message');
+    const fullnameInput = document.getElementById('fullname');
+    const companyInput = document.getElementById('company');
+    const roleInput = document.getElementById('role');
+    const phoneInput = document.getElementById('phone');
+    const emailInput = document.getElementById('email');
     
-    // Sammle Daten aus Step 4
-    formData.company = document.getElementById('company').value.trim();
-    formData.role = document.getElementById('role').value.trim();
-    formData.phone = document.getElementById('phone').value.trim();
-    formData.email = document.getElementById('email').value.trim();
+    if (messageInput) formData.message = messageInput.value.trim();
+    if (fullnameInput) formData.fullname = fullnameInput.value.trim();
+    if (companyInput) formData.company = companyInput.value.trim();
+    if (roleInput) formData.role = roleInput.value.trim();
+    if (phoneInput) formData.phone = phoneInput.value.trim();
+    if (emailInput) formData.email = emailInput.value.trim();
     
     // Zeige Success Step
-    currentStep = 5;
+    currentStep = 7;
     updateFormSteps();
     if (formProgressBar) {
       formProgressBar.style.width = '100%';
     }
     
-    // Zeige Terminbuchungsoption nur bei Budget >= 10000
-    const bookingOption = document.getElementById('formBookingOption');
-    if (bookingOption) {
-      const budget = parseInt(formData.budget);
-      if (budget >= 10000) {
-        bookingOption.style.display = 'block';
+    // Zeige Buchungsbestätigung wenn Termin gebucht wurde
+    const bookingConfirmation = document.getElementById('formBookingConfirmation');
+    if (bookingConfirmation) {
+      if (formData.bookedAppointment) {
+        bookingConfirmation.style.display = 'block';
       } else {
-        bookingOption.style.display = 'none';
+        bookingConfirmation.style.display = 'none';
       }
     }
     
@@ -724,17 +731,124 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Submit Button
-    const submitBtn = contactForm.querySelector('.form-submit-btn');
-    if (submitBtn) {
-      contactForm.addEventListener('submit', submitForm);
+    // Message Next Button (Step 4 -> Step 5)
+    const messageNextBtn = contactForm.querySelector('.form-message-next-btn');
+    if (messageNextBtn) {
+      messageNextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const message = document.getElementById('message').value.trim();
+        
+        if (!message || message.length < 20) {
+          alert('Bitte beschreiben Sie Ihr Vorhaben in mindestens 20 Zeichen.');
+          return;
+        }
+        
+        // Speichere Nachricht
+        formData.message = message;
+        
+        // Weiter zu Step 5 (Kontaktdaten)
+        nextStep();
+      });
     }
+    
+    // Next Step Button (Step 5 -> Step 6)
+    const nextStepBtn = contactForm.querySelector('.form-next-step-btn');
+    if (nextStepBtn) {
+      nextStepBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Prüfe Datenschutz-Checkbox
+        const privacyCheckbox = document.getElementById('privacy-checkbox');
+        if (!privacyCheckbox || !privacyCheckbox.checked) {
+          alert('Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.');
+          return;
+        }
+        
+        // Validiere alle Pflichtfelder
+        const fullname = document.getElementById('fullname').value.trim();
+        const company = document.getElementById('company').value.trim();
+        const role = document.getElementById('role').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        
+        if (!fullname || !company || !role || !phone || !email) {
+          alert('Bitte füllen Sie alle Pflichtfelder aus.');
+          return;
+        }
+        
+        if (!isValidEmail(email)) {
+          alert('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+          return;
+        }
+        
+        // Speichere Daten
+        formData.fullname = fullname;
+        formData.company = company;
+        formData.role = role;
+        formData.phone = phone;
+        formData.email = email;
+        
+        // Weiter zu Step 6 (Terminbuchung)
+        nextStep();
+      });
+    }
+    
     
     // Close Button
     const closeBtn = document.querySelector('.form-close-btn');
     if (closeBtn) {
       closeBtn.addEventListener('click', closeFormModal);
     }
+  }
+  
+  // ===== Google Calendar Modal Funktionalität =====
+  const calendarModal = document.getElementById('calendarModal');
+  const openCalendarBtn = document.getElementById('openCalendarBtn');
+  const calendarModalClose = calendarModal ? calendarModal.querySelector('.calendar-modal-close') : null;
+  
+  function openCalendarModal() {
+    if (calendarModal) {
+      calendarModal.classList.add('active');
+      document.body.classList.add('calendar-modal-open');
+    }
+  }
+  
+  function closeCalendarModal() {
+    if (calendarModal) {
+      calendarModal.classList.remove('active');
+      document.body.classList.remove('calendar-modal-open');
+      
+      // Markiere als gebucht und gehe zum Success Step
+      formData.bookedAppointment = true;
+      submitForm();
+    }
+  }
+  
+  if (openCalendarBtn) {
+    openCalendarBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openCalendarModal();
+    });
+  }
+  
+  if (calendarModalClose) {
+    calendarModalClose.addEventListener('click', closeCalendarModal);
+  }
+  
+  if (calendarModal) {
+    calendarModal.addEventListener('click', function(e) {
+      if (e.target === calendarModal) {
+        closeCalendarModal();
+      }
+    });
+    
+    // Schließe mit Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && calendarModal.classList.contains('active')) {
+        closeCalendarModal();
+      }
+    });
   }
   
   // Close Modal Events
@@ -798,5 +912,32 @@ document.addEventListener('DOMContentLoaded', function() {
         openFormModal();
       });
     }
+  });
+});
+
+// ===== Multichannel Infographic Hub Pulse Interaction =====
+document.addEventListener('DOMContentLoaded', function() {
+  const centralHub = document.getElementById('centralHub');
+  const platformBadges = document.querySelectorAll('.platform-badge');
+  const resultCards = document.querySelectorAll('.result-card');
+  
+  if (!centralHub) return;
+  
+  // Funktion um Hub pulsieren zu lassen
+  function pulseHub() {
+    centralHub.classList.add('pulse-active');
+    setTimeout(() => {
+      centralHub.classList.remove('pulse-active');
+    }, 500);
+  }
+  
+  // Hover auf Plattform-Badges
+  platformBadges.forEach(badge => {
+    badge.addEventListener('mouseenter', pulseHub);
+  });
+  
+  // Hover auf Result-Cards
+  resultCards.forEach(card => {
+    card.addEventListener('mouseenter', pulseHub);
   });
 });
