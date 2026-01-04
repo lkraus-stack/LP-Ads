@@ -106,18 +106,18 @@ html {
 /* Helles Theme - Cards und Boxen */
 [data-theme="hell"] .ads-card,
 [data-theme="hell"] .outcome-card,
-[data-theme="hell"] .pricing-card,
-[data-theme="hell"] .portfolio-item-inner {
+[data-theme="hell"] .pricing-card {
   background: #f8f8f8;
   border-color: rgba(0, 0, 0, 0.08);
   color: #1a1a1a;
 }
 
 [data-theme="hell"] .ads-card:hover,
-[data-theme="hell"] .outcome-card:hover,
-[data-theme="hell"] .portfolio-item-inner:hover {
+[data-theme="hell"] .outcome-card:hover {
   background: #f0f0f0;
   border-color: rgba(var(--accent-rgb), 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
 }
 
 [data-theme="hell"] .ads-card h3,
@@ -134,14 +134,17 @@ html {
 
 /* Helles Theme - Platform Badges */
 [data-theme="hell"] .platform-badge {
-  background: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.1);
+  background: #f8f8f8;
+  border-color: rgba(0, 0, 0, 0.15);
   color: #1a1a1a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 [data-theme="hell"] .platform-badge:hover {
   background: rgba(var(--accent-rgb), 0.1);
   border-color: rgba(var(--accent-rgb), 0.4);
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.2), 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
 }
 
 /* Helles Theme - Central Hub */
@@ -149,6 +152,17 @@ html {
   background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
   border-color: rgba(var(--accent-rgb), 0.3);
   color: #1a1a1a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06), inset 0 0 20px rgba(var(--accent-rgb), 0.03);
+}
+
+[data-theme="hell"] .central-hub-container:hover .hub-content {
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.2), inset 0 0 25px rgba(var(--accent-rgb), 0.05);
+}
+
+[data-theme="hell"] .central-hub-container.pulse-active .hub-content {
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.25), inset 0 0 25px rgba(var(--accent-rgb), 0.05);
 }
 
 [data-theme="hell"] .hub-label,
@@ -165,6 +179,7 @@ html {
 
 [data-theme="hell"] .process-step-card:hover {
   background: #f0f0f0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(var(--accent-rgb), 0.1);
 }
 
 [data-theme="hell"] .process-step-title,
@@ -174,6 +189,24 @@ html {
 
 [data-theme="hell"] .process-step-desc {
   color: #4a4a4a;
+}
+
+/* Helles Theme - Step Features (Keypoints) */
+[data-theme="hell"] .step-features li {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: rgba(var(--accent-rgb), 0.25) !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .process-step:hover .step-features li {
+  background: rgba(var(--accent-rgb), 0.15) !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .step-features li:hover {
+  background: rgba(var(--accent-rgb), 0.2) !important;
+  box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.2) !important;
 }
 
 /* Helles Theme - Pricing */
@@ -499,6 +532,7 @@ html {
 [data-theme="hell"] .form-option-card:hover {
   background: #f0f0f0;
   border-color: rgba(var(--accent-rgb), 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(var(--accent-rgb), 0.1);
 }
 
 [data-theme="hell"] .form-option-card.selected {
@@ -550,6 +584,220 @@ html {
 
 [data-theme="hell"] .calendar-modal-header p {
   color: #4a4a4a;
+}
+
+/* ============================================
+   HELLES THEME - Formular Modal
+   ============================================ */
+
+/* Form Modal Content */
+[data-theme="hell"] .form-modal-content {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 0 40px rgba(var(--accent-rgb), 0.08) !important;
+}
+
+/* Form Modal Close Button */
+[data-theme="hell"] .form-modal-close {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .form-modal-close:hover {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: rgba(var(--accent-rgb), 0.3) !important;
+  color: var(--accent-primary) !important;
+}
+
+/* Form Progress Bar */
+[data-theme="hell"] .form-progress {
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="hell"] .form-progress-bar {
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%) !important;
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.3) !important;
+}
+
+/* Form Step Counter */
+[data-theme="hell"] .form-step-counter {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3), 0 0 20px rgba(var(--accent-rgb), 0.2) !important;
+}
+
+/* Form Option Buttons */
+[data-theme="hell"] .form-option-btn {
+  background: #f8f8f8 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #1a1a1a !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="hell"] .form-option-btn:hover {
+  background: #f0f0f0 !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(var(--accent-rgb), 0.15) !important;
+}
+
+[data-theme="hell"] .form-option-btn.selected {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.2), inset 0 0 15px rgba(var(--accent-rgb), 0.05) !important;
+}
+
+[data-theme="hell"] .form-option-text {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-option-btn.selected .form-option-text {
+  color: var(--accent-primary) !important;
+}
+
+/* Form Budget Buttons */
+[data-theme="hell"] .form-budget-btn {
+  background: #f8f8f8 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-budget-btn:hover {
+  background: #f0f0f0 !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(var(--accent-rgb), 0.15) !important;
+}
+
+[data-theme="hell"] .form-budget-btn.selected {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.2), inset 0 0 10px rgba(var(--accent-rgb), 0.05) !important;
+}
+
+/* Form Timeline Buttons */
+[data-theme="hell"] .form-timeline-btn {
+  background: #f8f8f8 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-timeline-btn:hover {
+  background: #f0f0f0 !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(var(--accent-rgb), 0.15) !important;
+}
+
+[data-theme="hell"] .form-timeline-btn.selected {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.2), inset 0 0 10px rgba(var(--accent-rgb), 0.05) !important;
+}
+
+[data-theme="hell"] .form-timeline-label {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-timeline-btn.selected .form-timeline-label {
+  color: var(--accent-primary) !important;
+}
+
+/* Form Fields */
+[data-theme="hell"] .form-field label {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-field input,
+[data-theme="hell"] .form-field textarea {
+  background: #f8f8f8 !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .form-field input:focus,
+[data-theme="hell"] .form-field textarea:focus {
+  background: #ffffff !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.15), inset 0 0 10px rgba(var(--accent-rgb), 0.03) !important;
+}
+
+[data-theme="hell"] .form-field input::placeholder,
+[data-theme="hell"] .form-field textarea::placeholder {
+  color: #999999 !important;
+}
+
+[data-theme="hell"] .form-field-hint {
+  color: #666666 !important;
+}
+
+/* Form Step Actions Border */
+[data-theme="hell"] .form-step-actions {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Form Success Step */
+[data-theme="hell"] .form-success-title {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-success-text {
+  color: #4a4a4a !important;
+  text-shadow: none !important;
+}
+
+/* Form Privacy Checkbox */
+[data-theme="hell"] .form-privacy-checkbox {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="hell"] .form-privacy-text {
+  color: #4a4a4a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-privacy-text a {
+  color: var(--accent-primary) !important;
+}
+
+[data-theme="hell"] .form-privacy-text a:hover {
+  color: var(--accent-secondary) !important;
+}
+
+/* Form Booking Elements */
+[data-theme="hell"] .form-booking-container {
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .form-booking-description {
+  color: #4a4a4a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-booking-icon {
+  color: var(--accent-primary) !important;
+}
+
+[data-theme="hell"] .form-success-booking-info {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: rgba(var(--accent-rgb), 0.3) !important;
+  color: var(--accent-primary) !important;
+}
+
+[data-theme="hell"] .form-booking-text {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-booking-option {
+  background: rgba(var(--accent-rgb), 0.08) !important;
+  border-color: rgba(var(--accent-rgb), 0.2) !important;
 }
 
 /* Scroll & Navigation */
@@ -687,8 +935,8 @@ html {
 /* Popup SVGs bleiben hell (da Popup-Hintergrund dunkel ist) */
 [data-theme="hell"] .popup-logo-svg,
 [data-theme="hell"] .popup-logo-placeholder svg {
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
+  fill: var(--accent-primary) !important;
+  stroke: var(--accent-primary) !important;
 }
 
 /* Platform Icons im Hero */
@@ -1014,27 +1262,45 @@ html {
 /* Portfolio Items - wichtig! */
 [data-theme="hell"] .portfolio-item-inner {
   background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
 
 [data-theme="hell"] .portfolio-item-inner:hover {
-  background: #f8f8f8 !important;
-  border-color: rgba(var(--accent-rgb), 0.4) !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
+  background: #fafafa !important;
+  border-color: rgba(var(--accent-rgb), 0.3) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  transform: translateY(-2px) !important;
 }
 
 [data-theme="hell"] .portfolio-item-inner::before,
 [data-theme="hell"] .portfolio-item-inner::after {
   background: transparent !important;
+  box-shadow: none !important;
 }
 
+[data-theme="hell"] .portfolio-item-inner h3,
+[data-theme="hell"] .portfolio-item-inner h4,
 [data-theme="hell"] .portfolio-industry-title {
   color: #1a1a1a !important;
 }
 
+[data-theme="hell"] .portfolio-item-inner p,
 [data-theme="hell"] .portfolio-industry-desc {
   color: #4a4a4a !important;
+}
+
+[data-theme="hell"] .portfolio-cta {
+  color: var(--accent-primary) !important;
+}
+
+[data-theme="hell"] .portfolio-cta:hover {
+  color: var(--accent-secondary) !important;
+}
+
+[data-theme="hell"] .portfolio-item-inner:hover h3,
+[data-theme="hell"] .portfolio-item-inner:hover h4 {
+  color: #1a1a1a !important;
 }
 
 /* Popup Content */
@@ -1131,7 +1397,8 @@ html {
 [data-theme="hell"] .result-card:hover {
   background: #fafafa !important;
   border-color: rgba(var(--accent-rgb), 0.4) !important;
-  box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.15);
+  box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.15), 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
 }
 
 [data-theme="hell"] .result-title {
@@ -1205,44 +1472,6 @@ html {
   display: none !important;
 }
 
-/* === 4. PORTFOLIO SEKTION === */
-/* Text lesbar machen */
-[data-theme="hell"] .portfolio-item-inner {
-  background: #ffffff !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-}
-
-[data-theme="hell"] .portfolio-item-inner h3,
-[data-theme="hell"] .portfolio-item-inner h4,
-[data-theme="hell"] .portfolio-industry-title {
-  color: #1a1a1a !important;
-}
-
-[data-theme="hell"] .portfolio-item-inner p,
-[data-theme="hell"] .portfolio-industry-desc,
-[data-theme="hell"] .portfolio-cta {
-  color: #4a4a4a !important;
-}
-
-[data-theme="hell"] .portfolio-cta:hover {
-  color: var(--accent-primary) !important;
-}
-
-/* Hover-Effekt verbessern */
-[data-theme="hell"] .portfolio-item-inner:hover {
-  background: #fafafa !important;
-  border-color: rgba(var(--accent-rgb), 0.3) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
-}
-
-[data-theme="hell"] .portfolio-item-inner:hover h3,
-[data-theme="hell"] .portfolio-item-inner:hover h4 {
-  color: #1a1a1a !important;
-}
-
-[data-theme="hell"] .portfolio-item-inner:hover p {
-  color: #333333 !important;
-}
 
 /* Schatten links/rechts entfernen */
 [data-theme="hell"] .portfolio-scroll-fade,
@@ -1354,6 +1583,15 @@ html {
 [data-theme="hell"] .popup-content li,
 [data-theme="hell"] .form-popup-content p,
 [data-theme="hell"] .form-step-subtitle {
+  color: #4a4a4a !important;
+}
+
+[data-theme="hell"] .popup-section-title {
+  color: #666666 !important;
+}
+
+[data-theme="hell"] .popup-features li,
+[data-theme="hell"] .popup-usecases li {
   color: #4a4a4a !important;
 }
 
@@ -3119,6 +3357,11 @@ footer .footer-menu a:hover {
   height: 42px;
   object-fit: contain;
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+}
+
+[data-theme="hell"] .popup-logo-img,
+[data-theme="hell"] .popup-logo-svg {
+  filter: none;
 }
 
 .popup-content h3 {
