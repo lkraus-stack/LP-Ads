@@ -103,21 +103,40 @@ html {
   color: #4a4a4a;
 }
 
-/* Helles Theme - Cards und Boxen */
+/* Helles Theme - Cards und Boxen - GLASDESIGN */
 [data-theme="hell"] .ads-card,
-[data-theme="hell"] .outcome-card,
-[data-theme="hell"] .pricing-card,
-[data-theme="hell"] .portfolio-item-inner {
-  background: #f8f8f8;
-  border-color: rgba(0, 0, 0, 0.08);
+[data-theme="hell"] .outcome-card {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(var(--accent-rgb), 0.12) !important;
   color: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="hell"] .ads-card::before,
+[data-theme="hell"] .outcome-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.04) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .ads-card > *,
+[data-theme="hell"] .outcome-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 [data-theme="hell"] .ads-card:hover,
-[data-theme="hell"] .outcome-card:hover,
-[data-theme="hell"] .portfolio-item-inner:hover {
-  background: #f0f0f0;
-  border-color: rgba(var(--accent-rgb), 0.4);
+[data-theme="hell"] .outcome-card:hover {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, #fafafa 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(var(--accent-rgb), 0.2) !important;
+  transform: translateY(-2px) !important;
 }
 
 [data-theme="hell"] .ads-card h3,
@@ -132,23 +151,72 @@ html {
   color: #4a4a4a;
 }
 
-/* Helles Theme - Platform Badges */
+/* Helles Theme - Platform Badges - GLASDESIGN */
 [data-theme="hell"] .platform-badge {
-  background: rgba(0, 0, 0, 0.03);
-  border-color: rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.15) !important;
+  border-radius: 1.25rem !important;
   color: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(var(--accent-rgb), 0.1) !important;
+  position: relative;
+  overflow: hidden;
+  z-index: 3 !important;
+}
+
+[data-theme="hell"] .platform-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.05) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .platform-badge > * {
+  position: relative;
+  z-index: 1;
 }
 
 [data-theme="hell"] .platform-badge:hover {
-  background: rgba(var(--accent-rgb), 0.1);
-  border-color: rgba(var(--accent-rgb), 0.4);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1) 0%, #fafafa 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.2), 0 3px 12px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-3px) !important;
 }
 
-/* Helles Theme - Central Hub */
+/* Helles Theme - Central Hub - GLASDESIGN */
 [data-theme="hell"] .central-hub-container .hub-content {
-  background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
-  border-color: rgba(var(--accent-rgb), 0.3);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(var(--accent-rgb), 0.3) !important;
+  border-radius: 1.5rem !important;
   color: #1a1a1a;
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.2), 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(var(--accent-rgb), 0.05) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="hell"] .central-hub-container .hub-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.06) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .central-hub-container .hub-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-theme="hell"] .central-hub-container:hover .hub-content {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 12px 32px rgba(var(--accent-rgb), 0.3), 0 6px 16px rgba(0, 0, 0, 0.12), inset 0 0 25px rgba(var(--accent-rgb), 0.08) !important;
+}
+
+[data-theme="hell"] .central-hub-container.pulse-active .hub-content {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 12px 32px rgba(var(--accent-rgb), 0.35), 0 6px 16px rgba(0, 0, 0, 0.12), inset 0 0 25px rgba(var(--accent-rgb), 0.1) !important;
 }
 
 [data-theme="hell"] .hub-label,
@@ -157,14 +225,35 @@ html {
   color: #1a1a1a;
 }
 
-/* Helles Theme - Prozess Section */
+/* Helles Theme - Prozess Section - GLASDESIGN */
 [data-theme="hell"] .process-step-card {
-  background: #f8f8f8;
-  border-color: rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(var(--accent-rgb), 0.12) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="hell"] .process-step-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.04) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .process-step-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 [data-theme="hell"] .process-step-card:hover {
-  background: #f0f0f0;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, #fafafa 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(var(--accent-rgb), 0.2) !important;
+  transform: translateY(-2px) !important;
 }
 
 [data-theme="hell"] .process-step-title,
@@ -174,6 +263,24 @@ html {
 
 [data-theme="hell"] .process-step-desc {
   color: #4a4a4a;
+}
+
+/* Helles Theme - Step Features (Keypoints) */
+[data-theme="hell"] .step-features li {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: rgba(var(--accent-rgb), 0.25) !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .process-step:hover .step-features li {
+  background: rgba(var(--accent-rgb), 0.15) !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .step-features li:hover {
+  background: rgba(var(--accent-rgb), 0.2) !important;
+  box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.2) !important;
 }
 
 /* Helles Theme - Pricing */
@@ -213,12 +320,47 @@ html {
   color: var(--accent-primary);
 }
 
-/* Helles Theme - Popups und Modals */
+/* Helles Theme - Popups und Modals - GLASDESIGN */
 [data-theme="hell"] .form-popup-content,
 [data-theme="hell"] .calendar-modal-content,
 [data-theme="hell"] .case-study-popup .case-study-content {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06) 0%, #ffffff 100%) !important;
+  border: 2.5px solid rgba(var(--accent-rgb), 0.2) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.15),
+    0 15px 40px rgba(0, 0, 0, 0.1),
+    0 20px 50px rgba(var(--accent-rgb), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  position: relative;
+  overflow: hidden;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+}
+
+@media (min-width: 768px) {
+  [data-theme="hell"] .form-popup-content {
+    max-width: 600px !important;
+  }
+}
+
+[data-theme="hell"] .form-popup-content::before,
+[data-theme="hell"] .calendar-modal-content::before,
+[data-theme="hell"] .case-study-popup .case-study-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.05) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .form-popup-content > *,
+[data-theme="hell"] .calendar-modal-content > *,
+[data-theme="hell"] .case-study-popup .case-study-content > * {
+  position: relative;
+  z-index: 1;
 }
 
 [data-theme="hell"] .form-popup-content h2,
@@ -273,7 +415,7 @@ html {
 
 /* Helles Theme - About Section */
 [data-theme="hell"] #about {
-  background: #f5f5f5;
+  background: transparent;
 }
 
 [data-theme="hell"] .about-content {
@@ -285,8 +427,35 @@ html {
   background: #1a1a1a;
 }
 
+[data-theme="hell"] .flow-connector,
+[data-theme="hell"] .flow-connector-top,
+[data-theme="hell"] .flow-connector-bottom,
+[data-theme="hell"] .connector-svg {
+  z-index: -1 !important;
+  position: relative;
+}
+
 [data-theme="hell"] .flow-connector svg path {
   stroke: var(--accent-primary);
+}
+
+[data-theme="hell"] .platforms-row {
+  z-index: 10 !important;
+  position: relative;
+  isolation: isolate;
+  margin-bottom: var(--spacing-lg) !important;
+}
+
+[data-theme="hell"] .results-row {
+  z-index: 10 !important;
+  position: relative;
+  isolation: isolate;
+  margin-top: var(--spacing-lg) !important;
+}
+
+[data-theme="hell"] .central-hub-container {
+  z-index: 10 !important;
+  position: relative;
 }
 
 /* Helles Theme - Testimonials / Partner */
@@ -323,10 +492,31 @@ html {
   color: #1a1a1a;
 }
 
+/* Testimonials & FAQ - GLASDESIGN */
 [data-theme="hell"] .testimonial-card,
 [data-theme="hell"] .faq-item {
-  background: #f8f8f8;
-  border-color: rgba(0, 0, 0, 0.08);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(var(--accent-rgb), 0.12) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="hell"] .testimonial-card::before,
+[data-theme="hell"] .faq-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.04) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .testimonial-card > *,
+[data-theme="hell"] .faq-item > * {
+  position: relative;
+  z-index: 1;
 }
 
 [data-theme="hell"] .faq-question {
@@ -446,13 +636,61 @@ html {
   background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.3), transparent);
 }
 
-/* Pricing Section */
+/* Pricing Section - Premium Design */
 [data-theme="hell"] #pricing {
   background: #f5f5f5;
 }
 
+/* Pricing Section Title - Modernes Design ohne Gold-Rahmen */
+[data-theme="hell"] .section-pricing .section-title {
+  color: #1a1a1a !important;
+  font-weight: 800 !important;
+  font-size: clamp(2rem, 2.5vw + 1rem, 3rem) !important;
+  text-align: center !important;
+  margin-bottom: var(--spacing-md) !important;
+  position: relative !important;
+  padding: 1.5rem 2rem !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: inline-block !important;
+  width: auto !important;
+  max-width: 90% !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Modernes Design-Element: Elegante Unterstreichung mit Gradient */
+[data-theme="hell"] .section-pricing .section-title::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0.5rem !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 120px !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.15) 20%, 
+    rgba(0, 0, 0, 0.25) 50%, 
+    rgba(0, 0, 0, 0.15) 80%, 
+    transparent 100%) !important;
+  border-radius: 2px !important;
+  opacity: 0.6 !important;
+}
+
+/* Pricing Subtitle - Optimiert ohne Gold-Akzente */
 [data-theme="hell"] .pricing-subtitle {
-  color: #4a4a4a;
+  color: #666666 !important;
+  margin-top: var(--spacing-sm) !important;
+  margin-bottom: var(--spacing-xl) !important;
+  font-size: 1.05rem !important;
+  font-weight: 400 !important;
+  line-height: 1.7 !important;
+  text-align: center !important;
+  max-width: 700px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  letter-spacing: 0.01em !important;
 }
 
 [data-theme="hell"] .pricing-feature-icon {
@@ -460,8 +698,19 @@ html {
 }
 
 [data-theme="hell"] .pricing-badge {
-  background: var(--accent-primary);
-  color: #ffffff;
+  background: transparent;
+  color: var(--accent-primary);
+  border-color: rgba(var(--accent-rgb), 0.4);
+  box-shadow: 
+    0 4px 20px rgba(var(--accent-rgb), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="hell"] .pricing-badge:hover {
+  border-color: rgba(var(--accent-rgb), 0.6);
+  box-shadow: 
+    0 6px 30px rgba(var(--accent-rgb), 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 /* About Section */
@@ -490,17 +739,6 @@ html {
   color: #4a4a4a;
 }
 
-[data-theme="hell"] .form-option-card {
-  background: #f8f8f8;
-  border-color: rgba(0, 0, 0, 0.1);
-  color: #1a1a1a;
-}
-
-[data-theme="hell"] .form-option-card:hover {
-  background: #f0f0f0;
-  border-color: rgba(var(--accent-rgb), 0.4);
-}
-
 [data-theme="hell"] .form-option-card.selected {
   background: rgba(var(--accent-rgb), 0.1);
   border-color: var(--accent-primary);
@@ -522,9 +760,11 @@ html {
   background: var(--accent-primary);
 }
 
-/* Case Study Popup */
+/* Case Study Popup - Leicht transparentes Overlay mit goldenem Schimmer */
 [data-theme="hell"] .case-study-popup .popup-overlay {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 [data-theme="hell"] .case-study-popup h3 {
@@ -550,6 +790,252 @@ html {
 
 [data-theme="hell"] .calendar-modal-header p {
   color: #4a4a4a;
+}
+
+/* ============================================
+   HELLES THEME - Formular Modal
+   ============================================ */
+
+/* Form Modal Content - GLASDESIGN */
+[data-theme="hell"] .form-modal-content {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.06) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 6px 20px rgba(var(--accent-rgb), 0.15), 0 0 40px rgba(var(--accent-rgb), 0.1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="hell"] .form-modal-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.05) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .form-modal-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Form Modal Close Button */
+[data-theme="hell"] .form-modal-close {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .form-modal-close:hover {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: rgba(var(--accent-rgb), 0.3) !important;
+  color: var(--accent-primary) !important;
+}
+
+/* Form Progress Bar */
+[data-theme="hell"] .form-progress {
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="hell"] .form-progress-bar {
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%) !important;
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.3) !important;
+}
+
+/* Form Step Counter */
+[data-theme="hell"] .form-step-counter {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3), 0 0 20px rgba(var(--accent-rgb), 0.2) !important;
+}
+
+/* Form Option Buttons */
+[data-theme="hell"] .form-option-btn {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(var(--accent-rgb), 0.04) 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.1) !important;
+  color: #1a1a1a !important;
+  border-radius: 12px !important;
+  box-shadow: 
+    0 3px 12px rgba(0, 0, 0, 0.06),
+    0 1px 4px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.3s ease !important;
+  padding: 1.25rem !important;
+}
+
+[data-theme="hell"] .form-option-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(var(--accent-rgb), 0.08) 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(var(--accent-rgb), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-theme="hell"] .form-option-btn.selected {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.08) 100%) !important;
+  border-color: var(--accent-primary) !important;
+  border-width: 2.5px !important;
+  color: var(--accent-primary) !important;
+  box-shadow: 
+    0 8px 25px rgba(var(--accent-rgb), 0.25),
+    0 4px 15px rgba(var(--accent-rgb), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 10px rgba(var(--accent-rgb), 0.1) !important;
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+[data-theme="hell"] .form-option-text {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-option-btn.selected .form-option-text {
+  color: var(--accent-primary) !important;
+}
+
+/* Form Budget Buttons */
+[data-theme="hell"] .form-budget-btn {
+  background: #f8f8f8 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-budget-btn:hover {
+  background: #f0f0f0 !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(var(--accent-rgb), 0.15) !important;
+}
+
+[data-theme="hell"] .form-budget-btn.selected {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.2), inset 0 0 10px rgba(var(--accent-rgb), 0.05) !important;
+}
+
+/* Form Timeline Buttons */
+[data-theme="hell"] .form-timeline-btn {
+  background: #f8f8f8 !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-timeline-btn:hover {
+  background: #f0f0f0 !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(var(--accent-rgb), 0.15) !important;
+}
+
+[data-theme="hell"] .form-timeline-btn.selected {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.2), inset 0 0 10px rgba(var(--accent-rgb), 0.05) !important;
+}
+
+[data-theme="hell"] .form-timeline-label {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-timeline-btn.selected .form-timeline-label {
+  color: var(--accent-primary) !important;
+}
+
+/* Form Fields */
+[data-theme="hell"] .form-field label {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-field input,
+[data-theme="hell"] .form-field textarea {
+  background: #f8f8f8 !important;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .form-field input:focus,
+[data-theme="hell"] .form-field textarea:focus {
+  background: #ffffff !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.15), inset 0 0 10px rgba(var(--accent-rgb), 0.03) !important;
+}
+
+[data-theme="hell"] .form-field input::placeholder,
+[data-theme="hell"] .form-field textarea::placeholder {
+  color: #999999 !important;
+}
+
+[data-theme="hell"] .form-field-hint {
+  color: #666666 !important;
+}
+
+/* Form Step Actions Border */
+[data-theme="hell"] .form-step-actions {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Form Success Step */
+[data-theme="hell"] .form-success-title {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-success-text {
+  color: #4a4a4a !important;
+  text-shadow: none !important;
+}
+
+/* Form Privacy Checkbox */
+[data-theme="hell"] .form-privacy-checkbox {
+  border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme="hell"] .form-privacy-text {
+  color: #4a4a4a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-privacy-text a {
+  color: var(--accent-primary) !important;
+}
+
+[data-theme="hell"] .form-privacy-text a:hover {
+  color: var(--accent-secondary) !important;
+}
+
+/* Form Booking Elements */
+[data-theme="hell"] .form-booking-container {
+  color: #1a1a1a !important;
+}
+
+[data-theme="hell"] .form-booking-description {
+  color: #4a4a4a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-booking-icon {
+  color: var(--accent-primary) !important;
+}
+
+[data-theme="hell"] .form-success-booking-info {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  border-color: rgba(var(--accent-rgb), 0.3) !important;
+  color: var(--accent-primary) !important;
+}
+
+[data-theme="hell"] .form-booking-text {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+[data-theme="hell"] .form-booking-option {
+  background: rgba(var(--accent-rgb), 0.08) !important;
+  border-color: rgba(var(--accent-rgb), 0.2) !important;
 }
 
 /* Scroll & Navigation */
@@ -629,9 +1115,12 @@ html {
 }
 
 [data-theme="hell"] #portfolio,
-[data-theme="hell"] #pricing,
-[data-theme="hell"] #about {
+[data-theme="hell"] #pricing {
   background: #f5f5f5 !important;
+}
+
+[data-theme="hell"] #about {
+  background: transparent !important;
 }
 
 /* Kontrast-Verbesserungen */
@@ -679,16 +1168,32 @@ html {
   fill: #1a1a1a !important;
 }
 
-[data-theme="hell"] .ads-card:hover .ads-logo-svg,
-[data-theme="hell"] .ads-card:hover svg {
-  fill: var(--accent-primary) !important;
+/* SVG-Icons (LinkedIn, Amazon) bleiben beim Hover weiß - höchste Spezifität */
+.ads-card[data-popup]:hover .ads-logo-svg,
+.ads-card[data-popup]:hover .ads-logo-placeholder svg,
+.ads-card[data-popup="linkedin"]:hover .ads-logo-svg,
+.ads-card[data-popup="amazon"]:hover .ads-logo-svg,
+.ads-card[data-popup="linkedin"]:hover svg,
+.ads-card[data-popup="amazon"]:hover svg {
+  fill: #ffffff !important;
 }
 
-/* Popup SVGs bleiben hell (da Popup-Hintergrund dunkel ist) */
+[data-theme="hell"] .ads-card[data-popup]:hover .ads-logo-svg,
+[data-theme="hell"] .ads-card[data-popup]:hover .ads-logo-placeholder svg,
+[data-theme="hell"] .ads-card[data-popup="linkedin"]:hover .ads-logo-svg,
+[data-theme="hell"] .ads-card[data-popup="amazon"]:hover .ads-logo-svg {
+  fill: #1a1a1a !important;
+}
+
+/* Popup SVGs in Grau/Schwarz für besseren Kontrast */
 [data-theme="hell"] .popup-logo-svg,
 [data-theme="hell"] .popup-logo-placeholder svg {
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
+  fill: #4a4a4a !important;
+  stroke: #4a4a4a !important;
+}
+
+[data-theme="hell"] .popup-logo-img {
+  filter: brightness(0.3) !important;
 }
 
 /* Platform Icons im Hero */
@@ -888,18 +1393,7 @@ html {
    HELLES THEME - Card & Box Korrekturen
    ============================================ */
 
-/* Outcome Cards - wichtig! */
-[data-theme="hell"] .outcome-card {
-  background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-}
-
-[data-theme="hell"] .outcome-card:hover {
-  background: #f8f8f8 !important;
-  border-color: rgba(var(--accent-rgb), 0.4) !important;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
+/* Outcome Cards - GLASDESIGN (bereits in allgemeinen Regeln definiert) */
 
 [data-theme="hell"] .outcome-card h3,
 [data-theme="hell"] .outcome-card-title {
@@ -940,17 +1434,35 @@ html {
   color: #4a4a4a !important;
 }
 
-/* Process Steps - wichtig! */
+/* Process Steps - GLASDESIGN */
 [data-theme="hell"] .process-step {
-  background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(var(--accent-rgb), 0.12) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="hell"] .process-step::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.04) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .process-step > * {
+  position: relative;
+  z-index: 1;
 }
 
 [data-theme="hell"] .process-step:hover {
-  background: #f8f8f8 !important;
-  border-color: rgba(var(--accent-rgb), 0.4) !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, #fafafa 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(var(--accent-rgb), 0.2) !important;
+  transform: translateY(-2px) !important;
 }
 
 [data-theme="hell"] .process-step-icon {
@@ -969,28 +1481,35 @@ html {
 }
 
 /* Pricing Cards - wichtig! */
+/* Alle Pricing Cards mit leichtem Gold-Effekt */
 [data-theme="hell"] .pricing-card {
-  background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(var(--accent-rgb), 0.12) !important;
 }
 
 [data-theme="hell"] .pricing-card:hover {
-  background: #f8f8f8 !important;
-  border-color: rgba(var(--accent-rgb), 0.4) !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, #fafafa 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(var(--accent-rgb), 0.2) !important;
+  transform: translateY(-2px) !important;
 }
 
 [data-theme="hell"] .pricing-card-featured,
 [data-theme="hell"] .pricing-card.featured {
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, #ffffff 100%) !important;
-  border-color: rgba(var(--accent-rgb), 0.4) !important;
-  box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.15);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(var(--accent-rgb), 0.4) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 8px 28px rgba(var(--accent-rgb), 0.25), 0 4px 14px rgba(var(--accent-rgb), 0.2) !important;
 }
 
 [data-theme="hell"] .pricing-card-featured:hover,
 [data-theme="hell"] .pricing-card.featured:hover {
-  box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.2) !important;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.12) 0%, #fafafa 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.5) !important;
+  box-shadow: 0 12px 36px rgba(var(--accent-rgb), 0.3), 0 6px 20px rgba(var(--accent-rgb), 0.25) !important;
+  transform: translateY(-3px) !important;
 }
 
 [data-theme="hell"] .pricing-card h3,
@@ -1004,6 +1523,26 @@ html {
 
 [data-theme="hell"] .pricing-features li {
   color: #4a4a4a !important;
+  padding-left: 1.25rem !important;
+}
+
+/* Bullet Points korrekt positionieren - nicht auf dem Rahmen */
+[data-theme="hell"] .pricing-features li::before {
+  left: 0.25rem !important;
+  background: var(--accent-primary) !important;
+  width: 6px !important;
+  height: 6px !important;
+  box-shadow: none !important;
+}
+
+[data-theme="hell"] .pricing-card:hover .pricing-features li::before {
+  background: var(--accent-secondary) !important;
+  box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.4) !important;
+}
+
+[data-theme="hell"] .pricing-card-featured .pricing-features li::before {
+  background: var(--accent-primary) !important;
+  box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.3) !important;
 }
 
 [data-theme="hell"] .pricing-features svg,
@@ -1011,30 +1550,91 @@ html {
   color: var(--accent-primary) !important;
 }
 
-/* Portfolio Items - wichtig! */
+/* Portfolio Items - Elegantes Gold-Design für Hell-Theme */
 [data-theme="hell"] .portfolio-item-inner {
-  background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(145deg, #ffffff 0%, rgba(var(--accent-rgb), 0.04) 100%) !important;
+  border: 1.5px solid rgba(var(--accent-rgb), 0.15) !important;
+  box-shadow: 
+    0 4px 20px rgba(var(--accent-rgb), 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-theme="hell"] .portfolio-item-inner::before {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, transparent 50%) !important;
 }
 
 [data-theme="hell"] .portfolio-item-inner:hover {
-  background: #f8f8f8 !important;
-  border-color: rgba(var(--accent-rgb), 0.4) !important;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(145deg, #ffffff 0%, rgba(var(--accent-rgb), 0.08) 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.35) !important;
+  box-shadow: 
+    0 8px 30px rgba(var(--accent-rgb), 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-4px) !important;
 }
 
-[data-theme="hell"] .portfolio-item-inner::before,
 [data-theme="hell"] .portfolio-item-inner::after {
-  background: transparent !important;
+  background: linear-gradient(315deg, rgba(var(--accent-rgb), 0.06) 0%, transparent 50%) !important;
+  box-shadow: none !important;
 }
 
+[data-theme="hell"] .portfolio-icon-glow {
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.12) 0%, rgba(var(--accent-rgb), 0.04) 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.25) !important;
+  box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.1) !important;
+}
+
+[data-theme="hell"] .portfolio-item-inner:hover .portfolio-icon-glow {
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.18) 0%, rgba(var(--accent-rgb), 0.08) 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
+  box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.15) !important;
+}
+
+[data-theme="hell"] .portfolio-item-inner h3,
+[data-theme="hell"] .portfolio-item-inner h4,
 [data-theme="hell"] .portfolio-industry-title {
   color: #1a1a1a !important;
 }
 
+[data-theme="hell"] .portfolio-item-inner p,
 [data-theme="hell"] .portfolio-industry-desc {
   color: #4a4a4a !important;
+}
+
+[data-theme="hell"] .portfolio-cta {
+  color: var(--accent-primary) !important;
+  text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.3) !important;
+}
+
+[data-theme="hell"] .portfolio-cta:hover {
+  color: var(--accent-secondary) !important;
+  text-shadow: 0 0 25px rgba(var(--accent-rgb), 0.5) !important;
+}
+
+[data-theme="hell"] .portfolio-item-inner:hover h3,
+[data-theme="hell"] .portfolio-item-inner:hover h4 {
+  color: #1a1a1a !important;
+}
+
+/* Metric Badge im Hell-Theme - Gold-Akzent */
+[data-theme="hell"] .portfolio-metric-badge {
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.06) 100%) !important;
+  border: 1.5px solid rgba(var(--accent-rgb), 0.35) !important;
+  box-shadow: 0 3px 12px rgba(var(--accent-rgb), 0.12) !important;
+}
+
+[data-theme="hell"] .portfolio-item-inner:hover .portfolio-metric-badge {
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.22) 0%, rgba(var(--accent-rgb), 0.1) 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.5) !important;
+  box-shadow: 0 5px 18px rgba(var(--accent-rgb), 0.18) !important;
+}
+
+/* Industry Tag im Hell-Theme */
+[data-theme="hell"] .portfolio-industry-tag {
+  background: rgba(var(--accent-rgb), 0.08) !important;
+  border-color: rgba(var(--accent-rgb), 0.2) !important;
+  color: var(--accent-primary) !important;
 }
 
 /* Popup Content */
@@ -1122,16 +1722,35 @@ html {
    ============================================ */
 
 /* === 1. HERO RESULT CARDS (untere Kästchen) === */
+/* Result Cards - GLASDESIGN */
 [data-theme="hell"] .result-card {
-  background: #ffffff !important;
-  border: 2px solid rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.05) 0%, #ffffff 100%) !important;
+  border: 2px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 1.5rem !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(var(--accent-rgb), 0.12) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="hell"] .result-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.04) 0%, transparent 60%) !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="hell"] .result-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 [data-theme="hell"] .result-card:hover {
-  background: #fafafa !important;
-  border-color: rgba(var(--accent-rgb), 0.4) !important;
-  box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.15);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08) 0%, #fafafa 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(var(--accent-rgb), 0.2) !important;
+  transform: translateY(-2px) !important;
 }
 
 [data-theme="hell"] .result-title {
@@ -1173,26 +1792,35 @@ html {
 /* Goldener Balken/Badge entfernen oder anpassen */
 [data-theme="hell"] .pricing-badge,
 [data-theme="hell"] .pricing-popular-badge {
-  background: var(--accent-primary) !important;
-  color: #ffffff !important;
+  background: transparent !important;
+  color: var(--accent-primary) !important;
+  border-color: rgba(var(--accent-rgb), 0.4) !important;
 }
 
-/* Mittlere Pricing Card - Gold Overlay reduzieren */
+/* Gold Overlay für alle Cards - subtil */
+[data-theme="hell"] .pricing-card::before {
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.04) 0%, transparent 60%) !important;
+  opacity: 1 !important;
+}
+
 [data-theme="hell"] .pricing-card-featured::before,
 [data-theme="hell"] .pricing-card.featured::before {
-  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.03) 0%, transparent 50%) !important;
-  opacity: 0.5 !important;
-}
-
-[data-theme="hell"] .pricing-card-featured,
-[data-theme="hell"] .pricing-card.featured {
-  background: #ffffff !important;
-  border: 2px solid rgba(var(--accent-rgb), 0.3) !important;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.06) 0%, transparent 60%) !important;
+  opacity: 1 !important;
 }
 
 [data-theme="hell"] .pricing-card-featured h3,
 [data-theme="hell"] .pricing-card-featured .pricing-title,
 [data-theme="hell"] .pricing-card-featured .pricing-price {
+  color: #1a1a1a !important;
+}
+
+/* Transparente Überschrift in featured card entfernen */
+[data-theme="hell"] .pricing-card-featured .pricing-card-header h3 {
+  -webkit-text-fill-color: #1a1a1a !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
   color: #1a1a1a !important;
 }
 
@@ -1205,44 +1833,30 @@ html {
   display: none !important;
 }
 
-/* === 4. PORTFOLIO SEKTION === */
-/* Text lesbar machen */
-[data-theme="hell"] .portfolio-item-inner {
-  background: #ffffff !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+/* Innere Kästen besser hervorheben - Pricing Meta Box */
+[data-theme="hell"] .pricing-meta {
+  background: rgba(var(--accent-rgb), 0.06) !important;
+  border: 1px solid rgba(var(--accent-rgb), 0.2) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(var(--accent-rgb), 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
 }
 
-[data-theme="hell"] .portfolio-item-inner h3,
-[data-theme="hell"] .portfolio-item-inner h4,
-[data-theme="hell"] .portfolio-industry-title {
-  color: #1a1a1a !important;
+[data-theme="hell"] .pricing-card-featured .pricing-meta {
+  background: rgba(var(--accent-rgb), 0.08) !important;
+  border-color: rgba(var(--accent-rgb), 0.25) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.2), 0 3px 8px rgba(var(--accent-rgb), 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
 }
 
-[data-theme="hell"] .portfolio-item-inner p,
-[data-theme="hell"] .portfolio-industry-desc,
-[data-theme="hell"] .portfolio-cta {
-  color: #4a4a4a !important;
+/* Pricing Card Footer - Trennlinie verbessern */
+[data-theme="hell"] .pricing-card-footer {
+  border-top-color: rgba(0, 0, 0, 0.1) !important;
 }
 
-[data-theme="hell"] .portfolio-cta:hover {
-  color: var(--accent-primary) !important;
+[data-theme="hell"] .pricing-card-featured .pricing-card-footer {
+  border-top-color: rgba(var(--accent-rgb), 0.2) !important;
 }
 
-/* Hover-Effekt verbessern */
-[data-theme="hell"] .portfolio-item-inner:hover {
-  background: #fafafa !important;
-  border-color: rgba(var(--accent-rgb), 0.3) !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
-}
-
-[data-theme="hell"] .portfolio-item-inner:hover h3,
-[data-theme="hell"] .portfolio-item-inner:hover h4 {
-  color: #1a1a1a !important;
-}
-
-[data-theme="hell"] .portfolio-item-inner:hover p {
-  color: #333333 !important;
-}
 
 /* Schatten links/rechts entfernen */
 [data-theme="hell"] .portfolio-scroll-fade,
@@ -1357,20 +1971,34 @@ html {
   color: #4a4a4a !important;
 }
 
+[data-theme="hell"] .popup-section-title {
+  color: #666666 !important;
+}
+
+[data-theme="hell"] .popup-features li,
+[data-theme="hell"] .popup-usecases li {
+  color: #4a4a4a !important;
+}
+
 [data-theme="hell"] .popup-content label,
 [data-theme="hell"] .form-popup-content label {
   color: #333333 !important;
 }
 
-/* Form Inputs */
+/* Form Inputs - Premium Design mit goldenen Akzenten */
 [data-theme="hell"] .form-popup-content input,
 [data-theme="hell"] .form-popup-content textarea,
 [data-theme="hell"] .form-popup-content select,
 [data-theme="hell"] .popup-content input,
 [data-theme="hell"] .popup-content textarea {
-  background: #f8f8f8 !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(var(--accent-rgb), 0.03) 100%) !important;
+  border: 1.5px solid rgba(0, 0, 0, 0.12) !important;
   color: #1a1a1a !important;
+  border-radius: 8px !important;
+  padding: 0.875rem 1rem !important;
+  transition: all 0.3s ease !important;
+  font-size: 0.95rem !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 [data-theme="hell"] .form-popup-content input:focus,
@@ -1378,7 +2006,13 @@ html {
 [data-theme="hell"] .form-popup-content select:focus {
   background: #ffffff !important;
   border-color: var(--accent-primary) !important;
-  box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.1) !important;
+  border-width: 2px !important;
+  box-shadow: 
+    0 0 0 3px rgba(var(--accent-rgb), 0.15),
+    0 4px 12px rgba(var(--accent-rgb), 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.05) !important;
+  outline: none !important;
+  transform: translateY(-1px) !important;
 }
 
 [data-theme="hell"] .form-popup-content input::placeholder,
@@ -1387,21 +2021,6 @@ html {
 }
 
 /* Form Option Cards */
-[data-theme="hell"] .form-option-card {
-  background: #f8f8f8 !important;
-  border: 2px solid rgba(0, 0, 0, 0.08) !important;
-  color: #1a1a1a !important;
-}
-
-[data-theme="hell"] .form-option-card:hover {
-  background: #f0f0f0 !important;
-  border-color: rgba(var(--accent-rgb), 0.3) !important;
-}
-
-[data-theme="hell"] .form-option-card.selected {
-  background: rgba(var(--accent-rgb), 0.08) !important;
-  border-color: var(--accent-primary) !important;
-}
 
 [data-theme="hell"] .form-option-title {
   color: #1a1a1a !important;
@@ -1415,13 +2034,23 @@ html {
   color: var(--accent-primary) !important;
 }
 
-/* Form Progress */
+/* Form Progress - Premium Design */
 [data-theme="hell"] .form-progress-bar {
   background: rgba(0, 0, 0, 0.08) !important;
+  border-radius: 10px !important;
+  height: 6px !important;
+  overflow: hidden !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06) !important;
 }
 
 [data-theme="hell"] .form-progress-fill {
-  background: var(--accent-primary) !important;
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%) !important;
+  border-radius: 10px !important;
+  height: 100% !important;
+  box-shadow: 
+    0 2px 8px rgba(var(--accent-rgb), 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  transition: width 0.4s ease !important;
 }
 
 [data-theme="hell"] .form-step-counter {
@@ -1442,10 +2071,38 @@ html {
   color: #1a1a1a !important;
 }
 
-/* Form Buttons */
+/* Form Buttons - Premium Gold Design */
 [data-theme="hell"] .form-nav-btn,
 [data-theme="hell"] .form-submit-btn {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%) !important;
   color: #1a1a1a !important;
+  font-weight: 700 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 1rem 2rem !important;
+  box-shadow: 
+    0 6px 20px rgba(var(--accent-rgb), 0.3),
+    0 3px 10px rgba(var(--accent-rgb), 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.9rem !important;
+}
+
+[data-theme="hell"] .form-nav-btn:hover,
+[data-theme="hell"] .form-submit-btn:hover {
+  background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%) !important;
+  box-shadow: 
+    0 8px 25px rgba(var(--accent-rgb), 0.4),
+    0 4px 15px rgba(var(--accent-rgb), 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+[data-theme="hell"] .form-submit-btn {
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 [data-theme="hell"] .form-back-btn {
@@ -1458,18 +2115,351 @@ html {
   color: #1a1a1a !important;
 }
 
-/* Case Study Popups */
-[data-theme="hell"] .case-study-metric {
-  background: rgba(var(--accent-rgb), 0.08) !important;
-  border-color: rgba(var(--accent-rgb), 0.2) !important;
+/* ===== CASE STUDY POPUPS - Premium Gold Design für Hell-Theme ===== */
+
+/* Popup Container - Kompakt und scrollbar */
+[data-theme="hell"] .case-study-popup .popup-content {
+  background: linear-gradient(165deg, #ffffff 0%, rgba(var(--accent-rgb), 0.08) 50%, rgba(var(--accent-rgb), 0.05) 100%) !important;
+  border: 2.5px solid rgba(var(--accent-rgb), 0.3) !important;
+  max-width: 90vw !important;
+  max-height: 85vh !important;
+  width: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  box-shadow: 
+    0 40px 100px rgba(0, 0, 0, 0.35),
+    0 20px 60px rgba(0, 0, 0, 0.25),
+    0 10px 30px rgba(0, 0, 0, 0.15),
+    0 30px 80px rgba(var(--accent-rgb), 0.2),
+    0 0 0 1px rgba(var(--accent-rgb), 0.1) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  padding: 1.5rem !important;
 }
 
-[data-theme="hell"] .case-study-metric-value {
+@media (min-width: 768px) {
+  [data-theme="hell"] .case-study-popup .popup-content {
+    max-width: 600px !important;
+    padding: 2rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-theme="hell"] .case-study-popup .popup-content {
+    max-width: 650px !important;
+  }
+}
+
+/* Eleganter Top-Akzent */
+[data-theme="hell"] .case-study-popup .popup-content::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(var(--accent-rgb), 0.6) 20%, 
+    var(--accent-primary) 50%, 
+    rgba(var(--accent-rgb), 0.6) 80%, 
+    transparent 100%) !important;
+  border-radius: 24px 24px 0 0 !important;
+}
+
+/* Header Badge mit sehr starkem Gold-Styling - MAXIMAL SICHTBAR */
+[data-theme="hell"] .case-study-popup .case-study-badge {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.5) 0%, rgba(var(--accent-rgb), 0.35) 100%) !important;
+  border: 2.5px solid rgba(var(--accent-rgb), 0.8) !important;
+  color: #1a1a1a !important;
+  font-weight: 900 !important;
+  font-size: 0.7rem !important;
+  padding: 0.6rem 1.2rem !important;
+  box-shadow: 
+    0 6px 25px rgba(var(--accent-rgb), 0.4),
+    0 3px 15px rgba(var(--accent-rgb), 0.3),
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+}
+
+[data-theme="hell"] .case-study-popup .case-study-badge::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent) !important;
+  animation: badgeShine 3s ease-in-out infinite !important;
+}
+
+/* Industry Tag - MAXIMAL SICHTBAR mit starkem Gold */
+[data-theme="hell"] .case-study-popup .case-study-industry {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.4) 0%, rgba(var(--accent-rgb), 0.25) 100%) !important;
+  border: 2px solid rgba(var(--accent-rgb), 0.7) !important;
+  color: #1a1a1a !important;
+  font-weight: 800 !important;
+  font-size: 0.75rem !important;
+  padding: 0.5rem 1rem !important;
+  box-shadow: 
+    0 5px 20px rgba(var(--accent-rgb), 0.35),
+    0 2px 10px rgba(var(--accent-rgb), 0.25),
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+/* Header-Bereich für bessere Sichtbarkeit der Badges - Kompakter */
+[data-theme="hell"] .case-study-popup .case-study-header {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(var(--accent-rgb), 0.04) 100%) !important;
+  padding: 0.875rem 1rem !important;
+  border-radius: 8px !important;
+  margin-bottom: 1rem !important;
+  box-shadow: 
+    0 2px 12px rgba(0, 0, 0, 0.06),
+    0 1px 4px rgba(var(--accent-rgb), 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  border-bottom: 2px solid rgba(var(--accent-rgb), 0.2) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  flex-wrap: wrap !important;
+}
+
+/* Titel mit elegantem Gold-Akzent und besserem Kontrast - Kompakter & Zentriert */
+[data-theme="hell"] .case-study-popup h3 {
+  color: #0a0a0a !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(var(--accent-rgb), 0.05) 100%) !important;
+  padding: 0.875rem 1rem !important;
+  border-radius: 8px !important;
+  margin-bottom: 1rem !important;
+  border-left: 4px solid rgba(var(--accent-rgb), 0.5) !important;
+  box-shadow: 
+    0 3px 12px rgba(0, 0, 0, 0.08),
+    0 1px 5px rgba(var(--accent-rgb), 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  font-weight: 800 !important;
+  font-size: 1.5rem !important;
+  text-align: center !important;
+}
+
+/* Intro Text mit goldenem Akzent und besserem Kontrast - Kompakter & Zentriert */
+[data-theme="hell"] .case-study-popup .case-study-intro {
+  color: #1a1a1a !important;
+  border-left: 4px solid rgba(var(--accent-rgb), 0.6) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(var(--accent-rgb), 0.06) 100%) !important;
+  border-radius: 0 10px 10px 0 !important;
+  padding: 1rem !important;
+  padding-left: 1.25rem !important;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(var(--accent-rgb), 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 4px 0 0 rgba(var(--accent-rgb), 0.3) !important;
+  line-height: 1.7 !important;
+  font-weight: 500 !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 1rem !important;
+  text-align: center !important;
+}
+
+/* Sections mit starkem Gold-Akzent und besserem Kontrast - Kompakter & Zentriert */
+[data-theme="hell"] .case-study-popup .case-study-section {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(var(--accent-rgb), 0.08) 100%) !important;
+  border-left: 4px solid rgba(var(--accent-rgb), 0.6) !important;
+  border-radius: 0 12px 12px 0 !important;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(var(--accent-rgb), 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 4px 0 0 rgba(var(--accent-rgb), 0.25) !important;
+  padding: 1.25rem !important;
+  margin-bottom: 1rem !important;
+  text-align: center !important;
+}
+
+[data-theme="hell"] .case-study-popup .case-study-section h4,
+[data-theme="hell"] .case-study-popup .popup-section-title {
   color: var(--accent-primary) !important;
+  font-weight: 800 !important;
+  font-size: 0.95rem !important;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 0 15px rgba(var(--accent-rgb), 0.2) !important;
+  margin-bottom: 1rem !important;
+  letter-spacing: 0.05em !important;
+  text-align: center !important;
 }
 
-[data-theme="hell"] .case-study-metric-label {
-  color: #666666 !important;
+[data-theme="hell"] .case-study-popup .case-study-section p {
+  color: #1a1a1a !important;
+  font-weight: 500 !important;
+  line-height: 1.75 !important;
+  font-size: 0.95rem !important;
+  text-align: center !important;
+}
+
+/* Feature Liste - EXAKT wie case-study-section Design & Zentriert */
+[data-theme="hell"] .case-study-popup .popup-features {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-top: 1rem !important;
+  text-align: center !important;
+}
+
+[data-theme="hell"] .case-study-popup .popup-features li {
+  color: #1a1a1a !important;
+  padding: 0.75rem 0 !important;
+  padding-left: 1.5rem !important;
+  font-weight: 500 !important;
+  line-height: 1.75 !important;
+  font-size: 0.95rem !important;
+  position: relative !important;
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.1) !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-theme="hell"] .case-study-popup .popup-features li:last-child {
+  border-bottom: none !important;
+}
+
+[data-theme="hell"] .case-study-popup .popup-features li::before {
+  content: '→' !important;
+  position: absolute !important;
+  left: 0 !important;
+  color: var(--accent-primary) !important;
+  font-weight: 800 !important;
+  font-size: 1.1em !important;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    0 0 15px rgba(var(--accent-rgb), 0.2) !important;
+}
+
+/* Ergebnisse Box - Premium Gold Design mit starken goldenen Akzenten */
+[data-theme="hell"] .case-study-popup .case-study-results {
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.2) 0%, rgba(var(--accent-rgb), 0.1) 100%) !important;
+  border: 2.5px solid rgba(var(--accent-rgb), 0.45) !important;
+  box-shadow: 
+    0 15px 50px rgba(0, 0, 0, 0.15),
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 10px 35px rgba(var(--accent-rgb), 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -2px 15px rgba(var(--accent-rgb), 0.1) !important;
+}
+
+[data-theme="hell"] .case-study-popup .case-study-results::before {
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.7), transparent) !important;
+}
+
+[data-theme="hell"] .case-study-popup .case-study-results h4 {
+  color: var(--accent-primary) !important;
+  text-shadow: 0 0 15px rgba(var(--accent-rgb), 0.3) !important;
+}
+
+/* Metric Items - Elegante Karten mit dunkleren Schatten */
+[data-theme="hell"] .case-study-popup .metric-item {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%) !important;
+  border: 1.5px solid rgba(var(--accent-rgb), 0.25) !important;
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.12),
+    0 3px 10px rgba(0, 0, 0, 0.08),
+    0 4px 15px rgba(var(--accent-rgb), 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-theme="hell"] .case-study-popup .metric-item::before {
+  background: radial-gradient(circle at center, rgba(var(--accent-rgb), 0.15) 0%, transparent 70%) !important;
+}
+
+[data-theme="hell"] .case-study-popup .metric-item:hover {
+  border-color: rgba(var(--accent-rgb), 0.45) !important;
+  box-shadow: 
+    0 10px 35px rgba(0, 0, 0, 0.18),
+    0 5px 15px rgba(0, 0, 0, 0.12),
+    0 8px 25px rgba(var(--accent-rgb), 0.2) !important;
+  transform: translateY(-3px) !important;
+}
+
+[data-theme="hell"] .case-study-popup .metric-value {
+  color: var(--accent-primary) !important;
+  text-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.15),
+    0 0 20px rgba(var(--accent-rgb), 0.4) !important;
+  font-weight: 800 !important;
+}
+
+[data-theme="hell"] .case-study-popup .metric-label {
+  color: #333333 !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* CTA Button - Premium Gold Gradient */
+[data-theme="hell"] .case-study-popup .popup-cta-btn {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%) !important;
+  color: #1a1a1a !important;
+  font-weight: 700 !important;
+  box-shadow: 
+    0 6px 20px rgba(var(--accent-rgb), 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  border: none !important;
+}
+
+[data-theme="hell"] .case-study-popup .popup-cta-btn:hover {
+  background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%) !important;
+  box-shadow: 
+    0 10px 30px rgba(var(--accent-rgb), 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Close Button - MAXIMAL SICHTBAR mit starkem Gold */
+[data-theme="hell"] .case-study-popup .popup-close {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.4) 0%, rgba(var(--accent-rgb), 0.3) 100%) !important;
+  border: 2.5px solid rgba(var(--accent-rgb), 0.7) !important;
+  color: #1a1a1a !important;
+  font-weight: 900 !important;
+  font-size: 1.5rem !important;
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 1 !important;
+  box-shadow: 
+    0 5px 20px rgba(var(--accent-rgb), 0.4),
+    0 2px 10px rgba(var(--accent-rgb), 0.3),
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-theme="hell"] .case-study-popup .popup-close:hover {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.5) 0%, rgba(var(--accent-rgb), 0.4) 100%) !important;
+  border-color: rgba(var(--accent-rgb), 0.9) !important;
+  color: #0a0a0a !important;
+  box-shadow: 
+    0 7px 25px rgba(var(--accent-rgb), 0.5),
+    0 3px 15px rgba(var(--accent-rgb), 0.4),
+    0 0 0 1px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Scrollbar im Gold-Design */
+[data-theme="hell"] .case-study-popup .popup-content::-webkit-scrollbar-track {
+  background: rgba(var(--accent-rgb), 0.08) !important;
+}
+
+[data-theme="hell"] .case-study-popup .popup-content::-webkit-scrollbar-thumb {
+  background: rgba(var(--accent-rgb), 0.3) !important;
+}
+
+[data-theme="hell"] .case-study-popup .popup-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(var(--accent-rgb), 0.5) !important;
 }
 
 /* Calendar Modal */
@@ -1545,10 +2535,6 @@ html {
 }
 
 /* FAQ */
-[data-theme="hell"] .faq-item {
-  background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-}
 
 [data-theme="hell"] .faq-question {
   color: #1a1a1a !important;
@@ -2963,9 +3949,9 @@ footer .footer-menu a:hover {
   }
 }
 
+/* Hover: Icons nicht in Gold/Cyan färben */
 .ads-card:hover .ads-logo-img {
-  filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.5)) 
-          drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3)) !important;
   transform: scale(1.05);
 }
 
@@ -2974,6 +3960,12 @@ footer .footer-menu a:hover {
   height: 48px;
   transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  fill: #ffffff;
+}
+
+/* SVG-Icons in ads-logo-placeholder bleiben weiß */
+.ads-logo-placeholder svg {
+  fill: #ffffff;
 }
 
 @media (min-width: 768px) {
@@ -2984,9 +3976,20 @@ footer .footer-menu a:hover {
 }
 
 .ads-card:hover .ads-logo-svg {
-  filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.5)) 
-          drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3)) !important;
   transform: scale(1.05);
+  fill: #ffffff !important;
+}
+
+/* Spezifische Regeln für LinkedIn und Amazon - müssen nach anderen Hover-Regeln kommen */
+.ads-card[data-popup="linkedin"]:hover .ads-logo-svg,
+.ads-card[data-popup="amazon"]:hover .ads-logo-svg,
+.ads-card[data-popup="linkedin"]:hover .ads-logo-placeholder svg,
+.ads-card[data-popup="amazon"]:hover .ads-logo-placeholder svg,
+.ads-card[data-popup="linkedin"]:hover svg,
+.ads-card[data-popup="amazon"]:hover svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
 }
 
 .logo-placeholder-text {
@@ -3119,6 +4122,28 @@ footer .footer-menu a:hover {
   height: 42px;
   object-fit: contain;
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+}
+
+[data-theme="hell"] .popup-logo-img {
+  filter: brightness(0.3) !important;
+}
+
+[data-theme="hell"] .popup-logo-svg {
+  filter: none;
+}
+
+/* Popup-Icons für alle Themes: Grau/Schwarz statt Weiß/Gold wenn Popup geöffnet */
+.popup-overlay.active .popup-logo-img {
+  filter: brightness(0.3) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.2)) !important;
+}
+
+.popup-overlay.active .popup-logo-svg {
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.2)) !important;
+}
+
+.popup-overlay.active .popup-logo-placeholder svg {
+  fill: #4a4a4a !important;
+  stroke: #4a4a4a !important;
 }
 
 .popup-content h3 {
@@ -3827,15 +4852,56 @@ body.popup-open .ads-card .ads-logo-svg {
 }
 
 .pricing-badge {
-  display: block;
+  display: inline-block;
   text-align: center;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--accent-primary);
-  margin: 0 auto var(--spacing-sm) auto;
-  width: 100%;
+  margin: 0 auto var(--spacing-md) auto;
+  width: auto;
+  padding: 0.5rem 1.5rem;
+  position: relative;
+  background: transparent;
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 20px rgba(var(--accent-rgb), 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 300ms ease;
+}
+
+.pricing-badge::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50px;
+  padding: 1px;
+  background: linear-gradient(135deg, 
+    rgba(var(--accent-rgb), 0.4) 0%, 
+    rgba(var(--accent-rgb), 0.1) 50%, 
+    rgba(var(--accent-rgb), 0.4) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.pricing-badge:hover {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  box-shadow: 
+    0 6px 30px rgba(var(--accent-rgb), 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.pricing-badge:hover::before {
+  opacity: 1;
 }
 
 .section-pricing .section-title {
@@ -4318,80 +5384,39 @@ body.popup-open .ads-card .ads-logo-svg {
 }
 
 /* Slider Wrapper - volle Breite */
-.portfolio-slider-wrapper {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  overflow: hidden;
-  position: relative;
-}
-
-/* Fade-Effekt an den Seiten */
-.portfolio-slider-wrapper::before,
-.portfolio-slider-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 150px;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.portfolio-slider-wrapper::before {
-  left: 0;
-  background: linear-gradient(90deg, #000 0%, transparent 100%);
-}
-
-.portfolio-slider-wrapper::after {
-  right: 0;
-  background: linear-gradient(-90deg, #000 0%, transparent 100%);
-}
-
-.portfolio-slider {
-  padding: var(--spacing-lg) 0;
-}
-
-/* Animierter Track */
-.portfolio-track {
-  display: flex;
+/* Portfolio Grid Layout */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-lg);
-  animation: slidePortfolio 40s linear infinite;
-  width: max-content;
+  padding: var(--spacing-lg) 0;
+  max-width: 100%;
 }
 
-.portfolio-track:hover {
-  animation-play-state: paused;
-}
-
-@keyframes slidePortfolio {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
+@media (max-width: 767px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
   }
 }
 
 /* ===== FUTURISTIC PORTFOLIO CARDS ===== */
 .portfolio-item {
-  flex-shrink: 0;
-  width: 320px;
-  height: 280px;
+  width: 100%;
+  min-height: 280px;
   perspective: 1000px;
   cursor: pointer;
 }
 
 @media (min-width: 768px) {
   .portfolio-item {
-    width: 360px;
-    height: 300px;
+    min-height: 300px;
   }
 }
 
 @media (min-width: 1024px) {
   .portfolio-item {
-    width: 380px;
-    height: 320px;
+    min-height: 320px;
   }
 }
 
@@ -4399,13 +5424,18 @@ body.popup-open .ads-card .ads-logo-svg {
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  background: linear-gradient(165deg, rgba(18, 18, 22, 0.98) 0%, rgba(8, 8, 12, 1) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(145deg, rgba(25, 25, 32, 0.95) 0%, rgba(15, 15, 20, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
 }
 
 /* Futuristische Ecken-Dekoration */
@@ -4437,18 +5467,18 @@ body.popup-open .ads-card .ads-logo-svg {
 }
 
 .portfolio-item-inner:hover {
-  border-color: rgba(34, 197, 94, 0.4);
-  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(var(--accent-rgb), 0.35);
+  transform: translateY(-6px) scale(1.01);
   box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.5),
-    0 0 50px rgba(34, 197, 94, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 20px 40px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(var(--accent-rgb), 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .portfolio-item-inner:hover::before {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, transparent 50%);
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, transparent 50%);
 }
 
 /* Header mit Erfolgs-Badge und Branche */
@@ -4461,16 +5491,16 @@ body.popup-open .ads-card .ads-logo-svg {
   z-index: 3;
 }
 
-/* Grünes Erfolgs-Badge - DAS WICHTIGSTE ELEMENT */
+/* Erfolgs-Badge - elegant und modern */
 .portfolio-metric-badge {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0.9rem;
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, rgba(var(--accent-rgb), 0.08) 100%);
-  border: 1.5px solid rgba(var(--accent-rgb), 0.5);
-  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+  border: 1px solid rgba(var(--accent-rgb), 0.35);
+  border-radius: 10px;
   position: relative;
   overflow: hidden;
   transition: all 400ms ease;
@@ -4492,12 +5522,12 @@ body.popup-open .ads-card .ads-logo-svg {
 }
 
 .portfolio-metric-badge .metric-value {
-  font-size: 1.4rem;
-  font-weight: 800;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: var(--accent-primary);
   line-height: 1;
   letter-spacing: -0.02em;
-  text-shadow: 0 0 25px rgba(var(--accent-rgb), 0.6);
+  text-shadow: 0 0 15px rgba(var(--accent-rgb), 0.4);
 }
 
 .portfolio-metric-badge .metric-label {
@@ -4510,15 +5540,15 @@ body.popup-open .ads-card .ads-logo-svg {
 }
 
 .portfolio-item-inner:hover .portfolio-metric-badge {
-  border-color: rgba(var(--accent-rgb), 0.8);
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.3) 0%, rgba(var(--accent-rgb), 0.12) 100%);
-  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.3);
-  transform: scale(1.05);
+  border-color: rgba(var(--accent-rgb), 0.6);
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.22) 0%, rgba(var(--accent-rgb), 0.1) 100%);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.2);
+  transform: scale(1.03);
 }
 
 .portfolio-item-inner:hover .portfolio-metric-badge .metric-value {
   color: var(--accent-secondary);
-  text-shadow: 0 0 35px rgba(var(--accent-rgb), 0.8);
+  text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.5);
 }
 
 /* Featured Metric (Gold für E-Commerce/Hauptbranche) */
@@ -4609,6 +5639,81 @@ body.popup-open .ads-card .ads-logo-svg {
   z-index: 3;
 }
 
+/* Erfolgs-Badges Container */
+.portfolio-success-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 0.75rem 0;
+}
+
+/* Einzelnes Erfolgs-Badge */
+.success-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.08) 100%);
+  border: 1.5px solid rgba(var(--accent-rgb), 0.3);
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-primary);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.1);
+}
+
+.success-badge svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--accent-primary);
+  flex-shrink: 0;
+  transition: transform 300ms ease;
+  filter: drop-shadow(0 0 2px rgba(var(--accent-rgb), 0.3));
+}
+
+.success-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.2), transparent);
+  transition: left 500ms ease;
+}
+
+.success-badge:hover {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.25) 0%, rgba(var(--accent-rgb), 0.12) 100%);
+  border-color: rgba(var(--accent-rgb), 0.5);
+  color: var(--accent-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.25), 0 0 20px rgba(var(--accent-rgb), 0.15);
+}
+
+.success-badge:hover::before {
+  left: 100%;
+}
+
+.success-badge:hover svg {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.6));
+}
+
+.portfolio-item-inner:hover .success-badge {
+  border-color: rgba(var(--accent-rgb), 0.4);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, rgba(var(--accent-rgb), 0.1) 100%);
+  box-shadow: 0 3px 10px rgba(var(--accent-rgb), 0.15);
+}
+
 /* Icon mit Glow - Lebendig & Animiert */
 .portfolio-icon-glow {
   display: flex;
@@ -4655,13 +5760,13 @@ body.popup-open .ads-card .ads-logo-svg {
 }
 
 .portfolio-item-inner:hover .portfolio-icon-glow {
-  border-color: rgba(var(--accent-rgb), 0.5);
-  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-  transform: scale(1.08);
+  border-color: rgba(var(--accent-rgb), 0.45);
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.12) 0%, rgba(255, 255, 255, 0.03) 100%);
+  transform: scale(1.05);
   animation: none;
   box-shadow: 
-    0 0 30px rgba(var(--accent-rgb), 0.25),
-    inset 0 0 15px rgba(var(--accent-rgb), 0.1);
+    0 0 20px rgba(var(--accent-rgb), 0.18),
+    inset 0 0 10px rgba(var(--accent-rgb), 0.08);
 }
 
 .portfolio-icon-glow .portfolio-industry-icon {
@@ -4780,6 +5885,477 @@ body.popup-open .ads-card .ads-logo-svg {
 }
 
 /* Legacy styles removed - using new futuristic design */
+
+/* ===== Hotels Case Study Sektion ===== */
+.section-hotels-case-study {
+  padding: 6rem 0;
+  position: relative;
+}
+
+/* Hotels Case Study Section */
+.hotels-case-study-subtitle {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  max-width: 800px;
+  margin: 1rem auto 3rem;
+  line-height: 1.6;
+}
+
+/* Hotels Case Study Grid Layout */
+
+.hotels-case-study-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .hotels-case-study-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hotels-case-study-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .hotels-case-study-grid {
+    gap: 1.5rem;
+  }
+}
+
+/* Hotel Case Card - Grid Item */
+.hotel-case-card {
+  cursor: pointer;
+  perspective: 1000px;
+  width: 100%;
+}
+
+.hotel-case-card-inner {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(25, 25, 32, 0.95) 0%, rgba(15, 15, 20, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  padding: 2rem;
+}
+
+.hotel-case-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, transparent 50%);
+  border-radius: 20px 0 0 0;
+  pointer-events: none;
+  z-index: 2;
+  transition: all 400ms ease;
+}
+
+.hotel-case-card-inner::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(315deg, rgba(var(--accent-rgb), 0.08) 0%, transparent 50%);
+  border-radius: 0 0 20px 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hotel-case-card-inner:hover {
+  border-color: rgba(var(--accent-rgb), 0.35);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(var(--accent-rgb), 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hotel-case-card-inner:hover::before {
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, transparent 50%);
+}
+
+/* Header mit Badge */
+.hotel-case-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 3;
+}
+
+.hotel-case-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(var(--accent-rgb), 0.7);
+  background: rgba(var(--accent-rgb), 0.08);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  transition: all 300ms ease;
+}
+
+.hotel-case-badge-featured {
+  color: var(--accent-primary);
+  background: rgba(var(--accent-rgb), 0.12);
+  border-color: rgba(var(--accent-rgb), 0.35);
+}
+
+.hotel-case-card-inner:hover .hotel-case-badge {
+  color: rgba(var(--accent-rgb), 0.9);
+  background: rgba(var(--accent-rgb), 0.12);
+  border-color: rgba(var(--accent-rgb), 0.3);
+}
+
+.hotel-case-card-inner:hover .hotel-case-badge-featured {
+  color: var(--accent-secondary);
+  background: rgba(var(--accent-rgb), 0.18);
+  border-color: rgba(var(--accent-rgb), 0.5);
+}
+
+/* Content Bereich */
+.hotel-case-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 3;
+}
+
+/* Icon mit Leuchtendem Glow */
+.hotel-case-icon-glow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.05) 100%);
+  border: 2px solid rgba(var(--accent-rgb), 0.4);
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  animation: hotelIconPulse 3s ease-in-out infinite;
+  box-shadow: 
+    0 0 30px rgba(var(--accent-rgb), 0.3),
+    inset 0 0 20px rgba(var(--accent-rgb), 0.1);
+}
+
+@keyframes hotelIconPulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 30px rgba(var(--accent-rgb), 0.3),
+      inset 0 0 20px rgba(var(--accent-rgb), 0.1);
+  }
+  50% { 
+    box-shadow: 
+      0 0 50px rgba(var(--accent-rgb), 0.5),
+      inset 0 0 30px rgba(var(--accent-rgb), 0.15);
+  }
+}
+
+.hotel-case-icon-glow::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 20px;
+  background: conic-gradient(from 0deg, transparent, rgba(var(--accent-rgb), 0.4), transparent, rgba(var(--accent-rgb), 0.2), transparent);
+  opacity: 0.6;
+  z-index: -1;
+  animation: hotelIconRotate 8s linear infinite;
+}
+
+@keyframes hotelIconRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hotel-case-card-inner:hover .hotel-case-icon-glow {
+  border-color: rgba(var(--accent-rgb), 0.6);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, rgba(var(--accent-rgb), 0.08) 100%);
+  transform: scale(1.08);
+  animation: none;
+  box-shadow: 
+    0 0 60px rgba(var(--accent-rgb), 0.5),
+    inset 0 0 30px rgba(var(--accent-rgb), 0.2);
+}
+
+.hotel-case-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--accent-primary);
+  transition: all 400ms ease;
+  filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.5));
+}
+
+.hotel-case-card-inner:hover .hotel-case-icon {
+  color: var(--accent-secondary);
+  filter: drop-shadow(0 0 20px rgba(var(--accent-rgb), 0.8));
+  transform: scale(1.1);
+}
+
+/* Gold Icon für Hauptbranche */
+.hotel-case-icon-gold {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, rgba(var(--accent-rgb), 0.08) 100%);
+  border-color: rgba(var(--accent-rgb), 0.5);
+  box-shadow: 
+    0 0 40px rgba(var(--accent-rgb), 0.4),
+    inset 0 0 25px rgba(var(--accent-rgb), 0.15);
+}
+
+.hotel-case-icon-gold .hotel-case-icon {
+  color: var(--accent-primary);
+  filter: drop-shadow(0 0 15px rgba(var(--accent-rgb), 0.6));
+}
+
+.hotel-case-card-inner:hover .hotel-case-icon-gold {
+  border-color: rgba(var(--accent-rgb), 0.8);
+  box-shadow: 
+    0 0 70px rgba(var(--accent-rgb), 0.6),
+    inset 0 0 35px rgba(var(--accent-rgb), 0.25);
+}
+
+.hotel-case-card-inner:hover .hotel-case-icon-gold .hotel-case-icon {
+  color: var(--accent-secondary);
+  filter: drop-shadow(0 0 25px rgba(var(--accent-rgb), 0.9));
+}
+
+/* Title und Description */
+.hotel-case-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  transition: all 300ms ease;
+}
+
+.hotel-case-card-inner:hover .hotel-case-title {
+  color: #fff;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+.hotel-case-description {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  transition: color 300ms ease;
+}
+
+.hotel-case-card-inner:hover .hotel-case-description {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Metrics Grid - Leuchtende Erfolgs-Kästen */
+.hotel-case-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.hotel-metric-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.2) 0%, rgba(var(--accent-rgb), 0.08) 100%);
+  border: 2px solid rgba(var(--accent-rgb), 0.5);
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hotel-metric-glow {
+  box-shadow: 
+    0 0 25px rgba(var(--accent-rgb), 0.3),
+    inset 0 0 15px rgba(var(--accent-rgb), 0.1);
+}
+
+.hotel-metric-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.4), transparent);
+  transition: left 800ms ease;
+}
+
+.hotel-case-card-inner:hover .hotel-metric-box::before {
+  left: 100%;
+}
+
+.hotel-case-card-inner:hover .hotel-metric-box {
+  border-color: rgba(var(--accent-rgb), 0.75);
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.3) 0%, rgba(var(--accent-rgb), 0.12) 100%);
+  transform: scale(1.05);
+  box-shadow: 
+    0 0 40px rgba(var(--accent-rgb), 0.5),
+    inset 0 0 20px rgba(var(--accent-rgb), 0.15);
+}
+
+.hotel-metric-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.6);
+  margin-bottom: 0.4rem;
+  transition: all 300ms ease;
+}
+
+.hotel-case-card-inner:hover .hotel-metric-value {
+  color: var(--accent-secondary);
+  text-shadow: 0 0 30px rgba(var(--accent-rgb), 0.8);
+  transform: scale(1.05);
+}
+
+.hotel-metric-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(var(--accent-rgb), 0.9);
+  transition: all 300ms ease;
+}
+
+.hotel-case-card-inner:hover .hotel-metric-label {
+  color: rgba(var(--accent-rgb), 1);
+}
+
+/* Featured Metric */
+.hotel-metric-featured {
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.3) 0%, rgba(var(--accent-rgb), 0.12) 100%);
+  border-color: rgba(var(--accent-rgb), 0.7);
+  box-shadow: 
+    0 0 35px rgba(var(--accent-rgb), 0.4),
+    inset 0 0 20px rgba(var(--accent-rgb), 0.15);
+}
+
+.hotel-metric-featured .hotel-metric-value {
+  color: var(--accent-primary);
+  text-shadow: 0 0 25px rgba(var(--accent-rgb), 0.7);
+}
+
+.hotel-case-card-inner:hover .hotel-metric-featured {
+  border-color: rgba(var(--accent-rgb), 1);
+  background: linear-gradient(145deg, rgba(var(--accent-rgb), 0.4) 0%, rgba(var(--accent-rgb), 0.18) 100%);
+  box-shadow: 
+    0 0 50px rgba(var(--accent-rgb), 0.6),
+    inset 0 0 25px rgba(var(--accent-rgb), 0.2);
+}
+
+/* CTA */
+.hotel-case-cta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-primary);
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 300ms ease;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.hotel-case-card-inner:hover .hotel-case-cta {
+  opacity: 1;
+  transform: translateY(0);
+  text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.5);
+}
+
+/* Featured Card */
+.hotel-case-card-featured .hotel-case-card-inner {
+  border-color: rgba(var(--accent-rgb), 0.25);
+}
+
+.hotel-case-card-featured .hotel-case-card-inner::before {
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2) 0%, transparent 50%);
+}
+
+.hotel-case-card-featured .hotel-case-card-inner:hover {
+  border-color: rgba(var(--accent-rgb), 0.6);
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.5),
+    0 0 70px rgba(var(--accent-rgb), 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .hotel-case-card-inner {
+    min-height: 380px;
+    padding: 1.5rem;
+  }
+  
+  .hotel-case-icon-glow {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .hotel-case-icon {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .hotel-case-title {
+    font-size: 1.3rem;
+  }
+  
+  .hotel-metric-value {
+    font-size: 1.5rem;
+  }
+  
+  .hotel-case-metrics {
+    gap: 0.75rem;
+  }
+  
+  .hotel-metric-box {
+    padding: 1rem 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+}
 
 .portfolio-results li {
   font-size: 0.6rem;
@@ -6941,15 +8517,30 @@ body.form-modal-open {
 
 /* ===== Case Study Popup Styles - Modern & Überzeugend ===== */
 .case-study-popup .popup-content {
-  max-width: 620px;
-  max-height: 90vh;
+  max-width: 90vw;
+  max-height: 85vh;
+  width: 100%;
   background: linear-gradient(165deg, rgba(18, 18, 24, 0.98) 0%, rgba(8, 8, 14, 1) 100%);
   border: 1.5px solid rgba(var(--accent-rgb), 0.25);
   border-radius: 20px;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  padding: var(--spacing-lg);
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 768px) {
+  .case-study-popup .popup-content {
+    max-width: 600px;
   padding: var(--spacing-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .case-study-popup .popup-content {
+    max-width: 650px;
+  }
 }
 
 /* Custom Scrollbar für Case Study Popup */
@@ -7132,6 +8723,73 @@ body.form-modal-open {
   text-align: center;
 }
 
+.case-study-popup .case-study-outcomes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+@media (max-width: 768px) {
+  .case-study-popup .case-study-outcomes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.case-study-popup .outcome-card {
+  padding: var(--spacing-md);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.case-study-popup .outcome-card:hover {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.15) 100%);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(var(--accent-rgb), 0.15);
+}
+
+.case-study-popup .outcome-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  line-height: 1;
+  margin: 0.25rem 0;
+  text-shadow: 0 0 30px rgba(var(--accent-rgb), 0.5);
+  display: block;
+}
+
+.case-study-popup .outcome-card h3 {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.case-study-popup .outcome-card p {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+.case-study-popup .outcome-card-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  margin: 0 auto var(--spacing-xs) auto;
+  transition: color 200ms ease, transform 200ms ease;
+}
+
+.case-study-popup .outcome-card-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
 .case-study-popup .case-study-metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -7235,6 +8893,27 @@ body.form-modal-open {
   
   .case-study-popup .case-study-intro {
     font-size: 0.9rem;
+  }
+  
+  .case-study-popup .case-study-outcomes {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+  
+  .case-study-popup .outcome-value {
+    font-size: 1.5rem;
+  }
+  
+  .case-study-popup .outcome-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .case-study-popup .outcome-card h3 {
+    font-size: 0.85rem;
+  }
+  
+  .case-study-popup .outcome-card p {
+    font-size: 0.75rem;
   }
   
   .case-study-popup .case-study-metrics {
@@ -7511,6 +9190,8 @@ body.calendar-modal-open {
   flex-direction: column;
   align-items: center;
   gap: 0;
+  position: relative;
+  isolation: isolate;
 }
 
 /* === Plattformen Reihe (Oben) === */
@@ -7528,6 +9209,14 @@ body.calendar-modal-open {
   animation-delay: 0.1s;
   position: relative;
   z-index: 10;
+  isolation: isolate;
+}
+
+/* Desktop: Alle Badges in einer Reihe - no wrap */
+@media (min-width: 769px) {
+  .platforms-row {
+    flex-wrap: nowrap !important;
+  }
 }
 
 .platform-badge {
@@ -7541,7 +9230,7 @@ body.calendar-modal-open {
   border-radius: 50px;
   transition: all 300ms ease;
   cursor: default;
-  z-index: 10;
+  z-index: 2;
 }
 
 .platform-badge:hover {
@@ -7586,12 +9275,15 @@ body.calendar-modal-open {
   position: relative;
   overflow: visible;
   margin: 0 auto;
+  z-index: 0;
 }
 
 .connector-svg {
   width: 100%;
   height: 100%;
   overflow: visible;
+  position: relative;
+  z-index: 0;
 }
 
 .flow-path {
@@ -7630,13 +9322,13 @@ body.calendar-modal-open {
 
 /* Flow Connector Positionierung - nahtlos an Boxen, HINTER den Boxen */
 .flow-connector-top {
-  margin-bottom: -42px;
+  margin-bottom: -28px;
   position: relative;
   z-index: 0;
 }
 
 .flow-connector-bottom {
-  margin-top: -42px;
+  margin-top: -28px;
   margin-bottom: -10px;
   position: relative;
   z-index: 0;
@@ -7654,11 +9346,12 @@ body.calendar-modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 var(--spacing-2xl);
+  padding: var(--spacing-lg) var(--spacing-2xl);
   opacity: 0;
   animation: hubAppear 0.5s ease forwards;
   animation-delay: 0.4s;
   z-index: 15;
+  margin: var(--spacing-lg) 0;
 }
 
 @keyframes hubAppear {
@@ -7875,6 +9568,26 @@ body.calendar-modal-open {
 /* ============================================
    RESPONSIVE DESIGN
    ============================================ */
+
+/* Desktop: Alle Badges in einer Reihe */
+@media (min-width: 769px) {
+  .platforms-row {
+    flex-wrap: nowrap !important;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  
+  .platform-badge {
+    flex-shrink: 1;
+    min-width: 0;
+    padding: 0.5rem 0.9rem;
+  }
+  
+  .platform-name {
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+    white-space: nowrap;
+  }
+}
 
 @media (max-width: 900px) {
   .multichannel-infographic {
@@ -8744,6 +10457,21 @@ body.calendar-modal-open {
     font-size: 0.75rem;
   }
   
+}
+
+/* ===== KRITISCHE FIX: LinkedIn und Amazon Icons bleiben beim Hover weiß ===== */
+/* Diese Regel muss am Ende stehen, um alle anderen Regeln zu überschreiben */
+.ads-card[data-popup="linkedin"]:hover .ads-logo-svg,
+.ads-card[data-popup="amazon"]:hover .ads-logo-svg,
+.ads-card[data-popup="linkedin"]:hover .ads-logo-placeholder svg,
+.ads-card[data-popup="amazon"]:hover .ads-logo-placeholder svg,
+.ads-card[data-popup="linkedin"]:hover svg,
+.ads-card[data-popup="amazon"]:hover svg,
+.ads-card[data-popup="linkedin"]:hover .ads-logo-placeholder .ads-logo-svg,
+.ads-card[data-popup="amazon"]:hover .ads-logo-placeholder .ads-logo-svg {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* ===== Kleine Tablets (401px - 600px) ===== */
