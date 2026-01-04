@@ -83,11 +83,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // ===== Hotels Case Study Slider - Infinite Loop mit Drag =====
+  // Hotels Case Study Grid - Keine Slider-Funktionalität mehr benötigt
+  
   // ===== Popup-Funktionalität für Ads-Services, Outcome-Cards und Portfolio-Items =====
   const adsCards = document.querySelectorAll('.ads-card[data-popup]');
   const outcomeCards = document.querySelectorAll('.outcome-card[data-popup]');
   const processSteps = document.querySelectorAll('.process-step[data-popup]');
   const portfolioItems = document.querySelectorAll('.portfolio-item[data-popup]');
+  const hotelCaseCards = document.querySelectorAll('.hotel-case-card[data-popup]');
   const popupOverlays = document.querySelectorAll('.popup-overlay');
   
   // Prozess Popup Variablen - werden später initialisiert
@@ -147,6 +151,14 @@ document.addEventListener('DOMContentLoaded', function() {
   portfolioItems.forEach(item => {
     item.addEventListener('click', function(e) {
       // Verhindere, dass die Animation pausiert wird
+      e.stopPropagation();
+      openPopup(this);
+    });
+  });
+  
+  // Hotel Case Cards Popup-Funktionalität
+  hotelCaseCards.forEach(card => {
+    card.addEventListener('click', function(e) {
       e.stopPropagation();
       openPopup(this);
     });
@@ -959,3 +971,166 @@ document.addEventListener('DOMContentLoaded', function() {
     card.addEventListener('mouseenter', pulseHub);
   });
 });
+
+//// ===== Portfolio Slider mit interaktiver Scroll-Funktionalität =====
+//// Deaktiviert - Portfolio verwendet jetzt Grid-Layout
+///*
+//document.addEventListener('DOMContentLoaded', function() {
+//  const portfolioTrack = document.getElementById('portfolioTrack');
+//  const portfolioWrapper = document.getElementById('portfolioSliderWrapper');
+//  
+//  if (!portfolioTrack || !portfolioWrapper) return;
+//  
+//  let isDragging = false;
+//  let startX = 0;
+//  let scrollLeft = 0;
+//  let resumeTimeout = null;
+//  
+//  // Berechne die Breite eines Sets (2 Items)
+//  const getSetWidth = () => {
+//    const items = portfolioTrack.querySelectorAll('.portfolio-item');
+//    if (items.length < 2) return 0;
+//    const firstItem = items[0];
+//    const secondItem = items[1];
+//    const gap = parseInt(window.getComputedStyle(portfolioTrack).gap) || 32;
+//    const rect1 = firstItem.getBoundingClientRect();
+//    const rect2 = secondItem.getBoundingClientRect();
+//    return rect2.right - rect1.left + gap;
+//  };
+//  
+//  // Starte automatische Animation
+//  const startAutoScroll = () => {
+//    portfolioTrack.classList.add('auto-scroll');
+//  };
+//  
+//  // Stoppe automatische Animation
+//  const stopAutoScroll = () => {
+//    portfolioTrack.classList.remove('auto-scroll');
+//  };
+//  
+//  // Resume Auto-Scroll nach Interaktion
+//  const resumeAutoScroll = () => {
+//    if (resumeTimeout) clearTimeout(resumeTimeout);
+//    resumeTimeout = setTimeout(() => {
+//      if (!isDragging) {
+//        startAutoScroll();
+//      }
+//    }, 2000);
+//  };
+//  
+//  // Mouse Events
+//  const handleMouseDown = (e) => {
+//    isDragging = true;
+//    stopAutoScroll();
+//    portfolioTrack.classList.add('dragging');
+//    startX = e.pageX - portfolioTrack.offsetLeft;
+//    const currentTransform = window.getComputedStyle(portfolioTrack).transform;
+//    if (currentTransform && currentTransform !== 'none') {
+//      const matrix = currentTransform.match(/matrix.*\((.+)\)/);
+//      if (matrix) {
+//        scrollLeft = parseFloat(matrix[1].split(',')[4]) || 0;
+//      }
+//    }
+//    portfolioWrapper.style.cursor = 'grabbing';
+//    e.preventDefault();
+//  };
+//  
+//  const handleMouseMove = (e) => {
+//    if (!isDragging) return;
+//    e.preventDefault();
+//    const x = e.pageX - portfolioTrack.offsetLeft;
+//    const walk = (x - startX) * 1.2;
+//    // Umgekehrte Richtung: Maus nach rechts = Slider nach rechts
+//    portfolioTrack.style.transform = `translateX(${scrollLeft + walk}px)`;
+//  };
+//  
+//  const handleMouseUp = () => {
+//    if (!isDragging) return;
+//    isDragging = false;
+//    portfolioTrack.classList.remove('dragging');
+//    portfolioWrapper.style.cursor = '';
+//    resumeAutoScroll();
+//  };
+//  
+//  const handleMouseLeave = () => {
+//    if (isDragging) {
+//      handleMouseUp();
+//    }
+//  };
+//  
+//  // Touch Events
+//  const handleTouchStart = (e) => {
+//    isDragging = true;
+//    stopAutoScroll();
+//    portfolioTrack.classList.add('dragging');
+//    startX = e.touches[0].pageX - portfolioTrack.offsetLeft;
+//    const currentTransform = window.getComputedStyle(portfolioTrack).transform;
+//    if (currentTransform && currentTransform !== 'none') {
+//      const matrix = currentTransform.match(/matrix.*\((.+)\)/);
+//      if (matrix) {
+//        scrollLeft = parseFloat(matrix[1].split(',')[4]) || 0;
+//      }
+//    }
+//  };
+//  
+//  const handleTouchMove = (e) => {
+//    if (!isDragging) return;
+//    e.preventDefault();
+//    const x = e.touches[0].pageX - portfolioTrack.offsetLeft;
+//    const walk = (x - startX) * 1.2;
+//    // Umgekehrte Richtung: Finger nach rechts = Slider nach rechts
+//    portfolioTrack.style.transform = `translateX(${scrollLeft + walk}px)`;
+//  };
+//  
+//  const handleTouchEnd = () => {
+//    if (!isDragging) return;
+//    isDragging = false;
+//    portfolioTrack.classList.remove('dragging');
+//    resumeAutoScroll();
+//  };
+//  
+//  // Wheel Event für horizontales Scrollen
+//  const handleWheel = (e) => {
+//    stopAutoScroll();
+//    const delta = e.deltaY || e.deltaX;
+//    const currentTransform = window.getComputedStyle(portfolioTrack).transform;
+//    let currentX = 0;
+//    if (currentTransform && currentTransform !== 'none') {
+//      const matrix = currentTransform.match(/matrix.*\((.+)\)/);
+//      if (matrix) {
+//        currentX = parseFloat(matrix[1].split(',')[4]) || 0;
+//      }
+//    }
+//    portfolioTrack.style.transition = 'transform 0.1s ease-out';
+//    // Scroll nach unten = nach rechts (intuitiv)
+//    portfolioTrack.style.transform = `translateX(${currentX + delta * 0.5}px)`;
+//    resumeAutoScroll();
+//    e.preventDefault();
+//  };
+//  
+//  // Event Listeners
+//  portfolioWrapper.addEventListener('mousedown', handleMouseDown);
+//  document.addEventListener('mousemove', handleMouseMove);
+//  document.addEventListener('mouseup', handleMouseUp);
+//  portfolioWrapper.addEventListener('mouseleave', handleMouseLeave);
+//  
+//  portfolioWrapper.addEventListener('touchstart', handleTouchStart, { passive: false });
+//  portfolioWrapper.addEventListener('touchmove', handleTouchMove, { passive: false });
+//  portfolioWrapper.addEventListener('touchend', handleTouchEnd);
+//  
+//  portfolioWrapper.addEventListener('wheel', handleWheel, { passive: false });
+//  
+//  // Hover: Pausiere Auto-Scroll
+//  portfolioWrapper.addEventListener('mouseenter', () => {
+//    stopAutoScroll();
+//  });
+//  
+//  portfolioWrapper.addEventListener('mouseleave', () => {
+//    if (!isDragging) {
+//      resumeAutoScroll();
+//    }
+//  });
+//  
+//  // Starte automatische Animation beim Laden
+//  startAutoScroll();
+//});
