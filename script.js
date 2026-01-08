@@ -510,6 +510,30 @@ document.addEventListener('DOMContentLoaded', function() {
     bookedAppointment: false
   };
   
+  // Helper-Funktion: Data-Layer Event pushen
+  function pushDataLayerEvent(eventName, eventData) {
+    if (typeof window.dataLayer !== 'undefined') {
+      window.dataLayer.push({
+        'event': eventName,
+        ...eventData
+      });
+    }
+  }
+  
+  // Helper: Formular-Schritt Name
+  function getFormStepName(step) {
+    const stepNames = {
+      1: 'Was benötigst du',
+      2: 'Marketing Budget',
+      3: 'Startzeitpunkt',
+      4: 'Vorhaben/Anfrage',
+      5: 'Kontaktdaten',
+      6: 'Terminbuchung',
+      7: 'Success'
+    };
+    return stepNames[step] || 'Unknown';
+  }
+  
   // Öffne Formular-Modal
   function openFormModal() {
     if (formModal) {
@@ -518,6 +542,14 @@ document.addEventListener('DOMContentLoaded', function() {
       currentStep = 1;
       updateFormProgress();
       resetForm();
+      
+      // GTM Event: Formular geöffnet
+      pushDataLayerEvent('form_modal_opened', {
+        'form_id': 'contact_form',
+        'form_name': 'Kontaktformular',
+        'form_step': 1,
+        'form_step_name': 'Was benötigst du'
+      });
     }
   }
   
@@ -615,6 +647,15 @@ document.addEventListener('DOMContentLoaded', function() {
       updateFormSteps();
       updateFormProgress();
       
+      // GTM Event: Formular-Schritt gewechselt
+      pushDataLayerEvent('form_step_changed', {
+        'form_id': 'contact_form',
+        'form_name': 'Kontaktformular',
+        'form_step': currentStep,
+        'form_step_name': getFormStepName(currentStep),
+        'direction': 'forward'
+      });
+      
       // Scroll to top of form
       const formModalContent = document.querySelector('.form-modal-content');
       if (formModalContent) {
@@ -629,6 +670,15 @@ document.addEventListener('DOMContentLoaded', function() {
       currentStep--;
       updateFormSteps();
       updateFormProgress();
+      
+      // GTM Event: Formular-Schritt zurück
+      pushDataLayerEvent('form_step_changed', {
+        'form_id': 'contact_form',
+        'form_name': 'Kontaktformular',
+        'form_step': currentStep,
+        'form_step_name': getFormStepName(currentStep),
+        'direction': 'backward'
+      });
       
       // Scroll to top of form
       const formModalContent = document.querySelector('.form-modal-content');
@@ -657,6 +707,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (phoneInput) formData.phone = phoneInput.value.trim();
     if (emailInput) formData.email = emailInput.value.trim();
     
+    // Berechne Conversion-Wert basierend auf Budget
+    let conversionValue = 0;
+    let currency = 'EUR';
+    if (formData.budget) {
+      conversionValue = parseFloat(formData.budget);
+    }
+    
     // Zeige Success Step
     currentStep = 7;
     updateFormSteps();
@@ -674,8 +731,29 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
+    // GTM Event: Formular erfolgreich abgeschickt mit Conversion-Wert
+    pushDataLayerEvent('form_submit_success', {
+      'form_id': 'contact_form',
+      'form_name': 'Kontaktformular',
+      'form_step': 7,
+      'form_step_name': 'Success',
+      'form_need': formData.need || '',
+      'form_budget': formData.budget || '',
+      'form_timeline': formData.timeline || '',
+      'form_has_message': formData.message ? 'yes' : 'no',
+      'form_has_contact_data': formData.email ? 'yes' : 'no',
+      'form_appointment_booked': formData.bookedAppointment ? 'yes' : 'no',
+      'form_company': formData.company || '',
+      'form_role': formData.role || '',
+      // Conversion-Wert für Google Ads Value-Based Bidding
+      'value': conversionValue,
+      'currency': currency,
+      'transaction_id': 'form_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    });
+    
     // Hier könnten Sie die Daten an einen Server senden
     console.log('Formular-Daten:', formData);
+    console.log('Conversion-Wert:', conversionValue, currency);
     
     // Beispiel: Daten an Server senden
     // fetch('/api/contact', {
@@ -700,6 +778,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.form-option-btn').forEach(b => b.classList.remove('selected'));
         this.classList.add('selected');
         formData.need = this.getAttribute('data-value');
+        
+        // GTM Event: Step 1 - Option ausgewählt
+        pushDataLayerEvent('form_step_1_option_selected', {
+          'form_id': 'contact_form',
+          'form_step': 1,
+          'form_step_name': 'Was benötigst du',
+          'form_need': formData.need,
+          'option_value': formData.need
+        });
+        
         // Automatisch zum nächsten Schritt nach kurzer Verzögerung
         setTimeout(() => {
           nextStep();
@@ -713,6 +801,20 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.form-budget-btn').forEach(b => b.classList.remove('selected'));
         this.classList.add('selected');
         formData.budget = this.getAttribute('data-value');
+        const budgetValue = parseFloat(formData.budget);
+        
+        // GTM Event: Step 2 - Budget ausgewählt mit Conversion-Wert
+        pushDataLayerEvent('form_step_2_budget_selected', {
+          'form_id': 'contact_form',
+          'form_step': 2,
+          'form_step_name': 'Marketing Budget',
+          'form_budget': formData.budget,
+          'budget_value': formData.budget,
+          // Conversion-Wert für Google Ads Value-Based Bidding
+          'value': budgetValue,
+          'currency': 'EUR'
+        });
+        
         // Automatisch zum nächsten Schritt nach kurzer Verzögerung
         setTimeout(() => {
           nextStep();
@@ -726,6 +828,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.form-timeline-btn').forEach(b => b.classList.remove('selected'));
         this.classList.add('selected');
         formData.timeline = this.getAttribute('data-value');
+        
+        // GTM Event: Step 3 - Timeline ausgewählt
+        pushDataLayerEvent('form_step_3_timeline_selected', {
+          'form_id': 'contact_form',
+          'form_step': 3,
+          'form_step_name': 'Startzeitpunkt',
+          'form_timeline': formData.timeline,
+          'timeline_value': formData.timeline
+        });
+        
         // Automatisch zum nächsten Schritt nach kurzer Verzögerung
         setTimeout(() => {
           nextStep();
@@ -763,11 +875,30 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!message || message.length < 20) {
           alert('Bitte beschreiben Sie Ihr Vorhaben in mindestens 20 Zeichen.');
+          
+          // GTM Event: Formular-Validierungsfehler
+          pushDataLayerEvent('form_validation_error', {
+            'form_id': 'contact_form',
+            'form_step': 4,
+            'form_step_name': 'Vorhaben/Anfrage',
+            'error_type': 'message_too_short',
+            'error_message': 'Nachricht muss mindestens 20 Zeichen lang sein'
+          });
+          
           return;
         }
         
         // Speichere Nachricht
         formData.message = message;
+        
+        // GTM Event: Step 4 - Nachricht eingegeben und weiter
+        pushDataLayerEvent('form_step_4_message_completed', {
+          'form_id': 'contact_form',
+          'form_step': 4,
+          'form_step_name': 'Vorhaben/Anfrage',
+          'form_has_message': 'yes',
+          'message_length': message.length
+        });
         
         // Weiter zu Step 5 (Kontaktdaten)
         nextStep();
@@ -784,6 +915,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const privacyCheckbox = document.getElementById('privacy-checkbox');
         if (!privacyCheckbox || !privacyCheckbox.checked) {
           alert('Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.');
+          
+          // GTM Event: Formular-Validierungsfehler
+          pushDataLayerEvent('form_validation_error', {
+            'form_id': 'contact_form',
+            'form_step': 5,
+            'form_step_name': 'Kontaktdaten',
+            'error_type': 'privacy_not_accepted',
+            'error_message': 'Datenschutzerklärung nicht akzeptiert'
+          });
+          
           return;
         }
         
@@ -796,11 +937,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!fullname || !company || !role || !phone || !email) {
           alert('Bitte füllen Sie alle Pflichtfelder aus.');
+          
+          // GTM Event: Formular-Validierungsfehler
+          pushDataLayerEvent('form_validation_error', {
+            'form_id': 'contact_form',
+            'form_step': 5,
+            'form_step_name': 'Kontaktdaten',
+            'error_type': 'required_fields_missing',
+            'error_message': 'Pflichtfelder nicht ausgefüllt'
+          });
+          
           return;
         }
         
         if (!isValidEmail(email)) {
           alert('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+          
+          // GTM Event: Formular-Validierungsfehler
+          pushDataLayerEvent('form_validation_error', {
+            'form_id': 'contact_form',
+            'form_step': 5,
+            'form_step_name': 'Kontaktdaten',
+            'error_type': 'invalid_email',
+            'error_message': 'Ungültige E-Mail-Adresse'
+          });
+          
           return;
         }
         
@@ -810,6 +971,17 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.role = role;
         formData.phone = phone;
         formData.email = email;
+        
+        // GTM Event: Step 5 - Kontaktdaten ausgefüllt und weiter
+        pushDataLayerEvent('form_step_5_contact_data_completed', {
+          'form_id': 'contact_form',
+          'form_step': 5,
+          'form_step_name': 'Kontaktdaten',
+          'form_has_contact_data': 'yes',
+          'form_company': formData.company,
+          'form_role': formData.role,
+          'form_privacy_accepted': 'yes'
+        });
         
         // Weiter zu Step 6 (Terminbuchung)
         nextStep();
@@ -833,6 +1005,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (calendarModal) {
       calendarModal.classList.add('active');
       document.body.classList.add('calendar-modal-open');
+      
+      // GTM Event: Kalender-Modal geöffnet
+      pushDataLayerEvent('calendar_modal_opened', {
+        'form_id': 'contact_form',
+        'form_step': 6,
+        'form_step_name': 'Terminbuchung',
+        'calendar_action': 'open'
+      });
     }
   }
   
@@ -843,6 +1023,16 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Markiere als gebucht und gehe zum Success Step
       formData.bookedAppointment = true;
+      
+      // GTM Event: Kalender-Modal geschlossen (Termin vermutlich gebucht)
+      pushDataLayerEvent('calendar_modal_closed', {
+        'form_id': 'contact_form',
+        'form_step': 6,
+        'form_step_name': 'Terminbuchung',
+        'calendar_action': 'close',
+        'appointment_booked': 'yes'
+      });
+      
       submitForm();
     }
   }

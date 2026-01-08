@@ -6,8 +6,33 @@
   <meta name="theme-color" content="#000000">
   <title>Franco Consulting GmbH</title>
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Google Tag Manager -->
+  <script>
+    // Data-Layer initialisieren - MUSS vor GTM geladen werden
+    window.dataLayer = window.dataLayer || [];
+    
+    // Initiale Page-View Event
+    window.dataLayer.push({
+      'event': 'page_view',
+      'page_title': document.title,
+      'page_location': window.location.href,
+      'page_path': window.location.pathname
+    });
+  </script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PWBMF59V');</script>
+  <!-- End Google Tag Manager -->
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWBMF59V"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
   <header>
     <div>
       <a href="#" class="logo" aria-label="Zur Startseite">
@@ -342,7 +367,6 @@
                 <div class="stat-medium">121.837€ Umsatz</div>
                 <div class="stat-meta">Skalierung DACH · Echtzeit-Dashboard</div>
               </div>
-              <div class="reference-card-cta">Alle Ergebnisse ansehen</div>
             </div>
           </article>
 
