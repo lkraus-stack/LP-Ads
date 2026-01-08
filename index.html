@@ -2514,13 +2514,13 @@
         </p>
       </div>
       <div class="cookie-banner-actions">
-        <button type="button" id="cookieAcceptAll" class="cookie-btn cookie-btn-accept">
+        <button type="button" id="cookieAcceptAll" class="cookie-btn cookie-btn-accept" onclick="if(window.acceptAllCookies) window.acceptAllCookies();">
           Alle akzeptieren
         </button>
-        <button type="button" id="cookieDeclineAll" class="cookie-btn cookie-btn-decline">
+        <button type="button" id="cookieDeclineAll" class="cookie-btn cookie-btn-decline" onclick="if(window.declineAllCookies) window.declineAllCookies();">
           Alle ablehnen
         </button>
-        <button type="button" id="cookieSettings" class="cookie-btn cookie-btn-settings">
+        <button type="button" id="cookieSettings" class="cookie-btn cookie-btn-settings" onclick="if(window.showCookieSettings) window.showCookieSettings();">
           Einstellungen
         </button>
       </div>
@@ -2613,10 +2613,10 @@
       </div>
       
       <div class="cookie-modal-footer">
-        <button type="button" id="cookieSaveSettings" class="cookie-btn cookie-btn-accept">
+        <button type="button" id="cookieSaveSettings" class="cookie-btn cookie-btn-accept" onclick="if(window.saveCookieIndividualSettings) window.saveCookieIndividualSettings();">
           Auswahl speichern
         </button>
-        <button type="button" id="cookieAcceptAllModal" class="cookie-btn cookie-btn-outline">
+        <button type="button" id="cookieAcceptAllModal" class="cookie-btn cookie-btn-outline" onclick="if(window.acceptAllCookies) window.acceptAllCookies();">
           Alle akzeptieren
         </button>
       </div>
