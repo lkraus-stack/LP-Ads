@@ -1134,3 +1134,51 @@ document.addEventListener('DOMContentLoaded', function() {
 //  // Starte automatische Animation beim Laden
 //  startAutoScroll();
 //});
+
+// ===== SCREENSHOT LIGHTBOX =====
+document.addEventListener('DOMContentLoaded', function() {
+  const lightbox = document.getElementById('screenshot-lightbox');
+  const lightboxImage = lightbox?.querySelector('.lightbox-image');
+  const lightboxClose = lightbox?.querySelector('.lightbox-close');
+  const lightboxOverlay = lightbox?.querySelector('.lightbox-overlay');
+  const lightboxTriggers = document.querySelectorAll('[data-lightbox-src]');
+
+  if (!lightbox || !lightboxImage) return;
+
+  // Öffne Lightbox beim Klick auf Screenshot
+  lightboxTriggers.forEach(trigger => {
+    trigger.addEventListener('click', function() {
+      const src = this.getAttribute('data-lightbox-src') || this.querySelector('img')?.getAttribute('src');
+      const alt = this.getAttribute('data-lightbox-alt') || this.querySelector('img')?.getAttribute('alt') || '';
+
+      if (!src) return;
+
+      lightboxImage.src = src;
+      lightboxImage.alt = alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  // Schließe Lightbox
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+
+  if (lightboxOverlay) {
+    lightboxOverlay.addEventListener('click', closeLightbox);
+  }
+
+  // Schließe mit ESC-Taste
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+});
+
