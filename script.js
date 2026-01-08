@@ -643,18 +643,33 @@ document.addEventListener('DOMContentLoaded', function() {
   // Nächster Schritt
   function nextStep() {
     if (currentStep < totalSteps) {
+      const previousStep = currentStep;
       currentStep++;
       updateFormSteps();
       updateFormProgress();
       
-      // GTM Event: Formular-Schritt gewechselt
-      pushDataLayerEvent('form_step_changed', {
-        'form_id': 'contact_form',
-        'form_name': 'Kontaktformular',
-        'form_step': currentStep,
-        'form_step_name': getFormStepName(currentStep),
-        'direction': 'forward'
-      });
+      // GTM Event: Bei Abschluss der Kontaktdaten als Form Submit tracken,
+      // sonst weiterhin Schrittwechsel melden
+      if (previousStep === 5) {
+        pushDataLayerEvent('form_submit', {
+          'form_id': 'contact_form',
+          'form_name': 'Kontaktformular',
+          'form_step': currentStep,
+          'form_step_name': getFormStepName(currentStep),
+          'form_need': formData.need || '',
+          'form_budget': formData.budget || '',
+          'form_timeline': formData.timeline || '',
+          'form_has_contact_data': formData.email ? 'yes' : 'no'
+        });
+      } else {
+        pushDataLayerEvent('form_step_changed', {
+          'form_id': 'contact_form',
+          'form_name': 'Kontaktformular',
+          'form_step': currentStep,
+          'form_step_name': getFormStepName(currentStep),
+          'direction': 'forward'
+        });
+      }
       
       // Scroll to top of form
       const formModalContent = document.querySelector('.form-modal-content');
