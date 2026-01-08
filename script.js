@@ -1162,6 +1162,369 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// ===== COOKIE BANNER - DSGVO KONFORM =====
+document.addEventListener('DOMContentLoaded', function() {
+  const cookieBanner = document.getElementById('cookieBanner');
+  const cookieSettingsModal = document.getElementById('cookieSettingsModal');
+  
+  // Cookie Banner Buttons
+  const acceptAllBtn = document.getElementById('cookieAcceptAll');
+  const declineAllBtn = document.getElementById('cookieDeclineAll');
+  const settingsBtn = document.getElementById('cookieSettings');
+  
+  // Cookie Modal Buttons
+  const modalCloseBtn = document.getElementById('cookieModalClose');
+  const saveSettingsBtn = document.getElementById('cookieSaveSettings');
+  const acceptAllModalBtn = document.getElementById('cookieAcceptAllModal');
+  
+  // Cookie Checkboxes
+  const analyticsCheckbox = document.getElementById('cookieAnalytics');
+  const marketingCheckbox = document.getElementById('cookieMarketing');
+  
+  // Cookie Namen für LocalStorage
+  const COOKIE_CONSENT_KEY = 'franco_cookie_consent';
+  const COOKIE_CONSENT_VERSION = '1.0';
+  const COOKIE_EXPIRY_DAYS = 365;
+  
+  // Standard Cookie-Einstellungen
+  const defaultCookieSettings = {
+    version: COOKIE_CONSENT_VERSION,
+    timestamp: new Date().toISOString(),
+    necessary: true,
+    analytics: false,
+    marketing: false,
+    consentGiven: false
+  };
+  
+  // Cookie-Einstellungen laden
+  function loadCookieSettings() {
+    try {
+      const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
+      if (stored) {
+        const settings = JSON.parse(stored);
+        // Prüfe Version - bei neuer Version Banner erneut anzeigen
+        if (settings.version === COOKIE_CONSENT_VERSION) {
+          return settings;
+        }
+      }
+    } catch (e) {
+      console.warn('Cookie-Einstellungen konnten nicht geladen werden:', e);
+    }
+    return null;
+  }
+  
+  // Cookie-Einstellungen speichern
+  function saveCookieSettings(settings) {
+    try {
+      const settingsToSave = {
+        ...settings,
+        version: COOKIE_CONSENT_VERSION,
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(settingsToSave));
+      
+      // GTM Event: Cookie-Einstellungen gespeichert
+      pushDataLayerEvent('cookie_consent_updated', {
+        'consent_necessary': settings.necessary,
+        'consent_analytics': settings.analytics,
+        'consent_marketing': settings.marketing,
+        'consent_method': settings.consentMethod || 'unknown',
+        'consent_version': COOKIE_CONSENT_VERSION
+      });
+      
+      return true;
+    } catch (e) {
+      console.error('Cookie-Einstellungen konnten nicht gespeichert werden:', e);
+      return false;
+    }
+  }
+  
+  // GTM Consent Mode aktualisieren
+  function updateGTMConsent(settings) {
+    if (typeof gtag !== 'undefined') {
+      gtag('consent', 'update', {
+        'analytics_storage': settings.analytics ? 'granted' : 'denied',
+        'ad_storage': settings.marketing ? 'granted' : 'denied',
+        'ad_user_data': settings.marketing ? 'granted' : 'denied',
+        'ad_personalization': settings.marketing ? 'granted' : 'denied',
+        'functionality_storage': 'granted',
+        'security_storage': 'granted'
+      });
+    }
+    
+    // Aktualisiere dataLayer für andere Tools
+    if (typeof window.dataLayer !== 'undefined') {
+      window.dataLayer.push({
+        'event': 'cookie_consent_update',
+        'analytics_consent': settings.analytics,
+        'marketing_consent': settings.marketing,
+        'consent_timestamp': new Date().toISOString()
+      });
+    }
+  }
+  
+  // Cookie Banner anzeigen
+  function showCookieBanner() {
+    if (cookieBanner) {
+      cookieBanner.classList.add('show');
+      document.body.style.paddingBottom = cookieBanner.offsetHeight + 'px';
+      
+      // GTM Event: Cookie Banner angezeigt
+      pushDataLayerEvent('cookie_banner_shown', {
+        'banner_version': COOKIE_CONSENT_VERSION,
+        'page_url': window.location.href
+      });
+    }
+  }
+  
+  // Cookie Banner verstecken
+  function hideCookieBanner() {
+    if (cookieBanner) {
+      cookieBanner.classList.remove('show');
+      document.body.style.paddingBottom = '';
+    }
+  }
+  
+  // Cookie Settings Modal anzeigen
+  function showCookieModal() {
+    if (cookieSettingsModal) {
+      // Lade aktuelle Einstellungen in Checkboxen
+      const currentSettings = loadCookieSettings() || defaultCookieSettings;
+      analyticsCheckbox.checked = currentSettings.analytics;
+      marketingCheckbox.checked = currentSettings.marketing;
+      
+      cookieSettingsModal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      
+      // GTM Event: Cookie-Einstellungen Modal geöffnet
+      pushDataLayerEvent('cookie_settings_opened', {
+        'settings_version': COOKIE_CONSENT_VERSION
+      });
+    }
+  }
+  
+  // Cookie Settings Modal verstecken
+  function hideCookieModal() {
+    if (cookieSettingsModal) {
+      cookieSettingsModal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  }
+  
+  // Alle Cookies akzeptieren
+  function acceptAllCookies() {
+    const settings = {
+      ...defaultCookieSettings,
+      analytics: true,
+      marketing: true,
+      consentGiven: true,
+      consentMethod: 'accept_all'
+    };
+    
+    if (saveCookieSettings(settings)) {
+      updateGTMConsent(settings);
+      hideCookieBanner();
+      hideCookieModal();
+      
+      // GTM Event: Alle Cookies akzeptiert
+      pushDataLayerEvent('cookie_consent_all_accepted', {
+        'consent_method': 'accept_all',
+        'consent_version': COOKIE_CONSENT_VERSION
+      });
+    }
+  }
+  
+  // Alle Cookies ablehnen
+  function declineAllCookies() {
+    const settings = {
+      ...defaultCookieSettings,
+      analytics: false,
+      marketing: false,
+      consentGiven: true,
+      consentMethod: 'decline_all'
+    };
+    
+    if (saveCookieSettings(settings)) {
+      updateGTMConsent(settings);
+      hideCookieBanner();
+      hideCookieModal();
+      
+      // GTM Event: Alle Cookies abgelehnt
+      pushDataLayerEvent('cookie_consent_all_declined', {
+        'consent_method': 'decline_all',
+        'consent_version': COOKIE_CONSENT_VERSION
+      });
+    }
+  }
+  
+  // Individuelle Einstellungen speichern
+  function saveIndividualSettings() {
+    const settings = {
+      ...defaultCookieSettings,
+      analytics: analyticsCheckbox.checked,
+      marketing: marketingCheckbox.checked,
+      consentGiven: true,
+      consentMethod: 'individual_choice'
+    };
+    
+    if (saveCookieSettings(settings)) {
+      updateGTMConsent(settings);
+      hideCookieBanner();
+      hideCookieModal();
+      
+      // GTM Event: Individuelle Cookie-Einstellungen gespeichert
+      pushDataLayerEvent('cookie_consent_individual_saved', {
+        'consent_method': 'individual_choice',
+        'consent_analytics': settings.analytics,
+        'consent_marketing': settings.marketing,
+        'consent_version': COOKIE_CONSENT_VERSION
+      });
+    }
+  }
+  
+  // Event Listeners mit Debug-Ausgaben
+  if (acceptAllBtn) {
+    console.log('Cookie Accept All Button gefunden');
+    acceptAllBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Accept All geklickt');
+      acceptAllCookies();
+    });
+  } else {
+    console.warn('Cookie Accept All Button nicht gefunden');
+  }
+  
+  if (declineAllBtn) {
+    console.log('Cookie Decline All Button gefunden');
+    declineAllBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Decline All geklickt');
+      declineAllCookies();
+    });
+  } else {
+    console.warn('Cookie Decline All Button nicht gefunden');
+  }
+  
+  if (settingsBtn) {
+    console.log('Cookie Settings Button gefunden');
+    settingsBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Settings geklickt');
+      showCookieModal();
+    });
+  } else {
+    console.warn('Cookie Settings Button nicht gefunden');
+  }
+  
+  if (acceptAllModalBtn) {
+    console.log('Cookie Accept All Modal Button gefunden');
+    acceptAllModalBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Accept All Modal geklickt');
+      acceptAllCookies();
+    });
+  } else {
+    console.warn('Cookie Accept All Modal Button nicht gefunden');
+  }
+  
+  if (saveSettingsBtn) {
+    console.log('Cookie Save Settings Button gefunden');
+    saveSettingsBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Save Settings geklickt');
+      saveIndividualSettings();
+    });
+  } else {
+    console.warn('Cookie Save Settings Button nicht gefunden');
+  }
+  
+  if (modalCloseBtn) {
+    console.log('Cookie Modal Close Button gefunden');
+    modalCloseBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Modal Close geklickt');
+      hideCookieModal();
+    });
+  } else {
+    console.warn('Cookie Modal Close Button nicht gefunden');
+  }
+  
+  // Modal schließen beim Klick auf Backdrop
+  if (cookieSettingsModal) {
+    cookieSettingsModal.addEventListener('click', function(e) {
+      if (e.target === cookieSettingsModal || e.target.classList.contains('cookie-modal-backdrop')) {
+        hideCookieModal();
+      }
+    });
+  }
+  
+  // Modal schließen mit Escape-Taste
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && cookieSettingsModal && cookieSettingsModal.classList.contains('show')) {
+      hideCookieModal();
+    }
+  });
+  
+  // Cookie-Einstellungen beim Laden der Seite prüfen
+  function initializeCookies() {
+    const savedSettings = loadCookieSettings();
+    
+    if (savedSettings && savedSettings.consentGiven) {
+      // Benutzer hat bereits eine Wahl getroffen
+      updateGTMConsent(savedSettings);
+      hideCookieBanner();
+      
+      // GTM Event: Gespeicherte Cookie-Einstellungen geladen
+      pushDataLayerEvent('cookie_consent_loaded', {
+        'consent_analytics': savedSettings.analytics,
+        'consent_marketing': savedSettings.marketing,
+        'consent_version': savedSettings.version,
+        'consent_age_days': Math.floor((new Date() - new Date(savedSettings.timestamp)) / (1000 * 60 * 60 * 24))
+      });
+    } else {
+      // Zeige Cookie Banner nach kurzer Verzögerung
+      setTimeout(showCookieBanner, 1000);
+    }
+  }
+  
+  // Initialisiere Cookie-System
+  initializeCookies();
+  
+  // Globale Funktionen definieren
+  window.showCookieSettings = showCookieModal;
+  window.getCookieConsent = function() {
+    return loadCookieSettings() || defaultCookieSettings;
+  };
+  
+  // Footer Cookie-Einstellungen Link
+  const footerCookieLink = document.querySelector('.footer-cookie-settings');
+  if (footerCookieLink) {
+    console.log('Footer Cookie-Link gefunden');
+    footerCookieLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Footer Cookie-Link geklickt');
+      showCookieModal();
+    });
+  }
+  
+  // Debug: Cookie Banner Status
+  console.log('Cookie Banner Element:', cookieBanner);
+  console.log('Cookie Settings Modal Element:', cookieSettingsModal);
+  console.log('Accept All Button:', acceptAllBtn);
+  console.log('Decline All Button:', declineAllBtn);
+  console.log('Settings Button:', settingsBtn);
+  
+  // Teste Cookie Banner Anzeige nach 2 Sekunden für Debug
+  setTimeout(function() {
+    const savedSettings = loadCookieSettings();
+    console.log('Gespeicherte Cookie-Einstellungen:', savedSettings);
+    if (!savedSettings || !savedSettings.consentGiven) {
+      console.log('Zeige Cookie Banner für Test');
+      showCookieBanner();
+    }
+  }, 2000);
+});
+
 //// ===== Portfolio Slider mit interaktiver Scroll-Funktionalität =====
 //// Deaktiviert - Portfolio verwendet jetzt Grid-Layout
 ///*

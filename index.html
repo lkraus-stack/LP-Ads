@@ -7,10 +7,22 @@
   <title>Franco Consulting GmbH</title>
   <link rel="stylesheet" href="style.css">
   
-  <!-- Google Tag Manager -->
+  <!-- Google Tag Manager mit Cookie Consent -->
   <script>
     // Data-Layer initialisieren - MUSS vor GTM geladen werden
     window.dataLayer = window.dataLayer || [];
+    
+    // Google Consent Mode initialisieren - DSGVO konform
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 2000
+    });
     
     // Initiale Page-View Event
     window.dataLayer.push({
@@ -1245,6 +1257,7 @@
             <li><a href="https://www.franco-consulting.com/impressum" target="_blank" rel="noopener noreferrer">Impressum</a></li>
             <li><a href="#" class="footer-contact-trigger">Kontakt</a></li>
             <li><a href="https://www.franco-consulting.com/datenschutz" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a></li>
+            <li><a href="#" class="footer-cookie-settings" onclick="window.showCookieSettings && window.showCookieSettings()">Cookie-Einstellungen</a></li>
           </ul>
         </div>
         <div class="footer-spalte footer-navigation">
@@ -2486,6 +2499,131 @@
           frameborder="0"
           loading="lazy">
         </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Banner -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-labelledby="cookieBannerTitle" aria-describedby="cookieBannerDescription">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-text">
+        <h3 id="cookieBannerTitle">🍪 Cookies & Datenschutz</h3>
+        <p id="cookieBannerDescription">
+          Wir verwenden Cookies und ähnliche Technologien, um Ihnen die bestmögliche Nutzererfahrung zu bieten und unsere Website zu verbessern. 
+          Einige Cookies sind für den Betrieb der Website erforderlich, andere helfen uns bei der Analyse und Optimierung.
+        </p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" id="cookieAcceptAll" class="cookie-btn cookie-btn-accept">
+          Alle akzeptieren
+        </button>
+        <button type="button" id="cookieDeclineAll" class="cookie-btn cookie-btn-decline">
+          Alle ablehnen
+        </button>
+        <button type="button" id="cookieSettings" class="cookie-btn cookie-btn-settings">
+          Einstellungen
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Settings Modal -->
+  <div id="cookieSettingsModal" class="cookie-modal" role="dialog" aria-labelledby="cookieSettingsTitle" aria-hidden="true">
+    <div class="cookie-modal-backdrop"></div>
+    <div class="cookie-modal-content">
+      <div class="cookie-modal-header">
+        <h2 id="cookieSettingsTitle">Cookie-Einstellungen</h2>
+        <button type="button" id="cookieModalClose" class="cookie-modal-close" aria-label="Schließen">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="cookie-modal-body">
+        <p class="cookie-modal-description">
+          Hier können Sie detailliert festlegen, welche Cookies Sie zulassen möchten. 
+          Ihre Auswahl wird für 12 Monate gespeichert.
+        </p>
+        
+        <!-- Notwendige Cookies -->
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <div class="cookie-category-info">
+              <h3>Notwendige Cookies</h3>
+              <p>Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht deaktiviert werden.</p>
+            </div>
+            <div class="cookie-toggle">
+              <input type="checkbox" id="cookieNecessary" checked disabled>
+              <label for="cookieNecessary" class="cookie-toggle-label">
+                <span class="cookie-toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="cookie-category-details">
+            <strong>Zweck:</strong> Speicherung von Cookie-Einstellungen, Session-Management<br>
+            <strong>Anbieter:</strong> Franco Consulting GmbH<br>
+            <strong>Speicherdauer:</strong> 12 Monate
+          </div>
+        </div>
+
+        <!-- Analytics Cookies -->
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <div class="cookie-category-info">
+              <h3>Analytics & Performance</h3>
+              <p>Diese Cookies helfen uns zu verstehen, wie Besucher mit unserer Website interagieren.</p>
+            </div>
+            <div class="cookie-toggle">
+              <input type="checkbox" id="cookieAnalytics">
+              <label for="cookieAnalytics" class="cookie-toggle-label">
+                <span class="cookie-toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="cookie-category-details">
+            <strong>Zweck:</strong> Website-Analyse, Besucherstatistiken, Performance-Monitoring<br>
+            <strong>Anbieter:</strong> Google Analytics, Google Tag Manager<br>
+            <strong>Speicherdauer:</strong> Bis zu 26 Monate<br>
+            <strong>Datenübertragung:</strong> USA (angemessenes Datenschutzniveau)
+          </div>
+        </div>
+
+        <!-- Marketing Cookies -->
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <div class="cookie-category-info">
+              <h3>Marketing & Werbung</h3>
+              <p>Diese Cookies werden verwendet, um Ihnen relevante Werbung zu zeigen und die Effektivität unserer Kampagnen zu messen.</p>
+            </div>
+            <div class="cookie-toggle">
+              <input type="checkbox" id="cookieMarketing">
+              <label for="cookieMarketing" class="cookie-toggle-label">
+                <span class="cookie-toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="cookie-category-details">
+            <strong>Zweck:</strong> Personalisierte Werbung, Conversion-Tracking, Remarketing<br>
+            <strong>Anbieter:</strong> Google Ads, Meta Pixel, LinkedIn Insight Tag<br>
+            <strong>Speicherdauer:</strong> Bis zu 24 Monate<br>
+            <strong>Datenübertragung:</strong> USA, Irland (angemessenes Datenschutzniveau)
+          </div>
+        </div>
+      </div>
+      
+      <div class="cookie-modal-footer">
+        <button type="button" id="cookieSaveSettings" class="cookie-btn cookie-btn-accept">
+          Auswahl speichern
+        </button>
+        <button type="button" id="cookieAcceptAllModal" class="cookie-btn cookie-btn-outline">
+          Alle akzeptieren
+        </button>
+      </div>
+      
+      <div class="cookie-modal-links">
+        <a href="/datenschutz" target="_blank">Datenschutzerklärung</a>
+        <a href="/impressum" target="_blank">Impressum</a>
       </div>
     </div>
   </div>
