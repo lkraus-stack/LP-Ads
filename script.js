@@ -1189,7 +1189,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===== COOKIE BANNER - DSGVO KONFORM =====
 // Globale Variablen
 const COOKIE_CONSENT_KEY = 'franco_cookie_consent';
-const COOKIE_CONSENT_VERSION = '1.0';
+const COOKIE_CONSENT_VERSION = '2.0'; // Version erhöht: Analytics zu Marketing verschoben
 const COOKIE_EXPIRY_DAYS = 365;
 
 // Standard Cookie-Einstellungen
@@ -1355,9 +1355,8 @@ const defaultCookieSettings = {
     const cookieSettingsModal = document.getElementById('cookieSettingsModal');
     if (cookieSettingsModal) {
       const currentSettings = loadCookieSettings() || defaultCookieSettings;
-      const analyticsCheckbox = document.getElementById('cookieAnalytics');
       const marketingCheckbox = document.getElementById('cookieMarketing');
-      if (analyticsCheckbox) analyticsCheckbox.checked = currentSettings.analytics;
+      // Analytics ist jetzt Teil von Marketing, daher immer gleich Marketing
       if (marketingCheckbox) marketingCheckbox.checked = currentSettings.marketing;
       
       cookieSettingsModal.classList.add('show');
@@ -1374,18 +1373,19 @@ const defaultCookieSettings = {
   // Individuelle Cookie-Einstellungen speichern - SOFORT verfügbar
   window.saveCookieIndividualSettings = function() {
     console.log('saveCookieIndividualSettings aufgerufen');
-    const analyticsCheckbox = document.getElementById('cookieAnalytics');
     const marketingCheckbox = document.getElementById('cookieMarketing');
     
-    if (!analyticsCheckbox || !marketingCheckbox) {
-      console.error('Cookie Checkboxes nicht gefunden');
+    if (!marketingCheckbox) {
+      console.error('Cookie Marketing Checkbox nicht gefunden');
       return;
     }
     
+    // Analytics ist jetzt Teil von Marketing (GA4 und GTM sind unter Marketing)
+    const marketingEnabled = marketingCheckbox.checked;
     const settings = {
       ...defaultCookieSettings,
-      analytics: analyticsCheckbox.checked,
-      marketing: marketingCheckbox.checked,
+      analytics: marketingEnabled, // Analytics automatisch gleich Marketing
+      marketing: marketingEnabled,
       consentGiven: true,
       consentMethod: 'individual_choice'
     };
@@ -1426,8 +1426,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const saveSettingsBtn = document.getElementById('cookieSaveSettings');
   const acceptAllModalBtn = document.getElementById('cookieAcceptAllModal');
   
-  // Cookie Checkboxes
-  const analyticsCheckbox = document.getElementById('cookieAnalytics');
+  // Cookie Checkboxes (Analytics ist jetzt Teil von Marketing)
   const marketingCheckbox = document.getElementById('cookieMarketing');
   
   // Cookie-Einstellungen laden
