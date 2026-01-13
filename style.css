@@ -2923,6 +2923,24 @@ section h2 {
 
 .founder-item {
   flex: 1;
+  transition: all 0.3s ease;
+}
+
+.founder-item[data-popup] {
+  cursor: pointer;
+  padding: var(--spacing-md);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.founder-item[data-popup]:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--accent-rgb), 0.6);
+  background: rgba(var(--accent-rgb), 0.1);
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.2);
 }
 
 .founder-item h3 {
@@ -2931,6 +2949,11 @@ section h2 {
   font-weight: 600;
   color: #fff;
   letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+.founder-item[data-popup]:hover h3 {
+  color: var(--accent-primary);
 }
 
 .founder-role {
@@ -4492,12 +4515,158 @@ footer .footer-menu a:hover {
   letter-spacing: 0.01em;
 }
 
+.founder-popup-content h3 {
+  font-size: 2rem;
+  color: #fff;
+  margin-bottom: var(--spacing-sm);
+}
+
 .popup-content p {
   margin: 0 0 var(--spacing-lg);
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.7;
   font-size: 1rem;
   text-align: center;
+}
+
+.founder-popup-role {
+  margin: 0 0 var(--spacing-md) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* Founder Popup Content Styles */
+.founder-popup-content {
+  max-width: 800px !important;
+  text-align: center;
+}
+
+.founder-popup-header {
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.founder-popup-header h3 {
+  margin: 0 0 var(--spacing-sm);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+.founder-popup-intro {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.founder-popup-intro p {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+}
+
+.founder-popup-section {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.founder-expertise-group {
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.founder-expertise-title {
+  margin: var(--spacing-lg) 0 var(--spacing-md);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+}
+
+.founder-timeline-item {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.founder-timeline-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  transform: translateY(-2px);
+}
+
+.founder-timeline-period {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--spacing-xs);
+  text-align: center;
+}
+
+.founder-timeline-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: var(--spacing-xs);
+  text-align: center;
+}
+
+.founder-timeline-company {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+  text-align: center;
+}
+
+.founder-timeline-description {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+  margin-top: var(--spacing-sm);
+  text-align: center;
+}
+
+/* Zentrierte Popup Features für Founder Popups */
+.founder-popup-content .popup-features {
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.founder-popup-content .popup-features li {
+  text-align: left;
+  padding-left: var(--spacing-md);
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+  .founder-popup-content {
+    max-width: 95% !important;
+    padding: var(--spacing-lg) !important;
+  }
+  
+  .founder-popup-header h3 {
+    font-size: 1.5rem;
+  }
+  
+  .founder-timeline-item {
+    padding: var(--spacing-sm);
+  }
 }
 
 .popup-section-title {

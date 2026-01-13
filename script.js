@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const processSteps = document.querySelectorAll('.process-step[data-popup]');
   const portfolioItems = document.querySelectorAll('.portfolio-item[data-popup]');
   const hotelCaseCards = document.querySelectorAll('.hotel-case-card[data-popup]');
+  const founderItems = document.querySelectorAll('.founder-item[data-popup]');
   const popupOverlays = document.querySelectorAll('.popup-overlay');
   
   // Prozess Popup Variablen - werden später initialisiert
@@ -159,6 +160,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Hotel Case Cards Popup-Funktionalität
   hotelCaseCards.forEach(card => {
     card.addEventListener('click', function(e) {
+      e.stopPropagation();
+      openPopup(this);
+    });
+  });
+  
+  // Founder Items Popup-Funktionalität
+  founderItems.forEach(item => {
+    item.addEventListener('click', function(e) {
       e.stopPropagation();
       openPopup(this);
     });
@@ -1239,29 +1248,48 @@ const defaultCookieSettings = {
     }
   }
   
-  // GTM Consent Mode aktualisieren
-  function updateGTMConsent(settings) {
-    const analyticsGranted = settings.analytics || settings.marketing; // Marketing umfasst auch GA4/Analytics
-    if (typeof gtag !== 'undefined') {
-      gtag('consent', 'update', {
-        'analytics_storage': analyticsGranted ? 'granted' : 'denied',
-        'ad_storage': settings.marketing ? 'granted' : 'denied',
-        'ad_user_data': settings.marketing ? 'granted' : 'denied',
-        'ad_personalization': settings.marketing ? 'granted' : 'denied',
-        'functionality_storage': 'granted',
-        'security_storage': 'granted'
-      });
-    }
+  // GTM Consent Mode aktualisieren - Global verfügbar machen
+  window.updateGTMConsent = function(settings) {
+    // Analytics Storage: Direkt basierend auf Analytics-Einstellung
+    // Marketing umfasst auch Analytics, daher: analytics ODER marketing
+    const analyticsGranted = settings.analytics || settings.marketing;
     
+    // Alle Consent-Signale explizit setzen
+    const consentParams = {
+      'analytics_storage': analyticsGranted ? 'granted' : 'denied',
+      'ad_storage': settings.marketing ? 'granted' : 'denied',
+      'ad_user_data': settings.marketing ? 'granted' : 'denied',
+      'ad_personalization': settings.marketing ? 'granted' : 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted'
+    };
+    
+    // Gtag Consent Update - Warte auf gtag, falls noch nicht verfügbar
+    const updateConsent = () => {
+      if (typeof gtag !== 'undefined') {
+        gtag('consent', 'update', consentParams);
+        console.log('GTM Consent aktualisiert:', consentParams);
+      } else {
+        // Warte kurz und versuche es erneut
+        setTimeout(updateConsent, 100);
+      }
+    };
+    updateConsent();
+    
+    // DataLayer Event für Tracking
     if (typeof window.dataLayer !== 'undefined') {
       window.dataLayer.push({
         'event': 'cookie_consent_update',
         'analytics_consent': settings.analytics,
         'marketing_consent': settings.marketing,
+        'analytics_storage': analyticsGranted ? 'granted' : 'denied',
+        'ad_storage': settings.marketing ? 'granted' : 'denied',
+        'ad_user_data': settings.marketing ? 'granted' : 'denied',
+        'ad_personalization': settings.marketing ? 'granted' : 'denied',
         'consent_timestamp': new Date().toISOString()
       });
     }
-  }
+  };
   
   // Alle Cookies akzeptieren - SOFORT verfügbar
   window.acceptAllCookies = function() {
@@ -1445,30 +1473,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // GTM Consent Mode aktualisieren
-  function updateGTMConsent(settings) {
-    const analyticsGranted = settings.analytics || settings.marketing; // Marketing umfasst auch GA4/Analytics
-    if (typeof gtag !== 'undefined') {
-      gtag('consent', 'update', {
-        'analytics_storage': analyticsGranted ? 'granted' : 'denied',
-        'ad_storage': settings.marketing ? 'granted' : 'denied',
-        'ad_user_data': settings.marketing ? 'granted' : 'denied',
-        'ad_personalization': settings.marketing ? 'granted' : 'denied',
-        'functionality_storage': 'granted',
-        'security_storage': 'granted'
-      });
-    }
-    
-    // Aktualisiere dataLayer für andere Tools
-    if (typeof window.dataLayer !== 'undefined') {
-      window.dataLayer.push({
-        'event': 'cookie_consent_update',
-        'analytics_consent': settings.analytics,
-        'marketing_consent': settings.marketing,
-        'consent_timestamp': new Date().toISOString()
-      });
-    }
-  }
+  // GTM Consent Mode aktualisieren - Funktion ist bereits global verfügbar (window.updateGTMConsent)
+  // Verwende die globale Funktion
   
   // Cookie Banner anzeigen
   function showCookieBanner() {
@@ -1628,7 +1634,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (savedSettings && savedSettings.consentGiven) {
       // Benutzer hat bereits eine Wahl getroffen
-      updateGTMConsent(savedSettings);
+      // Warte kurz, damit GTM vollständig geladen ist
+      setTimeout(() => {
+        updateGTMConsent(savedSettings);
+      }, 100);
       hideCookieBanner();
       
       // GTM Event: Gespeicherte Cookie-Einstellungen geladen
@@ -1639,6 +1648,11 @@ document.addEventListener('DOMContentLoaded', function() {
         'consent_age_days': Math.floor((new Date() - new Date(savedSettings.timestamp)) / (1000 * 60 * 60 * 24))
       });
     } else {
+      // Keine Einwilligung gegeben - setze alle Signale auf 'denied'
+      // Warte kurz, damit GTM vollständig geladen ist
+      setTimeout(() => {
+        updateGTMConsent(defaultCookieSettings);
+      }, 100);
       // Zeige Cookie Banner nach kurzer Verzögerung
       setTimeout(showCookieBanner, 1000);
     }
