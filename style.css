@@ -780,6 +780,10 @@ html {
   text-shadow: none !important;
 }
 
+[data-theme="hell"] .form-booking-skip-text {
+  color: #8a8a8a !important;
+}
+
 [data-theme="hell"] .form-booking-icon {
   color: var(--accent-primary) !important;
 }
@@ -8502,6 +8506,26 @@ body.form-modal-open {
   height: 20px;
 }
 
+.form-booking-skip-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: var(--spacing-md) 0;
+}
+
+.form-submit-without-booking-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem var(--spacing-lg);
+  width: 100%;
+  max-width: 300px;
+}
+
+.form-submit-without-booking-btn svg {
+  width: 20px;
+  height: 20px;
+}
 
 .form-success-booking-info {
   font-size: 1rem;

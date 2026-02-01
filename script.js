@@ -1105,6 +1105,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
   
+  // Ohne Termin absenden - direkt submitForm aufrufen (E-Mail + ClickUp)
+  const submitWithoutBookingBtn = document.getElementById('submitWithoutBookingBtn');
+  if (submitWithoutBookingBtn) {
+    submitWithoutBookingBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      formData.bookedAppointment = false;
+      submitForm();
+    });
+  }
+  
   if (calendarModalClose) {
     calendarModalClose.addEventListener('click', closeCalendarModal);
   }
