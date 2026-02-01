@@ -8,10 +8,7 @@ Das Kontaktformular unterstützt nach dem Absenden:
 2. **Benachrichtigungs-E-Mail** an `info@ihre-domain.de` (alle Formular-Daten strukturiert)
 3. **ClickUp-Task** mit allen Formular-Daten
 
-Es gibt zwei Backend-Varianten:
-
-- **Vercel (Serverless):** `api/submit-form.js` – für Hosting auf Vercel
-- **PHP (IONOS):** `api/submit-form.php` + `api/config.php` – für Hosting auf IONOS mit PHP
+**Backend:** `api/submit-form.js` – Vercel Serverless Function mit Resend + ClickUp
 
 ---
 
@@ -47,36 +44,12 @@ Ohne `RESEND_API_KEY` wird kein E-Mail-Versand ausgeführt; ClickUp und Response
 
 ---
 
-## PHP-Backend (IONOS)
-
-### Dateien
-
-- **`submit-form.php`** – E-Mail (PHP `mail()`) + ClickUp
-- **`config.php`** – E-Mail- und ClickUp-Konfiguration (sensible Daten, in `.gitignore`)
-- **`config.example.php`** – Vorlage; nach `config.php` kopieren und anpassen
-
-### Konfiguration (IONOS)
-
-1. `config.example.php` als `config.php` kopieren
-2. In `config.php` eintragen:
-   - ClickUp: `CLICKUP_API_TOKEN`, `CLICKUP_WORKSPACE_ID`, `CLICKUP_LIST_ID`
-   - E-Mail: `EMAIL_FROM_ADDRESS`, `EMAIL_FROM_NAME`, `EMAIL_TO_ADDRESS`
-3. Optional: IONOS SMTP in `config.php` setzen (siehe Kommentare), falls PHPMailer später genutzt wird; Standard ist PHP `mail()`.
-
-### Frontend auf PHP umstellen
-
-Wenn die Seite auf IONOS mit PHP gehostet wird, im Frontend die API-URL auf das PHP-Skript zeigen:
-
-- Statt `/api/submit-form` z. B. `/api/submit-form.php` (je nach Verzeichnisstruktur auf dem Server)
-
----
-
 ## E-Mail-Templates
 
 - **Bestätigung (an Absender):** Danksagung, Zusammenfassung (Firma, Bedarf, Budget, Startzeitpunkt, Nachricht)
 - **Benachrichtigung (an info@):** Tabelle mit allen Feldern (Name, Firma, Rolle, E-Mail, Telefon, Bedarf, Budget, Startzeitpunkt, Termin gebucht, Nachricht)
 
-Templates sind in `submit-form.php` (PHP) und in `submit-form.js` (Vercel/Resend) umgesetzt.
+Templates sind in `submit-form.js` (Resend) umgesetzt.
 
 ---
 
