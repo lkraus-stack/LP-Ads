@@ -775,23 +775,60 @@ document.addEventListener('DOMContentLoaded', function() {
       'transaction_id': 'form_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
     });
     
-    // Hier könnten Sie die Daten an einen Server senden
+    // Daten an Server senden (E-Mail + ClickUp)
     console.log('Formular-Daten:', formData);
     console.log('Conversion-Wert:', conversionValue, currency);
     
-    // Beispiel: Daten an Server senden
-    // fetch('/api/contact', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(formData)
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   console.log('Success:', data);
-    // })
-    // .catch(error => {
-    //   console.error('Error:', error);
-    // });
+    // Loading-State anzeigen
+    const submitStatusEl = document.getElementById('formSubmitStatus');
+    if (submitStatusEl) {
+      submitStatusEl.style.display = 'block';
+      submitStatusEl.textContent = 'Daten werden gesendet…';
+      submitStatusEl.classList.remove('form-submit-error');
+    }
+    
+    // Backend: Vercel (/api/submit-form) oder PHP (/api/submit-form.php)
+    const apiUrl = typeof window.location.origin !== 'undefined'
+      ? window.location.origin + '/api/submit-form'
+      : '/api/submit-form';
+    
+    fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (submitStatusEl) {
+        submitStatusEl.style.display = 'none';
+        submitStatusEl.textContent = '';
+      }
+      console.log('Backend Response:', data);
+      if (data.success) {
+        if (data.clickup_task_created) {
+          console.log('ClickUp Task erfolgreich erstellt');
+        }
+        if (data.email_confirmation_sent === false || data.email_notification_sent === false) {
+          console.warn('E-Mail-Versand teilweise fehlgeschlagen');
+        }
+        if (data.warning) {
+          console.warn('Warnung:', data.warning);
+        }
+      }
+    })
+    .catch(error => {
+      console.error('Fehler beim Senden der Formular-Daten:', error);
+      // Fehlermeldung anzeigen, Success-Step bleibt sichtbar (Plan)
+      if (submitStatusEl) {
+        submitStatusEl.textContent = 'Die Daten konnten nicht übertragen werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.';
+        submitStatusEl.classList.add('form-submit-error');
+      }
+    });
   }
   
   // Event Listeners für Formular-Buttons (wird von außen aufgerufen)
