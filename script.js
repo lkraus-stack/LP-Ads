@@ -506,6 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const formStepCounter = document.getElementById('formStepCounter');
   let currentStep = 1;
   const totalSteps = 6;
+  let contactSubmitted = false;
   const formData = {
     need: null,
     budget: null,
@@ -586,6 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
     formData.phone = '';
     formData.email = '';
     formData.bookedAppointment = false;
+    contactSubmitted = false;
     
     // Reset UI
     document.querySelectorAll('.form-option-btn, .form-budget-btn, .form-timeline-btn').forEach(btn => {
@@ -606,6 +608,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const bookingConfirmation = document.getElementById('formBookingConfirmation');
     if (bookingConfirmation) {
       bookingConfirmation.style.display = 'none';
+    }
+    
+    // Reset Submit-Status
+    const submitStatusEl = document.getElementById('formSubmitStatus');
+    if (submitStatusEl) {
+      submitStatusEl.style.display = 'none';
+      submitStatusEl.textContent = '';
+      submitStatusEl.classList.remove('form-submit-error');
+    }
+    const inlineStatusEl = document.getElementById('formSubmitStatusInline');
+    if (inlineStatusEl) {
+      inlineStatusEl.style.display = 'none';
+      inlineStatusEl.textContent = '';
+      inlineStatusEl.classList.remove('form-submit-error');
     }
     
     updateFormSteps();
@@ -647,6 +663,16 @@ document.addEventListener('DOMContentLoaded', function() {
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  }
+  
+  // Telefon-Validation (mind. 7 Ziffern, erlaubte Zeichen)
+  function isValidPhone(phone) {
+    const trimmed = phone.trim();
+    if (!trimmed) return false;
+    const allowedChars = /^[+\d\s()\/-]+$/;
+    if (!allowedChars.test(trimmed)) return false;
+    const digits = trimmed.replace(/\D/g, '');
+    return digits.length >= 7 && digits.length <= 15;
   }
   
   // Nächster Schritt
@@ -712,11 +738,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Formular absenden
-  function submitForm(e) {
-    if (e) e.preventDefault();
-    
-    // Sammle alle Daten
+  // Formulardaten aus Inputs übernehmen
+  function collectFormDataFromInputs() {
     const messageInput = document.getElementById('message');
     const fullnameInput = document.getElementById('fullname');
     const companyInput = document.getElementById('company');
@@ -730,15 +753,113 @@ document.addEventListener('DOMContentLoaded', function() {
     if (roleInput) formData.role = roleInput.value.trim();
     if (phoneInput) formData.phone = phoneInput.value.trim();
     if (emailInput) formData.email = emailInput.value.trim();
+  }
+  
+  function updateSubmitStatus(message, isError = false) {
+    const submitStatusEl = document.getElementById('formSubmitStatus');
+    const inlineStatusEl = document.getElementById('formSubmitStatusInline');
+    [submitStatusEl, inlineStatusEl].forEach(el => {
+      if (!el) return;
+      if (!message) {
+        el.style.display = 'none';
+        el.textContent = '';
+        el.classList.remove('form-submit-error');
+        return;
+      }
+      el.style.display = 'block';
+      el.textContent = message;
+      if (isError) {
+        el.classList.add('form-submit-error');
+      } else {
+        el.classList.remove('form-submit-error');
+      }
+    });
+  }
+  
+  // Kontakt-Daten senden (ohne Success-Step)
+  function submitContactData() {
+    collectFormDataFromInputs();
+    
+    if (contactSubmitted) {
+      return Promise.resolve();
+    }
+    contactSubmitted = true;
     
     // Berechne Conversion-Wert basierend auf Budget
     let conversionValue = 0;
-    let currency = 'EUR';
+    const currency = 'EUR';
     if (formData.budget) {
       conversionValue = parseFloat(formData.budget);
     }
     
-    // Zeige Success Step
+    // Daten an Server senden (E-Mail + ClickUp)
+    console.log('Formular-Daten:', formData);
+    console.log('Conversion-Wert:', conversionValue, currency);
+    
+    updateSubmitStatus('Daten werden gesendet…');
+    
+    // Backend: Vercel (/api/submit-form) oder PHP (/api/submit-form.php)
+    const apiUrl = typeof window.location.origin !== 'undefined'
+      ? window.location.origin + '/api/submit-form'
+      : '/api/submit-form';
+    
+    return fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Backend Response:', data);
+      if (data.success) {
+        if (data.clickup_task_created) {
+          console.log('ClickUp Task erfolgreich erstellt');
+        }
+        if (data.email_confirmation_sent === false || data.email_notification_sent === false) {
+          console.warn('E-Mail-Versand teilweise fehlgeschlagen');
+        }
+        if (data.warning) {
+          console.warn('Warnung:', data.warning);
+        }
+      }
+      
+      // GTM Event: Formular erfolgreich abgeschickt mit Conversion-Wert
+      pushDataLayerEvent('form_submit_success', {
+        'form_id': 'contact_form',
+        'form_name': 'Kontaktformular',
+        'form_step': 5,
+        'form_step_name': 'Kontaktdaten',
+        'form_need': formData.need || '',
+        'form_budget': formData.budget || '',
+        'form_timeline': formData.timeline || '',
+        'form_has_message': formData.message ? 'yes' : 'no',
+        'form_has_contact_data': formData.email ? 'yes' : 'no',
+        'form_appointment_booked': formData.bookedAppointment ? 'yes' : 'no',
+        'form_company': formData.company || '',
+        'form_role': formData.role || '',
+        // Conversion-Wert für Google Ads Value-Based Bidding
+        'value': conversionValue,
+        'currency': currency,
+        'transaction_id': 'form_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+      });
+      
+      updateSubmitStatus('Anfrage erfolgreich gesendet.');
+      return data;
+    })
+    .catch(error => {
+      console.error('Fehler beim Senden der Formular-Daten:', error);
+      contactSubmitted = false;
+      updateSubmitStatus('Die Daten konnten nicht übertragen werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.', true);
+      throw error;
+    });
+  }
+  
+  function goToSuccessStep() {
     currentStep = 7;
     updateFormSteps();
     if (formProgressBar) {
@@ -755,80 +876,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // GTM Event: Formular erfolgreich abgeschickt mit Conversion-Wert
-    pushDataLayerEvent('form_submit_success', {
-      'form_id': 'contact_form',
-      'form_name': 'Kontaktformular',
-      'form_step': 7,
-      'form_step_name': 'Success',
-      'form_need': formData.need || '',
-      'form_budget': formData.budget || '',
-      'form_timeline': formData.timeline || '',
-      'form_has_message': formData.message ? 'yes' : 'no',
-      'form_has_contact_data': formData.email ? 'yes' : 'no',
-      'form_appointment_booked': formData.bookedAppointment ? 'yes' : 'no',
-      'form_company': formData.company || '',
-      'form_role': formData.role || '',
-      // Conversion-Wert für Google Ads Value-Based Bidding
-      'value': conversionValue,
-      'currency': currency,
-      'transaction_id': 'form_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-    });
-    
-    // Daten an Server senden (E-Mail + ClickUp)
-    console.log('Formular-Daten:', formData);
-    console.log('Conversion-Wert:', conversionValue, currency);
-    
-    // Loading-State anzeigen
-    const submitStatusEl = document.getElementById('formSubmitStatus');
-    if (submitStatusEl) {
-      submitStatusEl.style.display = 'block';
-      submitStatusEl.textContent = 'Daten werden gesendet…';
-      submitStatusEl.classList.remove('form-submit-error');
-    }
-    
-    // Backend: Vercel (/api/submit-form) oder PHP (/api/submit-form.php)
-    const apiUrl = typeof window.location.origin !== 'undefined'
-      ? window.location.origin + '/api/submit-form'
-      : '/api/submit-form';
-    
-    fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      if (submitStatusEl) {
-        submitStatusEl.style.display = 'none';
-        submitStatusEl.textContent = '';
-      }
-      console.log('Backend Response:', data);
-      if (data.success) {
-        if (data.clickup_task_created) {
-          console.log('ClickUp Task erfolgreich erstellt');
-        }
-        if (data.email_confirmation_sent === false || data.email_notification_sent === false) {
-          console.warn('E-Mail-Versand teilweise fehlgeschlagen');
-        }
-        if (data.warning) {
-          console.warn('Warnung:', data.warning);
-        }
-      }
-    })
-    .catch(error => {
-      console.error('Fehler beim Senden der Formular-Daten:', error);
-      // Fehlermeldung anzeigen, Success-Step bleibt sichtbar (Plan)
-      if (submitStatusEl) {
-        submitStatusEl.textContent = 'Die Daten konnten nicht übertragen werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.';
-        submitStatusEl.classList.add('form-submit-error');
-      }
-    });
+    // Inline-Status ausblenden, falls sichtbar
+    updateSubmitStatus('');
   }
   
   // Event Listeners für Formular-Buttons (wird von außen aufgerufen)
@@ -916,6 +965,13 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.borderColor = 'rgba(100, 255, 100, 0.3)';
           }
         }
+        if (this.type === 'tel' && this.value.trim() !== '') {
+          if (!isValidPhone(this.value.trim())) {
+            this.style.borderColor = 'rgba(255, 100, 100, 0.5)';
+          } else {
+            this.style.borderColor = 'rgba(100, 255, 100, 0.3)';
+          }
+        }
       });
     });
     
@@ -966,7 +1022,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
     
-    // Next Step Button (Step 5 -> Step 6)
+    // Absenden Button (Step 5 -> Step 6)
     const nextStepBtn = contactForm.querySelector('.form-next-step-btn');
     if (nextStepBtn) {
       nextStepBtn.addEventListener('click', function(e) {
@@ -1026,6 +1082,21 @@ document.addEventListener('DOMContentLoaded', function() {
           return;
         }
         
+        if (!isValidPhone(phone)) {
+          alert('Bitte geben Sie eine gültige Telefonnummer ein.');
+          
+          // GTM Event: Formular-Validierungsfehler
+          pushDataLayerEvent('form_validation_error', {
+            'form_id': 'contact_form',
+            'form_step': 5,
+            'form_step_name': 'Kontaktdaten',
+            'error_type': 'invalid_phone',
+            'error_message': 'Ungültige Telefonnummer'
+          });
+          
+          return;
+        }
+        
         // Speichere Daten
         formData.fullname = fullname;
         formData.company = company;
@@ -1042,6 +1113,11 @@ document.addEventListener('DOMContentLoaded', function() {
           'form_company': formData.company,
           'form_role': formData.role,
           'form_privacy_accepted': 'yes'
+        });
+        
+        // Kontakt-Daten direkt absenden (ohne Terminbuchung)
+        submitContactData().catch(() => {
+          // Fehler wird bereits im Status angezeigt
         });
         
         // Weiter zu Step 6 (Terminbuchung)
@@ -1094,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'appointment_booked': 'yes'
       });
       
-      submitForm();
+      goToSuccessStep();
     }
   }
   
@@ -1102,16 +1178,6 @@ document.addEventListener('DOMContentLoaded', function() {
     openCalendarBtn.addEventListener('click', function(e) {
       e.preventDefault();
       openCalendarModal();
-    });
-  }
-  
-  // Ohne Termin absenden - direkt submitForm aufrufen (E-Mail + ClickUp)
-  const submitWithoutBookingBtn = document.getElementById('submitWithoutBookingBtn');
-  if (submitWithoutBookingBtn) {
-    submitWithoutBookingBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      formData.bookedAppointment = false;
-      submitForm();
     });
   }
   
