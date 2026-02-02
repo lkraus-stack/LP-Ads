@@ -1,8 +1,18 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 /**
  * Vercel Serverless Function für Formular-Submit mit ClickUp-Integration
  * 
  * Route: /api/submit-form
  */
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const TEMPLATE_DIR = path.join(__dirname, 'email-templates');
+const templateCache = new Map();
+const BRAND_NAME = process.env.EMAIL_BRAND_NAME || 'Franco Consulting GmbH';
 
 export default async function handler(req, res) {
   // CORS Headers
@@ -98,6 +108,7 @@ async function sendConfirmationEmail(data) {
   const from = process.env.EMAIL_FROM_ADDRESS || 'Franco Consulting <onboarding@resend.dev>';
   const subject = 'Ihre Anfrage bei Franco Consulting GmbH';
   const html = getConfirmationEmailHtml(data);
+  const text = getConfirmationEmailText(data);
   try {
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -109,7 +120,8 @@ async function sendConfirmationEmail(data) {
         from,
         to: [data.email],
         subject,
-        html
+        html,
+        text
       })
     });
     if (!r.ok) {
@@ -134,6 +146,7 @@ async function sendNotificationEmail(data) {
   const from = process.env.EMAIL_FROM_ADDRESS || 'Franco Consulting <onboarding@resend.dev>';
   const subject = `Neue Anfrage von Website: ${sanitize(data.company)} - ${sanitize(data.fullname)}`;
   const html = getNotificationEmailHtml(data);
+  const text = getNotificationEmailText(data);
   try {
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -146,6 +159,7 @@ async function sendNotificationEmail(data) {
         to: [toAddress],
         subject,
         html,
+        text,
         reply_to: data.email
       })
     });
@@ -161,61 +175,149 @@ async function sendNotificationEmail(data) {
   }
 }
 
+function loadTemplate(filename) {
+  if (templateCache.has(filename)) {
+    return templateCache.get(filename);
+  }
+  const templatePath = path.join(TEMPLATE_DIR, filename);
+  const template = fs.readFileSync(templatePath, 'utf8');
+  templateCache.set(filename, template);
+  return template;
+}
+
+function renderTemplate(template, variables) {
+  let output = template;
+  for (const [key, value] of Object.entries(variables)) {
+    const token = `{{${key}}}`;
+    output = output.split(token).join(value ?? '');
+  }
+  return output;
+}
+
+function safeValue(value, fallback = '') {
+  const cleaned = sanitize(String(value ?? '')).trim();
+  return cleaned || fallback;
+}
+
+function formatBudget(value) {
+  const cleaned = safeValue(value, 'Nicht angegeben');
+  if (cleaned === 'Nicht angegeben') return cleaned;
+  if (/[€]|eur/i.test(cleaned)) return cleaned;
+  return `${cleaned} €`;
+}
+
+function formatMessageHtml(message) {
+  const cleaned = (message || '').replace(/[<>]/g, '').trim();
+  if (!cleaned) return '–';
+  return cleaned.replace(/\n/g, '<br>');
+}
+
+function formatMessageText(message) {
+  const cleaned = (message || '').replace(/[<>]/g, '').trim();
+  return cleaned || '–';
+}
+
+function getLogoBlock() {
+  const logoUrl = (process.env.EMAIL_LOGO_URL || '').trim();
+  if (logoUrl) {
+    const safeUrl = logoUrl.replace(/["<>]/g, '');
+    const safeAlt = BRAND_NAME.replace(/["<>]/g, '');
+    return `<img src="${safeUrl}" alt="${safeAlt}" height="28" style="display:block; height:28px; max-width:200px; width:auto; border:0;" />`;
+  }
+  return `<span style="color:#ffffff; font-size:16px; font-weight:600; letter-spacing:0.2px;">${BRAND_NAME}</span>`;
+}
+
+function getEmailLink(email) {
+  const safeEmail = safeValue(email, '–');
+  if (safeEmail === '–') return '–';
+  return `<a href="mailto:${safeEmail}" style="color:#1a1a1a; text-decoration:underline;">${safeEmail}</a>`;
+}
+
 function getConfirmationEmailHtml(data) {
-  const name = sanitize(data.fullname || '');
-  const company = sanitize(data.company || '');
-  const need = sanitize(data.need || 'Nicht angegeben');
-  const budget = (sanitize(data.budget || 'Nicht angegeben')) + ' €';
-  const timeline = sanitize(data.timeline || 'Nicht angegeben');
-  const message = (data.message || '').replace(/[<>]/g, '').trim();
-  const messageHtml = message ? `<p><strong>Ihre Nachricht:</strong></p><p>${message.replace(/\n/g, '<br>')}</p>` : '';
-  return `<!DOCTYPE html>
-<html lang="de">
-<head><meta charset="UTF-8"><title>Anfrage bestätigt</title></head>
-<body style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <h2 style="color: #1a1a1a;">Vielen Dank für Ihre Anfrage</h2>
-  <p>Hallo ${name},</p>
-  <p>wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen.</p>
-  <h3 style="margin-top: 24px;">Zusammenfassung Ihrer Angaben</h3>
-  <ul style="list-style: none; padding: 0;">
-    <li><strong>Firma:</strong> ${company}</li>
-    <li><strong>Bedarf:</strong> ${need}</li>
-    <li><strong>Budget:</strong> ${budget}</li>
-    <li><strong>Startzeitpunkt:</strong> ${timeline}</li>
-  </ul>
-  ${messageHtml}
-  <p style="margin-top: 32px;">Mit freundlichen Grüßen<br>Ihr Team der Franco Consulting GmbH</p>
-</body>
-</html>`;
+  const template = loadTemplate('confirmation.html');
+  const name = safeValue(data.fullname, '');
+  const company = safeValue(data.company, 'Nicht angegeben');
+  const need = safeValue(data.need, 'Nicht angegeben');
+  const budget = formatBudget(data.budget);
+  const timeline = safeValue(data.timeline, 'Nicht angegeben');
+  const messageHtml = formatMessageHtml(data.message);
+  const preheader = `Danke für Ihre Anfrage${name ? `, ${name}` : ''}.`;
+  return renderTemplate(template, {
+    preheader,
+    logoBlock: getLogoBlock(),
+    name,
+    company,
+    need,
+    budget,
+    timeline,
+    messageHtml,
+    year: new Date().getFullYear()
+  });
 }
 
 function getNotificationEmailHtml(data) {
-  const rows = [
-    ['Name', data.fullname || ''],
-    ['Firma', data.company || ''],
-    ['Rolle', data.role || 'Nicht angegeben'],
-    ['E-Mail', data.email || ''],
-    ['Telefon', data.phone || ''],
-    ['Bedarf', data.need || 'Nicht angegeben'],
-    ['Budget', (data.budget || 'Nicht angegeben') + ' €'],
-    ['Startzeitpunkt', data.timeline || 'Nicht angegeben'],
-    ['Termin gebucht', data.bookedAppointment ? 'Ja' : 'Nein']
+  const template = loadTemplate('notification.html');
+  const company = safeValue(data.company, 'Website');
+  const preheader = `Neue Anfrage von ${company}.`;
+  return renderTemplate(template, {
+    preheader,
+    logoBlock: getLogoBlock(),
+    fullName: safeValue(data.fullname, '–'),
+    company: safeValue(data.company, '–'),
+    role: safeValue(data.role, 'Nicht angegeben'),
+    emailLink: getEmailLink(data.email),
+    phone: safeValue(data.phone, '–'),
+    need: safeValue(data.need, 'Nicht angegeben'),
+    budget: formatBudget(data.budget),
+    timeline: safeValue(data.timeline, 'Nicht angegeben'),
+    bookedAppointment: data.bookedAppointment ? 'Ja' : 'Nein',
+    messageHtml: formatMessageHtml(data.message),
+    year: new Date().getFullYear()
+  });
+}
+
+function getConfirmationEmailText(data) {
+  const name = safeValue(data.fullname, '');
+  const lines = [
+    'Vielen Dank für Ihre Anfrage',
+    '',
+    `Hallo ${name},`,
+    'wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen.',
+    '',
+    'Zusammenfassung Ihrer Angaben',
+    `Firma: ${safeValue(data.company, 'Nicht angegeben')}`,
+    `Bedarf: ${safeValue(data.need, 'Nicht angegeben')}`,
+    `Budget: ${formatBudget(data.budget)}`,
+    `Startzeitpunkt: ${safeValue(data.timeline, 'Nicht angegeben')}`,
+    '',
+    'Ihre Nachricht:',
+    formatMessageText(data.message),
+    '',
+    'Mit freundlichen Grüßen',
+    `Ihr Team der ${BRAND_NAME}`
   ];
-  const trs = rows.map(([label, val]) =>
-    `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>${sanitize(label)}</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${sanitize(String(val))}</td></tr>`
-  ).join('');
-  const msg = (data.message || '').replace(/[<>]/g, '').trim();
-  const messageHtml = msg ? `<p>${msg.replace(/\n/g, '<br>')}</p>` : '<p>–</p>';
-  return `<!DOCTYPE html>
-<html lang="de">
-<head><meta charset="UTF-8"><title>Neue Anfrage</title></head>
-<body style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <h2 style="color: #1a1a1a;">Neue Kontaktanfrage von der Website</h2>
-  <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">${trs}</table>
-  <h3>Nachricht</h3>
-  ${messageHtml}
-</body>
-</html>`;
+  return lines.join('\n');
+}
+
+function getNotificationEmailText(data) {
+  const lines = [
+    'Neue Kontaktanfrage von der Website',
+    '',
+    'Kontakt- und Anfrage-Details',
+    `Name: ${safeValue(data.fullname, '–')}`,
+    `Firma: ${safeValue(data.company, '–')}`,
+    `Rolle: ${safeValue(data.role, 'Nicht angegeben')}`,
+    `E-Mail: ${safeValue(data.email, '–')}`,
+    `Telefon: ${safeValue(data.phone, '–')}`,
+    `Bedarf: ${safeValue(data.need, 'Nicht angegeben')}`,
+    `Budget: ${formatBudget(data.budget)}`,
+    `Startzeitpunkt: ${safeValue(data.timeline, 'Nicht angegeben')}`,
+    `Termin gebucht: ${data.bookedAppointment ? 'Ja' : 'Nein'}`,
+    '',
+    'Nachricht:',
+    formatMessageText(data.message)
+  ];
+  return lines.join('\n');
 }
 
 /**
