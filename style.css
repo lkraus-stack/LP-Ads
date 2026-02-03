@@ -7216,7 +7216,7 @@ body.popup-open .ads-card .ads-logo-svg {
   position: relative;
   width: 100%;
   max-width: 560px;
-  max-height: 85vh;
+  max-height: 90vh;
   background: rgba(10, 10, 10, 0.4);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -7765,6 +7765,25 @@ body.popup-open .ads-card .ads-logo-svg {
   padding-top: var(--spacing-md);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   margin-top: var(--spacing-md);
+}
+
+/* Step 5: kompakter, damit Buttons sichtbar bleiben */
+.form-step[data-step="5"] .form-step-header {
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-step[data-step="5"] .form-fields {
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.form-step[data-step="5"] .form-field input {
+  padding: 10px var(--spacing-md);
+}
+
+.form-step[data-step="5"] .form-step-actions {
+  padding-top: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
 }
 
 .form-prev-btn,
@@ -9107,6 +9126,21 @@ body.calendar-modal-open {
   .form-success-icon svg {
     width: 40px;
     height: 40px;
+  }
+}
+
+@media (max-height: 820px) {
+  .form-modal-content {
+    padding: var(--spacing-md);
+    padding-top: calc(var(--spacing-md) + 20px);
+  }
+  
+  .form-step[data-step="5"] .form-fields {
+    gap: var(--spacing-xs);
+  }
+  
+  .form-step[data-step="5"] .form-field label {
+    font-size: 0.85rem;
   }
 }
 
