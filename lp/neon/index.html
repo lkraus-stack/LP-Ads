@@ -6,8 +6,44 @@
   <meta name="theme-color" content="#000000">
   <title>Franco Consulting GmbH - Neon Edition</title>
   <link rel="stylesheet" href="../../style.css">
+  
+  <!-- Google Tag Manager mit Cookie Consent -->
+  <script>
+    // Data-Layer initialisieren - MUSS vor GTM geladen werden
+    window.dataLayer = window.dataLayer || [];
+    
+    // Google Consent Mode initialisieren - DSGVO konform
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'functionality_storage': 'granted',
+      'security_storage': 'granted',
+      'wait_for_update': 2000
+    });
+    
+    // Initiale Page-View Event
+    window.dataLayer.push({
+      'event': 'page_view',
+      'page_title': document.title,
+      'page_location': window.location.href,
+      'page_path': window.location.pathname
+    });
+  </script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PWBMF59V');</script>
+  <!-- End Google Tag Manager -->
 </head>
 <body data-theme="neon">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PWBMF59V"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <header>
     <div>
       <a href="#" class="logo" aria-label="Zur Startseite">
@@ -21,6 +57,7 @@
       <nav>
         <ul>
           <li><a href="#ads-services">Leistungen</a></li>
+          <li><a href="#references">Ergebnisse</a></li>
           <li><a href="#prozess-modern">Prozess</a></li>
           <li><a href="#pricing">Preise</a></li>
           <li><a href="#about">Über Uns</a></li>
@@ -327,98 +364,87 @@
     <div class="container">
       <h2 class="section-title">Bewährte Ergebnisse</h2>
       <p class="section-subtitle">Unsere Kunden sprechen für sich - Echte Screenshots, echte Erfolge</p>
-      
-      <div class="references-grid">
-        <!-- Screenshot 1 -->
-        <div class="reference-card">
-          <div class="reference-image">
-            <img src="../../assets/images/references/screenshot1.png" alt="E-Commerce Erfolg - Performance Tabelle mit 765% ROAS" loading="lazy">
-            <div class="reference-stats">
-              <span class="stat-item">+765% ROAS</span>
-              <span class="stat-item">121.837€ Umsatz</span>
-            </div>
-          </div>
-          <div class="reference-info">
-            <h3>E-Commerce Erfolg</h3>
-            <p>Umsatzsteigerung durch optimierte Kampagnen</p>
-          </div>
-        </div>
-
-        <!-- Screenshot 2 -->
-        <div class="reference-card">
-          <div class="reference-image">
-            <img src="../../assets/images/references/screenshot2.png" alt="Service-Business - Performance Metriken mit 740% ROAS" loading="lazy">
-            <div class="reference-stats">
-              <span class="stat-item">+740% ROAS</span>
-              <span class="stat-item">31.910€ Umsatz</span>
-            </div>
-          </div>
-          <div class="reference-info">
-            <h3>Service-Business</h3>
-            <p>Konstante Lead-Generierung etabliert</p>
-          </div>
-        </div>
-
-        <!-- Screenshot 3 -->
-        <div class="reference-card">
-          <div class="reference-image">
-            <img src="../../assets/images/references/screenshot3.png" alt="Lokales Unternehmen - Detaillierte Performance Tabelle mit 741% ROAS" loading="lazy">
-            <div class="reference-stats">
-              <span class="stat-item">+741% ROAS</span>
-              <span class="stat-item">12.222€ Umsatz</span>
-            </div>
-          </div>
-          <div class="reference-info">
-            <h3>Lokales Unternehmen</h3>
-            <p>Regionale Marktführerschaft erreicht</p>
-          </div>
-        </div>
-
-        <!-- Screenshot 4 -->
-        <div class="reference-card">
-          <div class="reference-image">
-            <div class="reference-placeholder">
-              <div class="placeholder-content">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 3v18h18"></path>
-                  <path d="M18 17V9l-5 5-4-4-5 5"></path>
-                  <path d="M15 10l3-3"></path>
-                </svg>
-                <span class="placeholder-text">Screenshot wird hier eingefügt</span>
+      <div class="references-wrapper">
+        <div class="references-hero">
+          <article class="reference-card reference-card-primary" data-lightbox-src="../../assets/images/references/screenshot1.png" data-lightbox-alt="E-Commerce Erfolg – Google Ads +765% ROAS">
+            <div class="reference-media">
+              <img src="../../assets/images/references/screenshot1.png" alt="E-Commerce Erfolg - Performance Tabelle mit 765% ROAS" loading="lazy">
+              <div class="reference-card-badges">
+                <span class="badge badge-channel badge-google">Google Ads</span>
+                <span class="badge badge-industry">E-Commerce</span>
+                <span class="badge badge-period">90 Tage</span>
+              </div>
+              <div class="reference-card-stats">
+                <div class="stat-large">+765% ROAS</div>
+                <div class="stat-medium">121.837€ Umsatz</div>
+                <div class="stat-meta">Skalierung DACH · Echtzeit-Dashboard</div>
               </div>
             </div>
-            <div class="reference-stats">
-              <span class="stat-item">+679% ROAS</span>
-              <span class="stat-item">6.634€ Umsatz</span>
-            </div>
-          </div>
-          <div class="reference-info">
-            <h3>Startup Skalierung</h3>
-            <p>Von 0 auf planbare Umsätze</p>
+          </article>
+
+          <div class="reference-secondary">
+            <article class="reference-card reference-card-compact" data-lightbox-src="../../assets/images/references/screenshot2.png" data-lightbox-alt="Service-Business – Meta Ads 740% ROAS">
+              <div class="reference-media">
+                <img src="../../assets/images/references/screenshot2.png" alt="Service-Business - Performance Metriken mit 740% ROAS" loading="lazy">
+                <div class="reference-card-badges">
+                  <span class="badge badge-channel badge-meta">Meta Ads</span>
+                  <span class="badge badge-industry">Service</span>
+                </div>
+                <div class="reference-card-stats">
+                  <div class="stat-medium">+740% ROAS</div>
+                  <div class="stat-meta">31.910€ Umsatz · 60 Tage</div>
+                </div>
+              </div>
+            </article>
+
+            <article class="reference-card reference-card-compact reference-card-overlap" data-lightbox-src="../../assets/images/references/screenshot4.png" data-lightbox-alt="Case Study 4 - Performance Dashboard">
+              <div class="reference-media">
+                <img src="../../assets/images/references/screenshot4.png" alt="Case Study 4 - Performance Dashboard" loading="lazy">
+                <div class="reference-card-badges">
+                  <span class="badge badge-channel badge-google">Google Ads</span>
+                  <span class="badge badge-industry">Dashboard</span>
+                </div>
+                <div class="reference-card-stats">
+                  <div class="stat-medium">Performance Dashboard</div>
+                  <div class="stat-meta">Transparente Live-Daten</div>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
 
-        <!-- Screenshot 5 -->
-        <div class="reference-card">
-          <div class="reference-image">
-            <div class="reference-placeholder">
-              <div class="placeholder-content">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 3v18h18"></path>
-                  <path d="M18 17V9l-5 5-4-4-5 5"></path>
-                  <path d="M15 10l3-3"></path>
-                </svg>
-                <span class="placeholder-text">Screenshot wird hier eingefügt</span>
-              </div>
-            </div>
-            <div class="reference-stats">
-              <span class="stat-item">+528% ROAS</span>
-              <span class="stat-item">3.601€ Umsatz</span>
+        <div class="reference-rail">
+          <div class="rail-head">
+            <div>
+              <div class="rail-title">Weitere Cases</div>
+              <div class="rail-sub">Google &amp; Meta Ads · echte Screens</div>
             </div>
           </div>
-          <div class="reference-info">
-            <h3>B2B Dienstleister</h3>
-            <p>Qualifizierte Leads im Überfluss</p>
+
+          <div class="rail-track">
+            <button class="rail-thumb" type="button" data-lightbox-src="../../assets/images/references/screenshot5.png" data-lightbox-alt="Case Study 5 - Performance Dashboard">
+              <img src="../../assets/images/references/screenshot5.png" alt="Case Study 5 - Performance Dashboard" loading="lazy">
+              <div class="rail-thumb-overlay">
+                <span class="badge badge-channel badge-google">Google Ads</span>
+                <span class="rail-thumb-title">Case Study 5</span>
+              </div>
+            </button>
+
+            <button class="rail-thumb" type="button" data-lightbox-src="../../assets/images/references/screenshot6.png" data-lightbox-alt="Case Study 6 - Performance Dashboard">
+              <img src="../../assets/images/references/screenshot6.png" alt="Case Study 6 - Performance Dashboard" loading="lazy">
+              <div class="rail-thumb-overlay">
+                <span class="badge badge-channel badge-meta">Meta Ads</span>
+                <span class="rail-thumb-title">Case Study 6</span>
+              </div>
+            </button>
+
+            <button class="rail-thumb" type="button" data-lightbox-src="../../assets/images/references/screenshot7.png" data-lightbox-alt="Case Study 7 - Performance Dashboard">
+              <img src="../../assets/images/references/screenshot7.png" alt="Case Study 7 - Performance Dashboard" loading="lazy">
+              <div class="rail-thumb-overlay">
+                <span class="badge badge-channel badge-google">Google Ads</span>
+                <span class="rail-thumb-title">Case Study 7</span>
+              </div>
+            </button>
           </div>
         </div>
       </div>
@@ -452,7 +478,7 @@
             </svg>
           </div>
           <h3>Umsatzwachstum</h3>
-          <p>Verdopplung des Umsatzes im ersten Jahr durch klare Wachstumsstrategien.</p>
+          <p>Steigerung des Umsatzes durch klare Wachstumsstrategien.</p>
         </article>
         <article class="outcome-card" data-popup="planbares-system">
           <div class="outcome-card-icon" aria-hidden="true">
@@ -487,7 +513,7 @@
             </svg>
           </div>
           <h3>Effizienter Bestand</h3>
-          <p>Mehr Umsatz auf dem Bestand durch höhere Sales und Prozess Effizienz.</p>
+          <p>Mehr Umsatz auf dem Bestand durch höhere Sales und Prozess-Effizienz.</p>
         </article>
         <article class="outcome-card" data-popup="markenrelevanz">
           <div class="outcome-card-icon" aria-hidden="true">
@@ -714,7 +740,7 @@
               <li>Alles aus dem "Full Service" Paket</li>
               <li>Omnichannel-Strategie & Attribution</li>
               <li>Laufende strategische Funnel-Anpassung</li>
-              <li>Vielfälltige Creative Erstellung für alle Plattformen. (Beiträge & Ads)</li>
+              <li>Vielfälltige Creative Erstellung für alle Plattformen (Beiträge & Ads)</li>
               <li>Erweiterte Creative-Strategie für alle Kanäle</li>
             </ul>
           </div>
@@ -2378,7 +2404,7 @@
           <div class="form-step-actions">
             <button type="button" class="btn btn-outline form-prev-btn">Zurück</button>
             <button type="button" class="btn btn-gradient form-next-step-btn">
-              <span>Weiter</span>
+              <span>Absenden</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
@@ -2418,6 +2444,7 @@
               </svg>
               <span>Termin auswählen</span>
             </button>
+            <p class="form-submit-status" id="formSubmitStatusInline" aria-live="polite" style="display: none;"></p>
           </div>
         </div>
 
@@ -2432,6 +2459,7 @@
             </div>
             <h2 class="form-success-title">Vielen Dank!</h2>
             <p class="form-success-text">Wir haben deine Anfrage erhalten und melden uns schnellstmöglich bei dir.</p>
+            <p class="form-submit-status" id="formSubmitStatus" aria-live="polite" style="display: none;"></p>
             <p class="form-success-booking-info" id="formBookingConfirmation" style="display: none;">Dein Termin wurde erfolgreich gebucht!</p>
             <button type="button" class="btn btn-gradient form-close-btn">Schließen</button>
           </div>
@@ -2457,6 +2485,109 @@
           frameborder="0"
           loading="lazy">
         </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Banner -->
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-labelledby="cookieBannerTitle" aria-describedby="cookieBannerDescription">
+    <div class="cookie-banner-content">
+      <div class="cookie-banner-text">
+        <h3 id="cookieBannerTitle">🍪 Cookies & Datenschutz</h3>
+        <p id="cookieBannerDescription">
+          Wir verwenden Cookies und ähnliche Technologien, um Ihnen die bestmögliche Nutzererfahrung zu bieten und unsere Website zu verbessern. 
+          Einige Cookies sind für den Betrieb der Website erforderlich, andere helfen uns bei der Analyse und Optimierung.
+        </p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" id="cookieAcceptAll" class="cookie-btn cookie-btn-accept" onclick="if(window.acceptAllCookies) window.acceptAllCookies();">
+          Alle akzeptieren
+        </button>
+        <button type="button" id="cookieDeclineAll" class="cookie-btn cookie-btn-decline" onclick="if(window.declineAllCookies) window.declineAllCookies();">
+          Alle ablehnen
+        </button>
+        <button type="button" id="cookieSettings" class="cookie-btn cookie-btn-settings" onclick="if(window.showCookieSettings) window.showCookieSettings();">
+          Einstellungen
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cookie Settings Modal -->
+  <div id="cookieSettingsModal" class="cookie-modal" role="dialog" aria-labelledby="cookieSettingsTitle" aria-hidden="true">
+    <div class="cookie-modal-backdrop"></div>
+    <div class="cookie-modal-content">
+      <div class="cookie-modal-header">
+        <h2 id="cookieSettingsTitle">Cookie-Einstellungen</h2>
+        <button type="button" id="cookieModalClose" class="cookie-modal-close" aria-label="Schließen">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="cookie-modal-body">
+        <p class="cookie-modal-description">
+          Hier können Sie detailliert festlegen, welche Cookies Sie zulassen möchten. 
+          Ihre Auswahl wird für 12 Monate gespeichert.
+        </p>
+        
+        <!-- Notwendige Cookies -->
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <div class="cookie-category-info">
+              <h3>Notwendige Cookies</h3>
+              <p>Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht deaktiviert werden.</p>
+            </div>
+            <div class="cookie-toggle">
+              <input type="checkbox" id="cookieNecessary" checked disabled>
+              <label for="cookieNecessary" class="cookie-toggle-label">
+                <span class="cookie-toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="cookie-category-details">
+            <strong>Zweck:</strong> Speicherung von Cookie-Einstellungen, Session-Management<br>
+            <strong>Anbieter:</strong> Franco Consulting GmbH<br>
+            <strong>Speicherdauer:</strong> 12 Monate
+          </div>
+        </div>
+
+        <!-- Marketing Cookies -->
+        <div class="cookie-category">
+          <div class="cookie-category-header">
+            <div class="cookie-category-info">
+              <h3>Marketing & Werbung</h3>
+              <p>Diese Cookies werden verwendet, um Ihnen relevante Werbung zu zeigen, die Effektivität unserer Kampagnen zu messen und zu verstehen, wie Besucher mit unserer Website interagieren.</p>
+            </div>
+            <div class="cookie-toggle">
+              <input type="checkbox" id="cookieMarketing">
+              <label for="cookieMarketing" class="cookie-toggle-label">
+                <span class="cookie-toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div class="cookie-category-details">
+            <strong>Zweck:</strong> Website-Analyse, Besucherstatistiken, Performance-Monitoring, Personalisierte Werbung, Conversion-Tracking, Remarketing<br>
+            <strong>Anbieter:</strong> Google Analytics, Google Tag Manager, Google Ads, Meta Pixel, LinkedIn Insight Tag<br>
+            <strong>Speicherdauer:</strong> Bis zu 26 Monate<br>
+            <strong>Datenübertragung:</strong> USA, Irland (angemessenes Datenschutzniveau)
+          </div>
+        </div>
+      </div>
+      
+      <div class="cookie-modal-footer">
+        <button type="button" id="cookieSaveSettings" class="cookie-btn cookie-btn-accept" onclick="if(window.saveCookieIndividualSettings) window.saveCookieIndividualSettings();">
+          Auswahl speichern
+        </button>
+        <button type="button" id="cookieAcceptAllModal" class="cookie-btn cookie-btn-outline" onclick="if(window.acceptAllCookies) window.acceptAllCookies();">
+          Alle akzeptieren
+        </button>
+      </div>
+      
+      <div class="cookie-modal-links">
+        <a href="/datenschutz" target="_blank">Datenschutzerklärung</a>
+        <a href="/impressum" target="_blank">Impressum</a>
       </div>
     </div>
   </div>
