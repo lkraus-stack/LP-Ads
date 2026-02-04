@@ -3,8 +3,8 @@
 Hier sollten die Kunden-Screenshots platziert werden:
 
 ## Benötigte Dateien:
-- `screenshot1.png` - E-Commerce Erfolg (765% ROAS, 121.837€ Umsatz)
-- `screenshot2.png` - Service-Business (740% ROAS, 31.910€ Umsatz)  
+- `screenshot1.png` - E-Commerce Erfolg (4132% ROAS, 2.233.602€ Umsatz)
+- `screenshot2.png` - Service-Business Google Ads (740% ROAS, 170.000€ Umsatz)  
 - `screenshot3.png` - Lokales Unternehmen (741% ROAS, 12.222€ Umsatz)
 - `screenshot4.png` - Startup Skalierung (679% ROAS, 6.634€ Umsatz)
 - `screenshot5.png` - B2B Dienstleister (528% ROAS, 3.601€ Umsatz)
