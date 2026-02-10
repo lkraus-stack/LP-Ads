@@ -1315,6 +1315,9 @@ const defaultCookieSettings = {
   consentGiven: false
 };
 
+const POSTHOG_TEST_EVENT_KEY = 'franco_posthog_test_event_sent_v1';
+const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
+
 // Cookie-Funktionen sofort verfügbar machen
 (function() {
   // Cookie-Einstellungen laden
@@ -1362,6 +1365,66 @@ const defaultCookieSettings = {
   }
   
   // GTM Consent Mode aktualisieren - Global verfügbar machen
+  window.updatePostHogConsent = function(settings) {
+    const analyticsGranted = settings.analytics || settings.marketing;
+    const consentMethod = settings.consentMethod || 'unknown';
+
+    const applyPostHogConsent = function() {
+      if (typeof window.posthog === 'undefined') return false;
+
+      if (analyticsGranted) {
+        // Aktiviert Tracking erst nach Consent und erlaubt Persistenz.
+        if (typeof window.posthog.set_config === 'function') {
+          window.posthog.set_config({
+            persistence: 'localStorage+cookie',
+            autocapture: true,
+            capture_pageview: false
+          });
+        }
+
+        if (typeof window.posthog.opt_in_capturing === 'function') {
+          window.posthog.opt_in_capturing();
+        }
+
+        if (typeof window.posthog.capture === 'function' && !sessionStorage.getItem(POSTHOG_PAGEVIEW_EVENT_KEY)) {
+          window.posthog.capture('$pageview', {
+            consent_method: consentMethod
+          });
+          sessionStorage.setItem(POSTHOG_PAGEVIEW_EVENT_KEY, '1');
+        }
+
+        if (typeof window.posthog.capture === 'function' && !localStorage.getItem(POSTHOG_TEST_EVENT_KEY)) {
+          window.posthog.capture('my_custom_event', { property: 'value' });
+          localStorage.setItem(POSTHOG_TEST_EVENT_KEY, '1');
+        }
+      } else {
+        if (typeof window.posthog.opt_out_capturing === 'function') {
+          window.posthog.opt_out_capturing();
+        }
+        if (typeof window.posthog.set_config === 'function') {
+          window.posthog.set_config({
+            persistence: 'memory',
+            autocapture: false,
+            capture_pageview: false
+          });
+        }
+      }
+
+      return true;
+    };
+
+    if (applyPostHogConsent()) return;
+
+    let attempts = 0;
+    const maxAttempts = 50;
+    const interval = setInterval(function() {
+      attempts++;
+      if (applyPostHogConsent() || attempts >= maxAttempts) {
+        clearInterval(interval);
+      }
+    }, 100);
+  };
+
   window.updateGTMConsent = function(settings) {
     // Analytics Storage: Direkt basierend auf Analytics-Einstellung
     // Marketing umfasst auch Analytics, daher: analytics ODER marketing
@@ -1401,6 +1464,10 @@ const defaultCookieSettings = {
         'ad_personalization': settings.marketing ? 'granted' : 'denied',
         'consent_timestamp': new Date().toISOString()
       });
+    }
+
+    if (typeof window.updatePostHogConsent === 'function') {
+      window.updatePostHogConsent(settings);
     }
   };
   
