@@ -1,12 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const statusEl = document.getElementById("formStatus");
+  const formWrapper = form && form.closest(".contact-form-wrapper");
+  const formSuccess = document.getElementById("formSuccess");
+  const submitButton = form && form.querySelector('button[type="submit"]');
+  const submitLabel = submitButton ? submitButton.textContent : "";
+  let isSubmitting = false;
 
   if (!form || !window.FrancoFormAPI) return;
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    statusEl.textContent = "Anfrage wird gesendet...";
+    if (isSubmitting) return;
+    isSubmitting = true;
+
+    if (formSuccess) formSuccess.setAttribute("hidden", "");
+    if (statusEl) statusEl.textContent = "Anfrage wird gesendet…";
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Wird gesendet…";
+    }
 
     const formData = new FormData(form);
     const payload = window.FrancoFormAPI.normalizePayload({
@@ -27,13 +40,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const validation = window.FrancoFormAPI.validatePayload(payload);
     if (!validation.valid) {
-      statusEl.textContent = validation.message;
+      const message = validation.message.startsWith("Pflichtfeld fehlt:")
+        ? "Bitte füllen Sie alle Pflichtfelder aus."
+        : validation.message;
+      if (statusEl) statusEl.textContent = message;
+      isSubmitting = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = submitLabel;
+      }
       window.trackVariantFormEvent &&
         window.trackVariantFormEvent("validation_error", {
           industry: payload.industry,
           variant_id: payload.variant_id,
           form_version: payload.form_version,
-          reason: validation.message,
+          reason: message,
         });
       return;
     }
@@ -47,8 +68,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       await window.FrancoFormAPI.submitForm(payload);
-      statusEl.textContent = "Danke! Wir melden uns zeitnah mit den naechsten Schritten.";
       form.reset();
+      if (statusEl) statusEl.textContent = "";
+      if (formSuccess) formSuccess.removeAttribute("hidden");
+      if (formWrapper) formWrapper.classList.add("is-success");
+      isSubmitting = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = submitLabel;
+      }
       window.trackVariantFormEvent &&
         window.trackVariantFormEvent("submit_success", {
           industry: payload.industry,
@@ -56,13 +84,18 @@ document.addEventListener("DOMContentLoaded", () => {
           form_version: payload.form_version,
         });
     } catch (error) {
-      statusEl.textContent = error.message || "Senden fehlgeschlagen. Bitte erneut versuchen.";
+      if (statusEl) statusEl.textContent = error.message || "Senden fehlgeschlagen. Bitte erneut versuchen.";
+      isSubmitting = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = submitLabel;
+      }
       window.trackVariantFormEvent &&
         window.trackVariantFormEvent("submit_error", {
           industry: payload.industry,
           variant_id: payload.variant_id,
           form_version: payload.form_version,
-          reason: statusEl.textContent,
+          reason: statusEl ? statusEl.textContent : "",
         });
     }
   });

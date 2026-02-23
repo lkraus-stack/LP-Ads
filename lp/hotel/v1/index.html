@@ -3,120 +3,248 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hotel Marketing v1 | Franco Consulting</title>
-  <meta name="description" content="A/B Variante v1 fuer Hotels: Performance Marketing fuer Direktbuchungen.">
+  <title>Mehr Direktbuchungen für Ihr Hotel | Franco Consulting</title>
+  <meta name="description" content="Performance-Marketing für Hotels und Tourismusverbände: Direktbuchungsquote erhöhen, weniger Abhängigkeit von Booking & Co. Unverbindliches Strategiegespräch anfragen.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body data-industry="hotel" data-variant="hotel_v1" data-form-version="hotel_form_v1">
-  <header class="topbar">
-    <a class="brand" href="/">Franco Consulting</a>
-    <a class="variant-switch" href="../v2/">Zu Variante v2</a>
-  </header>
-
   <main>
     <section class="hero">
-      <p class="kicker">Branche: Hotellerie</p>
-      <h1>Mehr Direktbuchungen mit einem klaren Performance-Setup</h1>
-      <p class="lead">Diese Variante setzt auf einen premium-orientierten Sales-Funnel fuer Hotels, Resorts und Destinationen.</p>
-      <a class="cta" href="#kontakt">Strategiegespraech anfragen</a>
+      <div class="hero-inner">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <a class="brand" href="/">Franco Consulting</a>
+            <p class="kicker">Performance Marketing für Hotels & Tourismusverbände</p>
+            <h1>Mehr Direktbuchungen. Weniger Abhängigkeit von Booking & Co.</h1>
+            <p class="lead">Wir entwickeln und optimieren Google- und Meta-Kampagnen, die Direktbuchungen und Anfragen planbar erhöhen – mit sauberem Tracking und laufender ROAS-Optimierung.</p>
+            <div class="hero-ctas">
+              <a class="cta cta-primary" href="#kontakt">Kostenloses Strategiegespräch</a>
+              <a class="cta cta-secondary" href="#blueprint">So arbeiten wir</a>
+            </div>
+
+            <div class="hero-proof">
+              <p class="trust-line">Im Einsatz bei 50+ Hotels und Tourismusverbänden.</p>
+              <div class="pill-row" aria-label="Schwerpunkte">
+                <span class="pill">Google Ads</span>
+                <span class="pill">Meta Ads</span>
+                <span class="pill">Tracking & Attribution</span>
+                <span class="pill">Direktbuchungsquote</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-form" id="kontakt" aria-label="Kontaktformular">
+            <div class="contact-form-wrapper">
+              <div class="form-success" id="formSuccess" aria-live="polite" hidden>
+                <p class="form-success-title">Vielen Dank!</p>
+                <p>Wir melden uns in der Regel innerhalb von 24–48 Stunden.</p>
+              </div>
+
+              <form id="contactForm" novalidate>
+                <h2 class="form-title">Strategiegespräch anfragen</h2>
+                <p class="form-lead">Kurze Angaben genügen – wir melden uns mit einer ersten Einschätzung.</p>
+
+                <label>Name
+                  <input name="fullname" type="text" autocomplete="name" required>
+                </label>
+
+                <label>Hotel / Unternehmen
+                  <input name="company" type="text" autocomplete="organization" required>
+                </label>
+
+                <div class="grid two">
+                  <label>E-Mail
+                    <input name="email" type="email" autocomplete="email" required>
+                  </label>
+                  <label>Telefon
+                    <input name="phone" type="tel" autocomplete="tel" required>
+                  </label>
+                </div>
+
+                <label>Optional: Kurz Ihr Ziel / Kontext
+                  <textarea name="message" rows="4" placeholder="z. B. Nebensaison füllen, mehr Direktbuchungen über Google, Standorte/Zimmerkategorien …"></textarea>
+                </label>
+
+                <label class="checkbox">
+                  <input name="bookedAppointment" type="checkbox">
+                  <span>Ich möchte direkt einen Terminlink erhalten.</span>
+                </label>
+
+                <input type="hidden" name="need" value="Mehr Direktbuchungen">
+
+                <button type="submit" class="cta cta-primary">Anfrage senden</button>
+                <p id="formStatus" class="status" role="status" aria-live="polite"></p>
+
+                <p class="form-note">Mit dem Absenden stimmen Sie der Verarbeitung gemäß <a href="/datenschutz">Datenschutz</a> zu.</p>
+              </form>
+            </div>
+          </aside>
+        </div>
+      </div>
     </section>
 
-    <section class="benefits">
-      <article>
-        <h2>Booking-Mix verbessern</h2>
-        <p>Abhaengigkeit von OTA reduzieren und die Marge pro Buchung steigern.</p>
-      </article>
-      <article>
-        <h2>Nachfrage steuern</h2>
-        <p>Last-Minute, Nebensaison und Peak-Zeiten gezielt mit Kampagnen ausgleichen.</p>
-      </article>
-      <article>
-        <h2>Messbar optimieren</h2>
-        <p>Klare KPIs pro Zielgruppe und Kanal statt reiner Reichweitenmetriken.</p>
-      </article>
+    <section class="trust-stats">
+      <div class="trust-stats-inner">
+        <p class="trust-line">Performance-Marketing, das Buchungen steuert – nicht nur Reichweite.</p>
+        <p class="stats-claim">Sauberes Setup, klare KPIs und laufende Optimierung – damit Direktbuchungen messbar wachsen.</p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-value">50+</span>
+            <span class="stat-label">Hotels & Verbände</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">Google & Meta</span>
+            <span class="stat-label">zertifizierte Kampagnen</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">Messbar</span>
+            <span class="stat-label">Direktbuchungsquote & ROAS</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="kontakt" class="contact">
-      <h2>Unverbindliche Anfrage</h2>
-      <p>Die API bleibt identisch. Das Formular ist inhaltlich auf die Hotel-Landingpage angepasst.</p>
-
-      <form id="contactForm" novalidate>
-        <div class="grid two">
-          <label>Hauptziel
-            <select name="need" required>
-              <option value="">Bitte auswaehlen</option>
-              <option>Mehr Direktbuchungen</option>
-              <option>Hoehere Auslastung in Nebensaison</option>
-              <option>ROAS-Optimierung bestehender Kampagnen</option>
-            </select>
-          </label>
-          <label>Monatliches Werbebudget
-            <select name="budget" required>
-              <option value="">Bitte auswaehlen</option>
-              <option value="5000">5.000 EUR</option>
-              <option value="10000">10.000 EUR</option>
-              <option value="20000">20.000 EUR</option>
-              <option value="50000">50.000 EUR+</option>
-            </select>
-          </label>
+    <section id="blueprint" class="blueprint">
+      <div class="section-inner">
+        <h2>Ihr Direktbuchungs-Blueprint in 3 Schritten</h2>
+        <p class="section-lead">Ein Setup, das Nachfrage aufbaut, Direktbuchungen erhöht und kontinuierlich optimiert wird.</p>
+        <div class="blueprint-grid">
+          <article class="step-card">
+            <p class="step-kicker">Schritt 1</p>
+            <h3>Analyse & Tracking</h3>
+            <p>Wir klären Ziele, Zielgruppen und Saisonlogik – und sorgen für belastbares Tracking als Grundlage für Entscheidungen.</p>
+          </article>
+          <article class="step-card">
+            <p class="step-kicker">Schritt 2</p>
+            <h3>Kampagnen-Setup</h3>
+            <p>Such- und Performance-Kampagnen (Google/Meta) werden so strukturiert, dass sie Direktbuchungen und Anfragen priorisieren.</p>
+          </article>
+          <article class="step-card">
+            <p class="step-kicker">Schritt 3</p>
+            <h3>ROAS-Optimierung</h3>
+            <p>Laufende Tests, Budgetsteuerung und saubere Auswertung – damit Sie weniger OTA-Abhängigkeit und mehr Direktbuchungen erzielen.</p>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <div class="grid two">
-          <label>Startzeitpunkt
-            <select name="timeline" required>
-              <option value="">Bitte auswaehlen</option>
-              <option>Sofort</option>
-              <option>In 30 Tagen</option>
-              <option>In 60-90 Tagen</option>
-            </select>
-          </label>
-          <label>Rolle
-            <input name="role" type="text" placeholder="z. B. Hoteldirektion" required>
-          </label>
+    <section id="leistungen" class="solutions">
+      <div class="section-inner">
+        <h2>Für wen wir arbeiten</h2>
+        <p class="section-lead">Ob Stadthotel, Resort oder Tourismusverband – wir bringen Performance-Marketing in Einklang mit Ihren Buchungszielen und Ihrer Saison.</p>
+        <div class="solutions-grid">
+          <article class="solution-card">
+            <h3>Stadthotel</h3>
+            <p>Geschäftsreisen und Städtereisen gezielt ansprechen, Direktbuchungen steigern.</p>
+          </article>
+          <article class="solution-card">
+            <h3>Resort & Ferienhotel</h3>
+            <p>Nebensaison und Last-Minute mit Kampagnen ausgleichen, Auslastung optimieren.</p>
+          </article>
+          <article class="solution-card">
+            <h3>Tourismusverband</h3>
+            <p>Destinationen und Regionen gemeinsam bewerben, messbare Buchungsanteile.</p>
+          </article>
+          <article class="solution-card">
+            <h3>Nebensaison & Peak</h3>
+            <p>Nachfrage steuern statt abwarten – mit klaren KPIs pro Kanal.</p>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <label>Projektkontext
-          <textarea name="message" rows="4" placeholder="Welche Standorte, Zielgruppen oder Zimmerkategorien sollen priorisiert werden?" required></textarea>
-        </label>
-
-        <div class="grid two">
-          <label>Name
-            <input name="fullname" type="text" autocomplete="name" required>
-          </label>
-          <label>Hotel / Unternehmen
-            <input name="company" type="text" autocomplete="organization" required>
-          </label>
+    <section class="products">
+      <div class="section-inner">
+        <h2>Was wir anbieten</h2>
+        <p class="section-lead">Von Google Ads über Meta bis zur kontinuierlichen Optimierung: ein klares Setup für mehr Direktbuchungen und weniger OTA-Abhängigkeit.</p>
+        <div class="products-grid">
+          <article class="product-card">
+            <h3>Google Ads</h3>
+            <p>Such- und Performance-Kampagnen für Buchungsanfragen mit messbarem ROAS.</p>
+          </article>
+          <article class="product-card">
+            <h3>Meta Ads</h3>
+            <p>Zielgruppen und Remarketing für Urlaubs- und Städtereisen.</p>
+          </article>
+          <article class="product-card">
+            <h3>Kampagnen-Setup</h3>
+            <p>Struktur, Ziele und Tracking von Anfang an conversion-orientiert.</p>
+          </article>
+          <article class="product-card">
+            <h3>ROAS-Optimierung</h3>
+            <p>Bestehende Kanäle schärfen, Direktbuchungsquote und Marge im Blick.</p>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <div class="grid two">
-          <label>Telefon
-            <input name="phone" type="tel" autocomplete="tel" required>
-          </label>
-          <label>E-Mail
-            <input name="email" type="email" autocomplete="email" required>
-          </label>
+    <section class="trust" id="vertrauen">
+      <div class="section-inner">
+        <h2>Warum das für Hotels funktioniert</h2>
+        <p class="section-lead">Wir kombinieren Nachfrageaufbau über Google/Meta mit einer klaren Conversion-Logik – damit mehr Gäste direkt bei Ihnen buchen.</p>
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3>Weniger OTA-Abhängigkeit</h3>
+            <p>Wir priorisieren Direktbuchungen und Anfragen, statt nur Reichweite zu erzeugen.</p>
+          </article>
+          <article class="trust-card">
+            <h3>Saisonsteuerung</h3>
+            <p>Peak, Shoulder oder Nebensaison: Kampagnen werden entlang Ihrer Auslastung optimiert.</p>
+          </article>
+          <article class="trust-card">
+            <h3>Sauberes Tracking</h3>
+            <p>Ohne saubere Messung keine Optimierung: wir arbeiten KPI-getrieben und transparent.</p>
+          </article>
+          <article class="trust-card">
+            <h3>Klare Reports</h3>
+            <p>Sie sehen, was wirkt – und warum. Fokus auf Direktbuchungsquote, ROAS und Marge.</p>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <label class="checkbox">
-          <input name="bookedAppointment" type="checkbox">
-          <span>Ich moechte direkt einen Terminlink erhalten.</span>
-        </label>
-
-        <button type="submit" class="cta">Anfrage senden</button>
-        <p id="formStatus" class="status" role="status" aria-live="polite"></p>
-      </form>
+    <section class="faq" id="faq">
+      <div class="section-inner">
+        <h2>FAQ</h2>
+        <div class="faq-list">
+          <details>
+            <summary>Für wen ist das Strategiegespräch geeignet?</summary>
+            <p>Für Hotels und Tourismusverbände, die Direktbuchungen und Anfragen über Google/Meta planbarer steigern möchten – mit klarer Messbarkeit.</p>
+          </details>
+          <details>
+            <summary>Wie schnell sind erste Ergebnisse möglich?</summary>
+            <p>Das hängt von Ausgangslage und Budget ab. In der Regel sehen wir erste belastbare Signale nach wenigen Wochen, echte Skalierung folgt über iterative Optimierung.</p>
+          </details>
+          <details>
+            <summary>Arbeitet ihr nur mit Google Ads?</summary>
+            <p>Google ist häufig der stärkste Hebel für direkte Nachfrage. Ergänzend nutzen wir Meta für Zielgruppenaufbau, Remarketing und saisonale Impulse.</p>
+          </details>
+          <details>
+            <summary>Wie läuft die Zusammenarbeit ab?</summary>
+            <p>Nach dem Gespräch definieren wir Ziele und KPIs, setzen Kampagnen strukturiert auf und optimieren fortlaufend anhand der Daten.</p>
+          </details>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <a href="/datenschutz">Datenschutz</a>
-    <a href="/impressum">Impressum</a>
-    <button id="cookieSettings" type="button">Cookie-Einstellungen</button>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-block">
+        <h3 class="footer-block-title">Rechtliches</h3>
+        <a href="/datenschutz">Datenschutz</a>
+        <a href="/impressum">Impressum</a>
+      </div>
+      <div class="footer-block">
+        <h3 class="footer-block-title">Einstellungen</h3>
+        <button id="cookieSettings" type="button">Cookie-Einstellungen</button>
+      </div>
+    </div>
   </footer>
 
   <div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Cookie Hinweis">
-    <p>Wir nutzen optionale Cookies fuer Marketing und Messung.</p>
+    <p>Wir nutzen optionale Cookies für Marketing und Messung.</p>
     <div class="cookie-actions">
       <button id="cookieAcceptAll" type="button">Alle akzeptieren</button>
       <button id="cookieDeclineAll" type="button">Alle ablehnen</button>
@@ -125,7 +253,7 @@
 
   <div id="cookieSettingsModal" class="cookie-modal" role="dialog" aria-label="Cookie Einstellungen">
     <div class="cookie-modal-content">
-      <button id="cookieModalClose" type="button" class="cookie-close">Schliessen</button>
+      <button id="cookieModalClose" type="button" class="cookie-close">Schließen</button>
       <h3>Cookie Einstellungen</h3>
       <label class="checkbox">
         <input id="cookieMarketing" type="checkbox">
