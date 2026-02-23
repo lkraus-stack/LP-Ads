@@ -23,6 +23,10 @@
   <!-- End PostHog Analytics -->
 </head>
 <body data-theme="hotel">
+  <div style="position:sticky;top:0;z-index:1200;padding:8px 12px;background:#111;border-bottom:1px solid rgba(255,255,255,0.15);text-align:center;">
+    <a href="./v1/" style="display:inline-block;margin:0 6px;padding:6px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:#fff;text-decoration:none;">Hotel A/B v1</a>
+    <a href="./v2/" style="display:inline-block;margin:0 6px;padding:6px 10px;border:1px solid rgba(255,255,255,0.2);border-radius:8px;color:#fff;text-decoration:none;">Hotel A/B v2</a>
+  </div>
   <header>
     <div>
       <a href="#" class="logo" aria-label="Zur Startseite">
@@ -2257,6 +2261,59 @@
       </form>
     </div>
   </div>
+
+  <!-- Simple Formular Template (V2) -->
+  <template id="simpleFormTemplate">
+    <div class="form-modal-overlay" id="formModal">
+      <div class="form-modal-content form-modal-content-simple">
+        <button class="form-modal-close" aria-label="Formular schließen">&times;</button>
+        <div class="form-step-header form-step-header-simple">
+          <h2 class="form-step-title">Projektanfrage</h2>
+          <p class="form-step-subtitle">Kurze Angaben genügen, wir melden uns schnell zurück.</p>
+        </div>
+        <form id="contactForm" class="form-container form-container-simple" novalidate>
+          <div class="form-fields">
+            <div class="form-field">
+              <label for="fullname">Dein Name *</label>
+              <input type="text" id="fullname" name="fullname" autocomplete="name" placeholder="Max Mustermann" required>
+            </div>
+            <div class="form-field">
+              <label for="company">Firma *</label>
+              <input type="text" id="company" name="company" autocomplete="organization" placeholder="Muster GmbH" required>
+            </div>
+            <div class="form-field">
+              <label for="phone">Telefon *</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="+49 123 456789" required>
+            </div>
+            <div class="form-field">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="ihre@email.de" required>
+            </div>
+            <div class="form-field form-field-textarea">
+              <label for="message">Dein Vorhaben *</label>
+              <textarea id="message" name="message" rows="4" placeholder="Erzähl uns kurz, was du vorhast..." required></textarea>
+              <span class="form-field-hint">Mindestens 20 Zeichen</span>
+            </div>
+          </div>
+          <div class="form-privacy-checkbox">
+            <label class="form-privacy-label">
+              <input type="checkbox" id="privacy-checkbox" name="privacy" required>
+              <span class="form-privacy-text">Ich habe die <a href="https://www.franco-consulting.com/datenschutz" target="_blank" rel="noopener noreferrer">Datenschutzerklärung</a> gelesen und akzeptiert. *</span>
+            </label>
+          </div>
+          <div class="form-step-actions form-step-actions-simple">
+            <button type="submit" class="btn btn-gradient form-submit-btn">
+              <span>Anfrage senden</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+          <p class="form-submit-status" id="formSubmitStatus" aria-live="polite" style="display: none;"></p>
+        </form>
+      </div>
+    </div>
+  </template>
 
   <!-- Google Calendar Popup Modal -->
   <div class="calendar-modal-overlay" id="calendarModal">

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Marketing v2 | Franco Consulting</title>
+  <meta name="description" content="A/B Variante v2 fuer Hotels mit conversion-orientiertem Storytelling.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body data-industry="hotel" data-variant="hotel_v2" data-form-version="hotel_form_v2">
+  <header class="hero-shell">
+    <a class="switch" href="../v1/">Zurueck zu v1</a>
+    <h1>Hotel Performance Blueprint</h1>
+    <p>Ein conversion-zentriertes Setup fuer Stadt-, Ferien- und Wellnesshotels.</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <h2>Warum diese Variante?</h2>
+      <ul>
+        <li>Messaging fokussiert auf Direktbuchungsquote und Zimmerprofitabilitaet.</li>
+        <li>Starker Vergleich zwischen Ist-Situation und Zielbild.</li>
+        <li>Klarer CTA ohne lange Navigationspfade.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>Kontaktformular fuer Hotel-Teams</h2>
+      <form id="contactForm" novalidate>
+        <label>Hoteltyp
+          <select name="need" required>
+            <option value="">Bitte auswaehlen</option>
+            <option>Stadthotel</option>
+            <option>Resort / Ferienhotel</option>
+            <option>Gruppenhotel / Kette</option>
+          </select>
+        </label>
+
+        <div class="split">
+          <label>Monatsbudget
+            <select name="budget" required>
+              <option value="">Bitte auswaehlen</option>
+              <option value="5000">5.000 EUR</option>
+              <option value="15000">15.000 EUR</option>
+              <option value="30000">30.000 EUR</option>
+              <option value="50000">50.000 EUR+</option>
+            </select>
+          </label>
+          <label>Projektstart
+            <select name="timeline" required>
+              <option value="">Bitte auswaehlen</option>
+              <option>Sofort</option>
+              <option>Naechster Monat</option>
+              <option>Naechstes Quartal</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="split">
+          <label>Name
+            <input name="fullname" type="text" required>
+          </label>
+          <label>Unternehmen
+            <input name="company" type="text" required>
+          </label>
+        </div>
+
+        <div class="split">
+          <label>Rolle
+            <input name="role" type="text" placeholder="z. B. Revenue Manager" required>
+          </label>
+          <label>Telefon
+            <input name="phone" type="tel" required>
+          </label>
+        </div>
+
+        <label>E-Mail
+          <input name="email" type="email" required>
+        </label>
+        <label>Was soll sich in den naechsten 90 Tagen verbessern?
+          <textarea name="message" rows="4" required></textarea>
+        </label>
+
+        <label class="inline">
+          <input name="bookedAppointment" type="checkbox">
+          <span>Direkter Terminwunsch</span>
+        </label>
+
+        <button type="submit">Analyse anfragen</button>
+        <p id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/datenschutz">Datenschutz</a>
+    <a href="/impressum">Impressum</a>
+    <button id="cookieSettings" type="button">Cookies</button>
+  </footer>
+
+  <div id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Cookie Hinweis">
+    <p>Optionale Cookies helfen uns beim Variantenvergleich.</p>
+    <div>
+      <button id="cookieAcceptAll" type="button">Akzeptieren</button>
+      <button id="cookieDeclineAll" type="button">Ablehnen</button>
+    </div>
+  </div>
+
+  <div id="cookieSettingsModal" class="cookie-modal" role="dialog" aria-label="Cookie Einstellungen">
+    <div class="cookie-modal-content">
+      <button id="cookieModalClose" type="button">Schliessen</button>
+      <h3>Einstellungen</h3>
+      <label class="inline">
+        <input id="cookieMarketing" type="checkbox">
+        <span>Marketing erlauben</span>
+      </label>
+      <div>
+        <button id="cookieSaveSettings" type="button">Speichern</button>
+        <button id="cookieAcceptAllModal" type="button">Alle akzeptieren</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../shared/js/analytics.js"></script>
+  <script src="../../../shared/js/consent.js"></script>
+  <script src="../../../shared/js/form-api.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>

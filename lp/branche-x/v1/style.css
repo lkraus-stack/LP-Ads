@@ -1,0 +1,101 @@
+:root {
+  --bg: #0a0d16;
+  --panel: #141a29;
+  --text: #f5f8ff;
+  --muted: #b6bfd5;
+  --accent: #70c4ff;
+  --border: rgba(255, 255, 255, 0.16);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  background: linear-gradient(180deg, #111933 0%, var(--bg) 46%);
+}
+.top, .hero, .cards, .form-wrap, footer {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 0;
+}
+.top a, footer a, footer button {
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: transparent;
+}
+.hero { padding: 28px 0 8px; }
+.eyebrow { letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { margin: 0 0 10px; font-size: clamp(2rem, 5vw, 3.5rem); }
+
+.cards {
+  padding: 10px 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.cards article, form {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+  padding: 15px;
+}
+.form-wrap { padding: 14px 0 48px; }
+label { display: grid; gap: 6px; margin-bottom: 10px; font-weight: 600; }
+input, textarea, select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #0f1524;
+  color: var(--text);
+  padding: 10px 11px;
+}
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.inline { display: grid; grid-template-columns: auto 1fr; align-items: center; }
+button[type="submit"] {
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #70c4ff, #478ece);
+  color: #05111d;
+  font-weight: 700;
+  padding: 11px 14px;
+  cursor: pointer;
+}
+#formStatus { min-height: 24px; color: var(--muted); }
+footer { display: flex; gap: 8px; flex-wrap: wrap; padding-bottom: 26px; }
+
+.cookie-banner, .cookie-modal { display: none; }
+.cookie-banner.is-visible {
+  display: block;
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #11192b;
+}
+.cookie-modal.is-visible {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.cookie-modal-content {
+  width: min(480px, 92vw);
+  margin: 9vh auto 0;
+  background: #11192b;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+@media (max-width: 900px) {
+  .cards, .grid2 { grid-template-columns: 1fr; }
+}

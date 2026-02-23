@@ -1,0 +1,127 @@
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --text: #1c2532;
+  --muted: #5a6778;
+  --accent: #245a86;
+  --border: #d6e0eb;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #ecf3f9 0%, var(--bg) 60%);
+}
+
+.hero-shell, .layout, footer {
+  width: min(1050px, 92vw);
+  margin: 0 auto;
+}
+
+.hero-shell {
+  padding: 36px 0 20px;
+}
+.switch {
+  display: inline-block;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+h1 { margin: 0; font-size: clamp(2rem, 4vw, 3.2rem); }
+.hero-shell p { color: var(--muted); max-width: 700px; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 14px;
+  padding-bottom: 28px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+form label { display: grid; gap: 6px; margin-bottom: 12px; font-weight: 600; }
+input, textarea, select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+  background: #fff;
+}
+.split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.inline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+button[type="submit"] {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 15px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#formStatus { min-height: 24px; color: var(--muted); }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 0 30px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+footer a, footer button {
+  color: var(--accent);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.cookie-banner, .cookie-modal { display: none; }
+.cookie-banner.is-visible {
+  display: block;
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+.cookie-modal.is-visible {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+.cookie-modal-content {
+  width: min(520px, 92vw);
+  margin: 8vh auto 0;
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+@media (max-width: 900px) {
+  .layout, .split { grid-template-columns: 1fr; }
+}

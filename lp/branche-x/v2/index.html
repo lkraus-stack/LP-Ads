@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E-Commerce Growth v2 | Franco Consulting</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="A/B Variante v2 fuer E-Commerce mit editorialem Aufbau und fokussiertem Formular.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body data-industry="ecommerce" data-variant="branche_x_v2" data-form-version="ecom_form_v2">
+  <main class="container">
+    <aside class="story">
+      <a class="back" href="../">Alle Varianten</a>
+      <a class="back" href="../v1/">Zu v1</a>
+      <h1>E-Commerce Scale Sprint</h1>
+      <p>Variante v2 setzt auf ein kuerzeres Narrativ und einen klaren CTA-Block mit weniger Ablenkung.</p>
+      <ul>
+        <li>Kanalmix nach Marge statt Umsatz allein</li>
+        <li>Creative-Roadmap fuer jede Funnel-Phase</li>
+        <li>Woechentliche Entscheidungen auf KPI-Ebene</li>
+      </ul>
+    </aside>
+
+    <section class="form-panel">
+      <h2>Potenzialcheck anfragen</h2>
+      <form id="contactForm" novalidate>
+        <label>Aktueller Fokus
+          <select name="need" required>
+            <option value="">Bitte auswaehlen</option>
+            <option>Meta Ads Skalierung</option>
+            <option>Google Shopping Effizienz</option>
+            <option>Retention Kampagnen</option>
+          </select>
+        </label>
+        <label>Budget pro Monat
+          <select name="budget" required>
+            <option value="">Bitte auswaehlen</option>
+            <option value="3000">3.000 EUR</option>
+            <option value="10000">10.000 EUR</option>
+            <option value="25000">25.000 EUR</option>
+            <option value="50000">50.000 EUR+</option>
+          </select>
+        </label>
+        <label>Startfenster
+          <select name="timeline" required>
+            <option value="">Bitte auswaehlen</option>
+            <option>Sofort</option>
+            <option>In 2-4 Wochen</option>
+            <option>In 1-2 Monaten</option>
+          </select>
+        </label>
+        <label>Projektkontext
+          <textarea name="message" rows="4" required placeholder="Welche Ziele sollen priorisiert werden?"></textarea>
+        </label>
+        <label>Name
+          <input name="fullname" type="text" required>
+        </label>
+        <label>Firma
+          <input name="company" type="text" required>
+        </label>
+        <label>Rolle
+          <input name="role" type="text" required>
+        </label>
+        <label>Telefon
+          <input name="phone" type="tel" required>
+        </label>
+        <label>E-Mail
+          <input name="email" type="email" required>
+        </label>
+        <label class="inline"><input name="bookedAppointment" type="checkbox"><span>Direkten Terminlink senden</span></label>
+        <button type="submit">Potenzialcheck starten</button>
+        <p id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/datenschutz">Datenschutz</a>
+    <a href="/impressum">Impressum</a>
+    <button id="cookieSettings" type="button">Cookies</button>
+  </footer>
+
+  <div id="cookieBanner" class="cookie-banner">
+    <p>Cookies fuer Testmessung zulassen?</p>
+    <button id="cookieAcceptAll" type="button">Ja</button>
+    <button id="cookieDeclineAll" type="button">Nein</button>
+  </div>
+  <div id="cookieSettingsModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+      <button id="cookieModalClose" type="button">Schliessen</button>
+      <label class="inline"><input id="cookieMarketing" type="checkbox"><span>Marketing erlauben</span></label>
+      <button id="cookieSaveSettings" type="button">Speichern</button>
+      <button id="cookieAcceptAllModal" type="button">Alle akzeptieren</button>
+    </div>
+  </div>
+
+  <script src="../../../shared/js/analytics.js"></script>
+  <script src="../../../shared/js/consent.js"></script>
+  <script src="../../../shared/js/form-api.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>B2B Lead Engine v1 | Franco Consulting</title>
+  <meta name="description" content="A/B Variante v1 fuer B2B Leadgenerierung mit branchenspezifischem Kontaktformular.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body data-industry="b2b" data-variant="branche_y_v1" data-form-version="b2b_form_v1">
+  <header class="nav">
+    <a href="../">Alle Branche-Y Varianten</a>
+    <a href="../v2/">Zu v2</a>
+  </header>
+
+  <section class="hero">
+    <p class="tag">Branche Y: B2B Leadgenerierung</p>
+    <h1>Mehr qualifizierte Leads fuer Vertriebsteams</h1>
+    <p>Diese Variante ist fuer Dienstleister und B2B-Unternehmen mit laengerem Sales Cycle konzipiert.</p>
+  </section>
+
+  <section class="proof">
+    <article>
+      <h2>ICP-Orientierung</h2>
+      <p>Ansprache nach Kundensegment, Entscheidungsrolle und Kaufreife.</p>
+    </article>
+    <article>
+      <h2>Pipeline statt MQL-Masse</h2>
+      <p>Kampagnen werden auf SQL-Qualitaet und Terminrate optimiert.</p>
+    </article>
+    <article>
+      <h2>Vertriebsnahe Struktur</h2>
+      <p>Lead-Feedback wird direkt in Messaging und Targeting ueberfuehrt.</p>
+    </article>
+  </section>
+
+  <section class="form-area">
+    <h2>Lead-Setup anfragen</h2>
+    <form id="contactForm" novalidate>
+      <div class="two">
+        <label>Leadziel
+          <select name="need" required>
+            <option value="">Bitte auswaehlen</option>
+            <option>Mehr Demos</option>
+            <option>Mehr qualifizierte Erstgespraeche</option>
+            <option>Neues Marktsegment erschliessen</option>
+          </select>
+        </label>
+        <label>Monatsbudget
+          <select name="budget" required>
+            <option value="">Bitte auswaehlen</option>
+            <option value="3000">3.000 EUR</option>
+            <option value="10000">10.000 EUR</option>
+            <option value="20000">20.000 EUR</option>
+            <option value="50000">50.000 EUR+</option>
+          </select>
+        </label>
+      </div>
+      <div class="two">
+        <label>Startzeitpunkt
+          <select name="timeline" required>
+            <option value="">Bitte auswaehlen</option>
+            <option>Sofort</option>
+            <option>In 1 Monat</option>
+            <option>Im naechsten Quartal</option>
+          </select>
+        </label>
+        <label>Rolle
+          <input name="role" type="text" placeholder="z. B. Sales Director" required>
+        </label>
+      </div>
+      <label>Vertriebsprozess / Kontext
+        <textarea name="message" rows="4" required placeholder="Welche Angebotszyklen und Zielkunden stehen im Fokus?"></textarea>
+      </label>
+      <div class="two">
+        <label>Name
+          <input name="fullname" type="text" required>
+        </label>
+        <label>Unternehmen
+          <input name="company" type="text" required>
+        </label>
+      </div>
+      <div class="two">
+        <label>Telefon
+          <input name="phone" type="tel" required>
+        </label>
+        <label>E-Mail
+          <input name="email" type="email" required>
+        </label>
+      </div>
+      <label class="inline"><input name="bookedAppointment" type="checkbox"><span>Bitte Terminoption direkt mitsenden</span></label>
+      <button type="submit">B2B Audit starten</button>
+      <p id="formStatus" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <footer>
+    <a href="/datenschutz">Datenschutz</a>
+    <a href="/impressum">Impressum</a>
+    <button id="cookieSettings" type="button">Cookies</button>
+  </footer>
+
+  <div id="cookieBanner" class="cookie-banner">
+    <p>Optionale Cookies helfen bei der A/B-Auswertung.</p>
+    <button id="cookieAcceptAll" type="button">Akzeptieren</button>
+    <button id="cookieDeclineAll" type="button">Ablehnen</button>
+  </div>
+  <div id="cookieSettingsModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+      <button id="cookieModalClose" type="button">Schliessen</button>
+      <label class="inline"><input id="cookieMarketing" type="checkbox"><span>Marketing erlauben</span></label>
+      <button id="cookieSaveSettings" type="button">Speichern</button>
+      <button id="cookieAcceptAllModal" type="button">Alle akzeptieren</button>
+    </div>
+  </div>
+
+  <script src="../../../shared/js/analytics.js"></script>
+  <script src="../../../shared/js/consent.js"></script>
+  <script src="../../../shared/js/form-api.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>

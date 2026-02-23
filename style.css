@@ -62,6 +62,13 @@ html {
   --accent-rgb: 255, 68, 68;
 }
 
+/* Hotel Variante */
+[data-theme="hotel"] {
+  --accent-primary: #c59747;
+  --accent-secondary: #e0b46d;
+  --accent-rgb: 197, 151, 71;
+}
+
 /* ============================================
    HELLES THEME - Light Mode
    ============================================ */
@@ -3448,6 +3455,16 @@ footer .footer-menu a:hover {
 #references {
   position: relative;
   overflow: hidden;
+}
+
+#references.section-premium {
+  padding-top: var(--spacing-xl);
+}
+
+@media (min-width: 1024px) {
+  #references.section-premium {
+    padding-top: var(--spacing-2xl);
+  }
 }
 
 .references-wrapper {
@@ -7765,6 +7782,30 @@ body.popup-open .ads-card .ads-logo-svg {
   padding-top: var(--spacing-md);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   margin-top: var(--spacing-md);
+}
+
+/* V2: Simple Formular */
+body[data-form-variant="v2"] .form-progress,
+body[data-form-variant="v2"] .form-step-counter {
+  display: none;
+}
+
+.form-modal-content-simple {
+  max-width: 640px;
+}
+
+.form-step-header-simple {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-container-simple .form-fields {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-step-actions-simple {
+  padding-top: 0;
+  margin-top: var(--spacing-sm);
+  border-top: none;
 }
 
 /* Step 5: kompakter, damit Buttons sichtbar bleiben */

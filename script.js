@@ -498,6 +498,48 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // ===== Multi-Step Formular Funktionalität =====
+  const FORM_VARIANT_KEY = 'franco_form_variant';
+
+  function readStoredFormVariant() {
+    try {
+      return localStorage.getItem(FORM_VARIANT_KEY);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function storeFormVariant(value) {
+    try {
+      localStorage.setItem(FORM_VARIANT_KEY, value);
+    } catch (e) {
+      // localStorage kann in einigen Kontexten blockiert sein
+    }
+  }
+
+  function resolveFormVariant() {
+    const forcedVariant = 'v2';
+    storeFormVariant(forcedVariant);
+    return forcedVariant;
+  }
+
+  const formVariant = resolveFormVariant();
+  document.body.setAttribute('data-form-variant', formVariant);
+
+  if (formVariant === 'v2') {
+    const simpleFormTemplate = document.getElementById('simpleFormTemplate');
+    if (simpleFormTemplate && simpleFormTemplate.content) {
+      const existingFormModal = document.getElementById('formModal');
+      if (existingFormModal) {
+        existingFormModal.remove();
+      }
+      const existingCalendarModal = document.getElementById('calendarModal');
+      if (existingCalendarModal) {
+        existingCalendarModal.remove();
+      }
+      document.body.appendChild(simpleFormTemplate.content.cloneNode(true));
+    }
+  }
+
   const formModal = document.getElementById('formModal');
   const formModalClose = document.querySelector('.form-modal-close');
   const contactForm = document.getElementById('contactForm');
@@ -554,11 +596,12 @@ document.addEventListener('DOMContentLoaded', function() {
       resetForm();
       
       // GTM Event: Formular geöffnet
+      const stepName = formVariant === 'v1' ? 'Was benötigst du' : 'Kontaktformular';
       pushDataLayerEvent('form_modal_opened', {
         'form_id': 'contact_form',
         'form_name': 'Kontaktformular',
         'form_step': 1,
-        'form_step_name': 'Was benötigst du'
+        'form_step_name': stepName
       });
     }
   }
@@ -881,7 +924,129 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Event Listeners für Formular-Buttons (wird von außen aufgerufen)
-  if (contactForm) {
+  if (contactForm && formVariant === 'v2') {
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    if (emailInput) {
+      emailInput.addEventListener('blur', function() {
+        if (this.value.trim() === '') return;
+        if (!isValidEmail(this.value.trim())) {
+          this.style.borderColor = 'rgba(255, 100, 100, 0.5)';
+        } else {
+          this.style.borderColor = 'rgba(100, 255, 100, 0.3)';
+        }
+      });
+    }
+    if (phoneInput) {
+      phoneInput.addEventListener('blur', function() {
+        if (this.value.trim() === '') return;
+        if (!isValidPhone(this.value.trim())) {
+          this.style.borderColor = 'rgba(255, 100, 100, 0.5)';
+        } else {
+          this.style.borderColor = 'rgba(100, 255, 100, 0.3)';
+        }
+      });
+    }
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const privacyCheckbox = document.getElementById('privacy-checkbox');
+      const fullname = document.getElementById('fullname')?.value.trim() || '';
+      const company = document.getElementById('company')?.value.trim() || '';
+      const phone = document.getElementById('phone')?.value.trim() || '';
+      const email = document.getElementById('email')?.value.trim() || '';
+      const message = document.getElementById('message')?.value.trim() || '';
+
+      if (!privacyCheckbox || !privacyCheckbox.checked) {
+        updateSubmitStatus('Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.', true);
+        pushDataLayerEvent('form_validation_error', {
+          'form_id': 'contact_form',
+          'form_step': 1,
+          'form_step_name': 'Kontaktformular',
+          'error_type': 'privacy_not_accepted',
+          'error_message': 'Datenschutzerklärung nicht akzeptiert'
+        });
+        return;
+      }
+
+      if (!fullname || !company || !phone || !email || !message) {
+        updateSubmitStatus('Bitte füllen Sie alle Pflichtfelder aus.', true);
+        pushDataLayerEvent('form_validation_error', {
+          'form_id': 'contact_form',
+          'form_step': 1,
+          'form_step_name': 'Kontaktformular',
+          'error_type': 'required_fields_missing',
+          'error_message': 'Pflichtfelder nicht ausgefüllt'
+        });
+        return;
+      }
+
+      if (message.length < 20) {
+        updateSubmitStatus('Bitte beschreiben Sie Ihr Vorhaben in mindestens 20 Zeichen.', true);
+        pushDataLayerEvent('form_validation_error', {
+          'form_id': 'contact_form',
+          'form_step': 1,
+          'form_step_name': 'Kontaktformular',
+          'error_type': 'message_too_short',
+          'error_message': 'Nachricht muss mindestens 20 Zeichen lang sein'
+        });
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        updateSubmitStatus('Bitte geben Sie eine gültige E-Mail-Adresse ein.', true);
+        pushDataLayerEvent('form_validation_error', {
+          'form_id': 'contact_form',
+          'form_step': 1,
+          'form_step_name': 'Kontaktformular',
+          'error_type': 'invalid_email',
+          'error_message': 'Ungültige E-Mail-Adresse'
+        });
+        return;
+      }
+
+      if (!isValidPhone(phone)) {
+        updateSubmitStatus('Bitte geben Sie eine gültige Telefonnummer ein.', true);
+        pushDataLayerEvent('form_validation_error', {
+          'form_id': 'contact_form',
+          'form_step': 1,
+          'form_step_name': 'Kontaktformular',
+          'error_type': 'invalid_phone',
+          'error_message': 'Ungültige Telefonnummer'
+        });
+        return;
+      }
+
+      formData.need = null;
+      formData.budget = null;
+      formData.timeline = null;
+      formData.message = message;
+      formData.fullname = fullname;
+      formData.company = company;
+      formData.role = '';
+      formData.phone = phone;
+      formData.email = email;
+      formData.bookedAppointment = false;
+
+      pushDataLayerEvent('form_submit', {
+        'form_id': 'contact_form',
+        'form_name': 'Kontaktformular',
+        'form_step': 1,
+        'form_step_name': 'Kontaktformular',
+        'form_need': '',
+        'form_budget': '',
+        'form_timeline': '',
+        'form_has_contact_data': formData.email ? 'yes' : 'no'
+      });
+
+      submitContactData().catch(() => {
+        // Fehler wird bereits im Status angezeigt
+      });
+    });
+  }
+
+  if (contactForm && formVariant === 'v1') {
     // Option Buttons (Step 1) - Automatisch weiter nach Auswahl
     document.querySelectorAll('.form-option-btn').forEach(btn => {
       btn.addEventListener('click', function() {
@@ -1852,7 +2017,9 @@ document.addEventListener('DOMContentLoaded', function() {
     footerCookieLink.addEventListener('click', function(e) {
       e.preventDefault();
       console.log('Footer Cookie-Link geklickt');
-      showCookieModal();
+      if (window.showCookieSettings) {
+        window.showCookieSettings();
+      }
     });
   }
   
