@@ -1,6 +1,5 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Vercel Serverless Function für Formular-Submit mit ClickUp-Integration
@@ -8,13 +7,11 @@ import { fileURLToPath } from 'url';
  * Route: /api/submit-form
  */
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const TEMPLATE_DIR = path.join(__dirname, 'email-templates');
 const templateCache = new Map();
 const BRAND_NAME = process.env.EMAIL_BRAND_NAME || 'Franco Consulting GmbH';
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // CORS Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
