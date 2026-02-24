@@ -818,6 +818,52 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Toast Notification (z.B. nach erfolgreichem Absenden)
+  let toastContainer = null;
+
+  function ensureToastContainer() {
+    if (toastContainer) return toastContainer;
+    toastContainer = document.createElement('div');
+    toastContainer.className = 'franco-toast-container';
+    toastContainer.setAttribute('aria-live', 'polite');
+    toastContainer.setAttribute('aria-atomic', 'true');
+    document.body.appendChild(toastContainer);
+    return toastContainer;
+  }
+
+  function showToast(message, { variant = 'success', durationMs = 6500 } = {}) {
+    if (!message) return;
+    const container = ensureToastContainer();
+
+    const toast = document.createElement('div');
+    toast.className = `franco-toast franco-toast--${variant}`;
+    toast.setAttribute('role', 'status');
+    toast.textContent = message;
+    container.appendChild(toast);
+
+    // Trigger transition
+    requestAnimationFrame(() => {
+      toast.classList.add('franco-toast--show');
+    });
+
+    const removeToast = () => {
+      toast.classList.remove('franco-toast--show');
+      setTimeout(() => {
+        toast.remove();
+        if (container.childElementCount === 0) {
+          toastContainer = null;
+          container.remove();
+        }
+      }, 220);
+    };
+
+    const timer = window.setTimeout(removeToast, durationMs);
+    toast.addEventListener('click', () => {
+      window.clearTimeout(timer);
+      removeToast();
+    });
+  }
   
   // Kontakt-Daten senden (ohne Success-Step)
   function submitContactData() {
@@ -859,18 +905,24 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
       console.log('Backend Response:', data);
-      if (data.success) {
-        if (data.clickup_task_created) {
-          console.log('ClickUp Task erfolgreich erstellt');
-        }
-        if (data.email_confirmation_sent === false || data.email_notification_sent === false) {
-          console.warn('E-Mail-Versand teilweise fehlgeschlagen');
-        }
-        if (data.warning) {
-          console.warn('Warnung:', data.warning);
-        }
+
+      if (!data || data.success !== true) {
+        const errorMessage = (data && (data.message || data.error)) ? (data.message || data.error) : 'Die Anfrage konnte nicht übertragen werden. Bitte versuchen Sie es später erneut.';
+        contactSubmitted = false;
+        updateSubmitStatus(errorMessage, true);
+        throw new Error(errorMessage);
       }
-      
+
+      if (data.clickup_task_created) {
+        console.log('ClickUp Task erfolgreich erstellt');
+      }
+      if (data.email_confirmation_sent === false || data.email_notification_sent === false) {
+        console.warn('E-Mail-Versand teilweise fehlgeschlagen');
+      }
+      if (data.warning) {
+        console.warn('Warnung:', data.warning);
+      }
+
       // GTM Event: Formular erfolgreich abgeschickt mit Conversion-Wert
       pushDataLayerEvent('form_submit_success', {
         'form_id': 'contact_form',
@@ -890,14 +942,26 @@ document.addEventListener('DOMContentLoaded', function() {
         'currency': currency,
         'transaction_id': 'form_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
       });
-      
+
       updateSubmitStatus('Anfrage erfolgreich gesendet.');
+
+      // UX: Modal schließen + grünen Toast anzeigen
+      if (formModal && formModal.classList.contains('active')) {
+        closeFormModal();
+      }
+      showToast('Anfrage ging erfolgreich ein, wir melden uns in Kürze bei Dir.', { variant: 'success' });
       return data;
     })
     .catch(error => {
       console.error('Fehler beim Senden der Formular-Daten:', error);
       contactSubmitted = false;
-      updateSubmitStatus('Die Daten konnten nicht übertragen werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.', true);
+      const currentStatus =
+        (document.getElementById('formSubmitStatus')?.textContent || '').trim() ||
+        (document.getElementById('formSubmitStatusInline')?.textContent || '').trim();
+      const isStillSending = currentStatus === '' || currentStatus === 'Daten werden gesendet…';
+      if (isStillSending) {
+        updateSubmitStatus('Die Daten konnten nicht übertragen werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt.', true);
+      }
       throw error;
     });
   }
