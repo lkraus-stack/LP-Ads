@@ -564,12 +564,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Helper-Funktion: Data-Layer Event pushen
   function pushDataLayerEvent(eventName, eventData) {
-    if (typeof window.dataLayer !== 'undefined') {
-      window.dataLayer.push({
-        'event': eventName,
-        ...eventData
-      });
-    }
+    if (!hasTrackingConsent()) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': eventName,
+      ...eventData
+    });
   }
   
   // Helper: Formular-Schritt Name
@@ -1547,6 +1547,25 @@ const defaultCookieSettings = {
 const POSTHOG_TEST_EVENT_KEY = 'franco_posthog_test_event_sent_v1';
 const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
 
+function getStoredCookieSettings() {
+  try {
+    const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
+    if (!stored) return null;
+    const settings = JSON.parse(stored);
+    if (settings.version && settings.version !== COOKIE_CONSENT_VERSION) {
+      return null;
+    }
+    return settings;
+  } catch (_error) {
+    return null;
+  }
+}
+
+function hasTrackingConsent(settings) {
+  const current = settings || getStoredCookieSettings();
+  return Boolean(current && current.consentGiven && (current.analytics || current.marketing));
+}
+
 // Cookie-Funktionen sofort verfügbar machen
 (function() {
   // Cookie-Einstellungen laden
@@ -1592,11 +1611,50 @@ const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
       return false;
     }
   }
+
+  function hasConsentProvider(provider) {
+    return Boolean(document.querySelector(`script[data-consent-provider="${provider}"]`));
+  }
+
+  function activateConsentScripts(consentType) {
+    if (window.__francoConsentScriptsActivated) return;
+    const scripts = document.querySelectorAll(`script[data-consent="${consentType}"]`);
+    if (!scripts.length) return;
+    scripts.forEach((oldScript) => {
+      const newScript = document.createElement('script');
+      if (oldScript.src) {
+        newScript.src = oldScript.src;
+        newScript.async = oldScript.async;
+        newScript.defer = oldScript.defer;
+      } else {
+        newScript.text = oldScript.textContent;
+      }
+      oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+    window.__francoConsentScriptsActivated = true;
+  }
+
+  function applyConsentToTracking(settings) {
+    const shouldTrack = hasTrackingConsent(settings);
+    if (shouldTrack) {
+      activateConsentScripts('marketing');
+    }
+    if (hasConsentProvider('gtm')) {
+      if (shouldTrack || typeof gtag !== 'undefined') {
+        updateGTMConsent(settings);
+      }
+    } else if (hasConsentProvider('posthog')) {
+      if (shouldTrack || typeof window.posthog !== 'undefined') {
+        updatePostHogConsent(settings);
+      }
+    }
+  }
   
   // GTM Consent Mode aktualisieren - Global verfügbar machen
   window.updatePostHogConsent = function(settings) {
     const analyticsGranted = settings.analytics || settings.marketing;
     const consentMethod = settings.consentMethod || 'unknown';
+    if (!analyticsGranted && typeof window.posthog === 'undefined') return;
 
     const applyPostHogConsent = function() {
       if (typeof window.posthog === 'undefined') return false;
@@ -1658,6 +1716,7 @@ const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
     // Analytics Storage: Direkt basierend auf Analytics-Einstellung
     // Marketing umfasst auch Analytics, daher: analytics ODER marketing
     const analyticsGranted = settings.analytics || settings.marketing;
+    if (!analyticsGranted && typeof gtag === 'undefined') return;
     
     // Alle Consent-Signale explizit setzen
     const consentParams = {
@@ -1695,7 +1754,7 @@ const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
       });
     }
 
-    if (typeof window.updatePostHogConsent === 'function') {
+    if (typeof window.updatePostHogConsent === 'function' && hasConsentProvider('posthog')) {
       window.updatePostHogConsent(settings);
     }
   };
@@ -1712,7 +1771,7 @@ const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
     };
     
     if (saveCookieSettings(settings)) {
-      updateGTMConsent(settings);
+      applyConsentToTracking(settings);
       const cookieBanner = document.getElementById('cookieBanner');
       const cookieSettingsModal = document.getElementById('cookieSettingsModal');
       if (cookieBanner) cookieBanner.classList.remove('show');
@@ -1741,7 +1800,7 @@ const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
     };
     
     if (saveCookieSettings(settings)) {
-      updateGTMConsent(settings);
+      applyConsentToTracking(settings);
       const cookieBanner = document.getElementById('cookieBanner');
       const cookieSettingsModal = document.getElementById('cookieSettingsModal');
       if (cookieBanner) cookieBanner.classList.remove('show');
@@ -1800,7 +1859,7 @@ const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
     };
     
     if (saveCookieSettings(settings)) {
-      updateGTMConsent(settings);
+      applyConsentToTracking(settings);
       const cookieBanner = document.getElementById('cookieBanner');
       const cookieSettingsModal = document.getElementById('cookieSettingsModal');
       if (cookieBanner) cookieBanner.classList.remove('show');
@@ -1818,6 +1877,11 @@ const POSTHOG_PAGEVIEW_EVENT_KEY = 'franco_posthog_initial_pageview_sent';
       }
     }
   };
+
+  const initialSettings = loadCookieSettings();
+  if (initialSettings) {
+    applyConsentToTracking(initialSettings);
+  }
 })();
 
 // Vollständige Initialisierung nach DOMContentLoaded
