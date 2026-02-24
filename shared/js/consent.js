@@ -31,6 +31,12 @@
         consent_analytics: finalConsent.analytics,
         consent_marketing: finalConsent.marketing,
       });
+    if (
+      (finalConsent.analytics || finalConsent.marketing) &&
+      typeof window.flushVariantPageviewIfConsented === "function"
+    ) {
+      window.flushVariantPageviewIfConsented();
+    }
     return finalConsent;
   }
 
