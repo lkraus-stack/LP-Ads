@@ -9612,6 +9612,10 @@ body.calendar-modal-open {
   }
   
   .platforms-row {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    justify-items: center;
+    align-items: center;
     gap: 0.5rem;
   }
   
@@ -9842,17 +9846,19 @@ body.calendar-modal-open {
   
   /* Plattform-Badges kompakter */
   .platforms-row {
-    flex-wrap: wrap;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.25rem;
-    justify-content: center;
     padding: 0;
     width: 100%;
   }
   
   .platform-badge {
-    padding: 0.3rem 0.45rem;
-    min-width: auto;
-    flex: 0 1 auto;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.2rem;
+    padding: 0.3rem 0.35rem;
+    min-width: 0;
   }
   
   .platform-icon {
@@ -9869,6 +9875,8 @@ body.calendar-modal-open {
   .platform-name {
     font-size: 0.55rem;
     letter-spacing: 0;
+    white-space: normal;
+    line-height: 1.1;
   }
   
   .pulse-dot {
