@@ -7729,6 +7729,17 @@ body.popup-open .ads-card .ads-logo-svg {
   border-color: rgba(100, 255, 100, 0.3);
 }
 
+.form-field-has-error .form-input-error {
+  border-color: rgba(255, 90, 90, 0.95) !important;
+  box-shadow: 0 0 0 1px rgba(255, 90, 90, 0.35);
+}
+
+.form-field-error-message {
+  font-size: 0.78rem;
+  color: #ff9a9a;
+  margin-top: 2px;
+}
+
 /* Textarea für Nachricht/Vorhaben */
 .form-message-container {
   margin-bottom: var(--spacing-md);
@@ -7835,7 +7846,8 @@ body[data-form-variant="v2"] .form-step-counter {
 }
 
 .form-next-btn:disabled,
-.form-submit-btn:disabled {
+.form-submit-btn:disabled,
+.form-next-step-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
@@ -7932,6 +7944,14 @@ body[data-form-variant="v2"] .form-step-counter {
   margin-bottom: var(--spacing-lg);
   padding-top: var(--spacing-md);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.form-privacy-has-error {
+  border-top-color: rgba(255, 90, 90, 0.6);
+}
+
+.form-privacy-has-error .form-privacy-label input[type="checkbox"] {
+  outline: 1px solid rgba(255, 90, 90, 0.7);
 }
 
 .form-privacy-label {

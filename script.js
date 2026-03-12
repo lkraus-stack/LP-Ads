@@ -549,6 +549,8 @@ document.addEventListener('DOMContentLoaded', function() {
   let currentStep = 1;
   const totalSteps = 6;
   let contactSubmitted = false;
+  let formStartTracked = false;
+  let formSubmitTracked = false;
   const formData = {
     need: null,
     budget: null,
@@ -589,20 +591,24 @@ document.addEventListener('DOMContentLoaded', function() {
   // Öffne Formular-Modal
   function openFormModal() {
     if (formModal) {
+      if (formModal.classList.contains('active')) return;
       formModal.classList.add('active');
       document.body.classList.add('form-modal-open');
       currentStep = 1;
       updateFormProgress();
       resetForm();
       
-      // GTM Event: Formular geöffnet
-      const stepName = formVariant === 'v1' ? 'Was benötigst du' : 'Kontaktformular';
-      pushDataLayerEvent('form_modal_opened', {
-        'form_id': 'contact_form',
-        'form_name': 'Kontaktformular',
-        'form_step': 1,
-        'form_step_name': stepName
-      });
+      // GTM Event: Formular-Start nur einmal pro Oeffnung
+      if (!formStartTracked) {
+        const stepName = formVariant === 'v1' ? 'Was benötigst du' : 'Kontaktformular';
+        pushDataLayerEvent('form_modal_opened', {
+          'form_id': 'contact_form',
+          'form_name': 'Kontaktformular',
+          'form_step': 1,
+          'form_step_name': stepName
+        });
+        formStartTracked = true;
+      }
     }
   }
   
@@ -631,6 +637,8 @@ document.addEventListener('DOMContentLoaded', function() {
     formData.email = '';
     formData.bookedAppointment = false;
     contactSubmitted = false;
+    formStartTracked = false;
+    formSubmitTracked = false;
     
     // Reset UI
     document.querySelectorAll('.form-option-btn, .form-budget-btn, .form-timeline-btn').forEach(btn => {
@@ -639,6 +647,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelectorAll('.form-field input, .form-field textarea').forEach(input => {
       input.value = '';
+      clearFieldError(input);
     });
     
     // Reset Datenschutz-Checkbox
@@ -646,6 +655,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (privacyCheckbox) {
       privacyCheckbox.checked = false;
     }
+    clearPrivacyError();
     
     // Verstecke Buchungsbestätigung
     const bookingConfirmation = document.getElementById('formBookingConfirmation');
@@ -669,6 +679,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     updateFormSteps();
     updateFormProgress();
+    updateSimpleSubmitState();
+    updateStep5SubmitState();
   }
   
   // Update Formular-Schritte
@@ -717,6 +729,77 @@ document.addEventListener('DOMContentLoaded', function() {
     const digits = trimmed.replace(/\D/g, '');
     return digits.length >= 7 && digits.length <= 15;
   }
+
+  function clearFieldError(field) {
+    if (!field) return;
+    field.classList.remove('form-input-error');
+    field.removeAttribute('aria-invalid');
+    field.style.borderColor = '';
+    const fieldWrapper = field.closest('.form-field') || field.closest('.form-field-textarea');
+    if (!fieldWrapper) return;
+    fieldWrapper.classList.remove('form-field-has-error');
+    const errorEl = fieldWrapper.querySelector('.form-field-error-message');
+    if (errorEl) {
+      errorEl.remove();
+    }
+  }
+
+  function setFieldError(field, message) {
+    if (!field) return;
+    field.classList.add('form-input-error');
+    field.setAttribute('aria-invalid', 'true');
+    field.style.borderColor = 'rgba(255, 90, 90, 0.95)';
+    const fieldWrapper = field.closest('.form-field') || field.closest('.form-field-textarea');
+    if (!fieldWrapper) return;
+    fieldWrapper.classList.add('form-field-has-error');
+    let errorEl = fieldWrapper.querySelector('.form-field-error-message');
+    if (!errorEl) {
+      errorEl = document.createElement('span');
+      errorEl.className = 'form-field-error-message';
+      fieldWrapper.appendChild(errorEl);
+    }
+    errorEl.textContent = message || 'Bitte Feld ausfuellen.';
+  }
+
+  function clearPrivacyError() {
+    const privacyWrap = document.querySelector('.form-privacy-checkbox');
+    if (privacyWrap) {
+      privacyWrap.classList.remove('form-privacy-has-error');
+    }
+  }
+
+  function setPrivacyError() {
+    const privacyWrap = document.querySelector('.form-privacy-checkbox');
+    if (privacyWrap) {
+      privacyWrap.classList.add('form-privacy-has-error');
+    }
+  }
+
+  function updateSimpleSubmitState() {
+    if (formVariant !== 'v2' || !contactForm) return;
+    const submitBtn = contactForm.querySelector('.form-submit-btn');
+    if (!submitBtn) return;
+    const requiredIds = ['fullname', 'company', 'phone', 'email', 'message'];
+    const allFilled = requiredIds.every((id) => {
+      const field = document.getElementById(id);
+      return field && field.value.trim() !== '';
+    });
+    const privacyChecked = Boolean(document.getElementById('privacy-checkbox')?.checked);
+    submitBtn.disabled = !(allFilled && privacyChecked);
+  }
+
+  function updateStep5SubmitState() {
+    if (formVariant !== 'v1' || !contactForm) return;
+    const step5Button = contactForm.querySelector('.form-next-step-btn');
+    if (!step5Button) return;
+    const requiredIds = ['fullname', 'company', 'role', 'phone', 'email'];
+    const allFilled = requiredIds.every((id) => {
+      const field = document.getElementById(id);
+      return field && field.value.trim() !== '';
+    });
+    const privacyChecked = Boolean(document.getElementById('privacy-checkbox')?.checked);
+    step5Button.disabled = !(allFilled && privacyChecked);
+  }
   
   // Nächster Schritt
   function nextStep() {
@@ -726,18 +809,14 @@ document.addEventListener('DOMContentLoaded', function() {
       updateFormSteps();
       updateFormProgress();
       
-      // GTM Event: Bei Abschluss der Kontaktdaten als Form Submit tracken,
-      // sonst weiterhin Schrittwechsel melden
-      if (previousStep === 5) {
-        pushDataLayerEvent('form_submit', {
+      // GTM Event: Schrittwechsel melden
+      if (previousStep !== 5) {
+        pushDataLayerEvent('form_step_changed', {
           'form_id': 'contact_form',
           'form_name': 'Kontaktformular',
           'form_step': currentStep,
           'form_step_name': getFormStepName(currentStep),
-          'form_need': formData.need || '',
-          'form_budget': formData.budget || '',
-          'form_timeline': formData.timeline || '',
-          'form_has_contact_data': formData.email ? 'yes' : 'no'
+          'direction': 'forward'
         });
       } else {
         pushDataLayerEvent('form_step_changed', {
@@ -745,7 +824,8 @@ document.addEventListener('DOMContentLoaded', function() {
           'form_name': 'Kontaktformular',
           'form_step': currentStep,
           'form_step_name': getFormStepName(currentStep),
-          'direction': 'forward'
+          'direction': 'forward',
+          'contact_step_completed': 'yes'
         });
       }
       
@@ -923,25 +1003,28 @@ document.addEventListener('DOMContentLoaded', function() {
         console.warn('Warnung:', data.warning);
       }
 
-      // GTM Event: Formular erfolgreich abgeschickt mit Conversion-Wert
-      pushDataLayerEvent('form_submit_success', {
-        'form_id': 'contact_form',
-        'form_name': 'Kontaktformular',
-        'form_step': 5,
-        'form_step_name': 'Kontaktdaten',
-        'form_need': formData.need || '',
-        'form_budget': formData.budget || '',
-        'form_timeline': formData.timeline || '',
-        'form_has_message': formData.message ? 'yes' : 'no',
-        'form_has_contact_data': formData.email ? 'yes' : 'no',
-        'form_appointment_booked': formData.bookedAppointment ? 'yes' : 'no',
-        'form_company': formData.company || '',
-        'form_role': formData.role || '',
-        // Conversion-Wert für Google Ads Value-Based Bidding
-        'value': conversionValue,
-        'currency': currency,
-        'transaction_id': 'form_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
-      });
+      // GTM Event: Form Submit genau einmal bei erfolgreichem Abschluss
+      if (!formSubmitTracked) {
+        pushDataLayerEvent('form_submit', {
+          'form_id': 'contact_form',
+          'form_name': 'Kontaktformular',
+          'form_step': 5,
+          'form_step_name': 'Kontaktdaten',
+          'form_need': formData.need || '',
+          'form_budget': formData.budget || '',
+          'form_timeline': formData.timeline || '',
+          'form_has_message': formData.message ? 'yes' : 'no',
+          'form_has_contact_data': formData.email ? 'yes' : 'no',
+          'form_appointment_booked': formData.bookedAppointment ? 'yes' : 'no',
+          'form_company': formData.company || '',
+          'form_role': formData.role || '',
+          // Conversion-Wert für Google Ads Value-Based Bidding
+          'value': conversionValue,
+          'currency': currency,
+          'transaction_id': 'form_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+        });
+        formSubmitTracked = true;
+      }
 
       updateSubmitStatus('Anfrage erfolgreich gesendet.');
 
@@ -1012,6 +1095,36 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 
+    ['fullname', 'company', 'phone', 'email', 'message'].forEach((id) => {
+      const field = document.getElementById(id);
+      if (!field) return;
+      field.addEventListener('input', function() {
+        if (this.value.trim() !== '') {
+          clearFieldError(this);
+          updateSubmitStatus('');
+        }
+        updateSimpleSubmitState();
+      });
+      field.addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+          setFieldError(this, 'Bitte dieses Feld ausfuellen.');
+        }
+      });
+    });
+
+    const privacyCheckboxInput = document.getElementById('privacy-checkbox');
+    if (privacyCheckboxInput) {
+      privacyCheckboxInput.addEventListener('change', function() {
+        if (this.checked) {
+          clearPrivacyError();
+          updateSubmitStatus('');
+        }
+        updateSimpleSubmitState();
+      });
+    }
+
+    updateSimpleSubmitState();
+
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -1022,7 +1135,20 @@ document.addEventListener('DOMContentLoaded', function() {
       const email = document.getElementById('email')?.value.trim() || '';
       const message = document.getElementById('message')?.value.trim() || '';
 
+      const missingFieldMap = [
+        { id: 'fullname', value: fullname, message: 'Bitte Name eintragen.' },
+        { id: 'company', value: company, message: 'Bitte Firma eintragen.' },
+        { id: 'phone', value: phone, message: 'Bitte Telefonnummer eintragen.' },
+        { id: 'email', value: email, message: 'Bitte E-Mail eintragen.' },
+        { id: 'message', value: message, message: 'Bitte Vorhaben eintragen.' }
+      ];
+      const missingFields = missingFieldMap.filter((field) => !field.value);
+      missingFields.forEach((field) => {
+        setFieldError(document.getElementById(field.id), field.message);
+      });
+
       if (!privacyCheckbox || !privacyCheckbox.checked) {
+        setPrivacyError();
         updateSubmitStatus('Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.', true);
         pushDataLayerEvent('form_validation_error', {
           'form_id': 'contact_form',
@@ -1033,8 +1159,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         return;
       }
+      clearPrivacyError();
 
-      if (!fullname || !company || !phone || !email || !message) {
+      if (missingFields.length > 0) {
         updateSubmitStatus('Bitte füllen Sie alle Pflichtfelder aus.', true);
         pushDataLayerEvent('form_validation_error', {
           'form_id': 'contact_form',
@@ -1046,19 +1173,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      if (message.length < 20) {
-        updateSubmitStatus('Bitte beschreiben Sie Ihr Vorhaben in mindestens 20 Zeichen.', true);
-        pushDataLayerEvent('form_validation_error', {
-          'form_id': 'contact_form',
-          'form_step': 1,
-          'form_step_name': 'Kontaktformular',
-          'error_type': 'message_too_short',
-          'error_message': 'Nachricht muss mindestens 20 Zeichen lang sein'
-        });
-        return;
-      }
-
       if (!isValidEmail(email)) {
+        setFieldError(document.getElementById('email'), 'Bitte gueltige E-Mail eintragen.');
         updateSubmitStatus('Bitte geben Sie eine gültige E-Mail-Adresse ein.', true);
         pushDataLayerEvent('form_validation_error', {
           'form_id': 'contact_form',
@@ -1069,8 +1185,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         return;
       }
+      clearFieldError(document.getElementById('email'));
 
       if (!isValidPhone(phone)) {
+        setFieldError(document.getElementById('phone'), 'Bitte gueltige Telefonnummer eintragen.');
         updateSubmitStatus('Bitte geben Sie eine gültige Telefonnummer ein.', true);
         pushDataLayerEvent('form_validation_error', {
           'form_id': 'contact_form',
@@ -1081,6 +1199,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         return;
       }
+      clearFieldError(document.getElementById('phone'));
 
       formData.need = null;
       formData.budget = null;
@@ -1092,17 +1211,6 @@ document.addEventListener('DOMContentLoaded', function() {
       formData.phone = phone;
       formData.email = email;
       formData.bookedAppointment = false;
-
-      pushDataLayerEvent('form_submit', {
-        'form_id': 'contact_form',
-        'form_name': 'Kontaktformular',
-        'form_step': 1,
-        'form_step_name': 'Kontaktformular',
-        'form_need': '',
-        'form_budget': '',
-        'form_timeline': '',
-        'form_has_contact_data': formData.email ? 'yes' : 'no'
-      });
 
       submitContactData().catch(() => {
         // Fehler wird bereits im Status angezeigt
@@ -1187,6 +1295,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Input Fields (Step 4) - Real-time Validation
     document.querySelectorAll('.form-field input').forEach(input => {
       input.addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+          setFieldError(this, 'Bitte dieses Feld ausfuellen.');
+          updateStep5SubmitState();
+          return;
+        }
+        clearFieldError(this);
         if (this.type === 'email' && this.value.trim() !== '') {
           if (!isValidEmail(this.value.trim())) {
             this.style.borderColor = 'rgba(255, 100, 100, 0.5)';
@@ -1201,8 +1315,41 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.borderColor = 'rgba(100, 255, 100, 0.3)';
           }
         }
+        updateStep5SubmitState();
+      });
+      input.addEventListener('input', function() {
+        if (this.value.trim() !== '') {
+          clearFieldError(this);
+        }
+        updateStep5SubmitState();
       });
     });
+
+    const messageInput = document.getElementById('message');
+    if (messageInput) {
+      messageInput.addEventListener('input', function() {
+        if (this.value.trim() !== '') {
+          clearFieldError(this);
+        }
+      });
+      messageInput.addEventListener('blur', function() {
+        if (this.value.trim() === '') {
+          setFieldError(this, 'Bitte dieses Feld ausfuellen.');
+        }
+      });
+    }
+
+    const privacyCheckboxInput = document.getElementById('privacy-checkbox');
+    if (privacyCheckboxInput) {
+      privacyCheckboxInput.addEventListener('change', function() {
+        if (this.checked) {
+          clearPrivacyError();
+        }
+        updateStep5SubmitState();
+      });
+    }
+
+    updateStep5SubmitState();
     
     document.querySelectorAll('.form-prev-btn').forEach(btn => {
       btn.addEventListener('click', function(e) {
@@ -1219,20 +1366,22 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const message = document.getElementById('message').value.trim();
         
-        if (!message || message.length < 20) {
-          alert('Bitte beschreiben Sie Ihr Vorhaben in mindestens 20 Zeichen.');
+        if (!message) {
+          setFieldError(document.getElementById('message'), 'Bitte Vorhaben kurz beschreiben.');
+          alert('Bitte beschreiben Sie kurz Ihr Vorhaben.');
           
           // GTM Event: Formular-Validierungsfehler
           pushDataLayerEvent('form_validation_error', {
             'form_id': 'contact_form',
             'form_step': 4,
             'form_step_name': 'Vorhaben/Anfrage',
-            'error_type': 'message_too_short',
-            'error_message': 'Nachricht muss mindestens 20 Zeichen lang sein'
+            'error_type': 'message_missing',
+            'error_message': 'Nachricht fehlt'
           });
           
           return;
         }
+        clearFieldError(document.getElementById('message'));
         
         // Speichere Nachricht
         formData.message = message;
@@ -1260,6 +1409,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Prüfe Datenschutz-Checkbox
         const privacyCheckbox = document.getElementById('privacy-checkbox');
         if (!privacyCheckbox || !privacyCheckbox.checked) {
+          setPrivacyError();
           alert('Bitte akzeptieren Sie die Datenschutzerklärung, um fortzufahren.');
           
           // GTM Event: Formular-Validierungsfehler
@@ -1273,6 +1423,7 @@ document.addEventListener('DOMContentLoaded', function() {
           
           return;
         }
+        clearPrivacyError();
         
         // Validiere alle Pflichtfelder
         const fullname = document.getElementById('fullname').value.trim();
@@ -1281,7 +1432,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
         
-        if (!fullname || !company || !role || !phone || !email) {
+        const missingStep5Fields = [
+          { id: 'fullname', value: fullname, message: 'Bitte Name eintragen.' },
+          { id: 'company', value: company, message: 'Bitte Firma eintragen.' },
+          { id: 'role', value: role, message: 'Bitte Rolle eintragen.' },
+          { id: 'phone', value: phone, message: 'Bitte Telefonnummer eintragen.' },
+          { id: 'email', value: email, message: 'Bitte E-Mail eintragen.' }
+        ].filter((field) => !field.value);
+
+        missingStep5Fields.forEach((field) => {
+          setFieldError(document.getElementById(field.id), field.message);
+        });
+
+        if (missingStep5Fields.length > 0) {
           alert('Bitte füllen Sie alle Pflichtfelder aus.');
           
           // GTM Event: Formular-Validierungsfehler
@@ -1297,6 +1460,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (!isValidEmail(email)) {
+          setFieldError(document.getElementById('email'), 'Bitte gueltige E-Mail eintragen.');
           alert('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
           
           // GTM Event: Formular-Validierungsfehler
@@ -1310,8 +1474,10 @@ document.addEventListener('DOMContentLoaded', function() {
           
           return;
         }
+        clearFieldError(document.getElementById('email'));
         
         if (!isValidPhone(phone)) {
+          setFieldError(document.getElementById('phone'), 'Bitte gueltige Telefonnummer eintragen.');
           alert('Bitte geben Sie eine gültige Telefonnummer ein.');
           
           // GTM Event: Formular-Validierungsfehler
@@ -1325,6 +1491,7 @@ document.addEventListener('DOMContentLoaded', function() {
           
           return;
         }
+        clearFieldError(document.getElementById('phone'));
         
         // Speichere Daten
         formData.fullname = fullname;
