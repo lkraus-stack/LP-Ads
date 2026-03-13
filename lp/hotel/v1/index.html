@@ -19,7 +19,7 @@
             <h1>Mehr Direktbuchungen. Weniger Abhängigkeit von Booking & Co.</h1>
             <p class="lead">Wir entwickeln und optimieren Google- und Meta-Kampagnen, die Direktbuchungen und Anfragen planbar erhöhen – mit sauberem Tracking und laufender ROAS-Optimierung.</p>
             <div class="hero-ctas">
-              <a class="cta cta-primary" href="#kontakt">Kostenloses Strategiegespräch</a>
+              <button class="cta cta-primary" type="button" id="openContactModal">Kostenloses Strategiegespräch</button>
               <a class="cta cta-secondary" href="#blueprint">So arbeiten wir</a>
             </div>
 
@@ -34,96 +34,167 @@
             </div>
           </div>
 
-          <aside class="hero-form" id="kontakt" aria-label="Kontaktformular">
-            <div class="contact-form-wrapper">
-              <div class="form-success" id="formSuccess" aria-live="polite" hidden>
-                <p class="form-success-title">Vielen Dank!</p>
-                <p>Wir melden uns in der Regel innerhalb von 24–48 Stunden.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-studies" id="arbeiten">
+      <div class="section-inner">
+        <p class="section-eyebrow">Case Studies</p>
+        <h2>Ergebnisse aus erfolgreichen Hotel-Kampagnen</h2>
+        <p class="section-lead">Anonymisierte Auszüge aus unseren Reporting-Dashboards zeigen, wie wir für Hotels Leads und Direktbuchungen messbar steigern.</p>
+        <div class="case-studies-grid">
+          <figure class="case-study-card">
+            <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-1.png" data-full-alt="Anonymisierter Performance-Report mit ROAS-, Kosten- und Conversion-Werten aus einer Hotelkampagne.">
+              <span class="case-study-media">
+                <img src="./case-studies/case-study-1.png" alt="Anonymisierter Performance-Report mit ROAS-, Kosten- und Conversion-Werten aus einer Hotelkampagne." loading="lazy" decoding="async">
+              </span>
+              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+            </button>
+            <figcaption>Kontoauswertung mit 2.821,62 Conversions bei 54.050,69 € Kosten und 2.233.602,48 Conversion-Wert.</figcaption>
+          </figure>
+          <figure class="case-study-card">
+            <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-2.png" data-full-alt="Anonymisierte Meta Ads Übersicht mit Website-Käufen und Kosten pro Ergebnis.">
+              <span class="case-study-media">
+                <img src="./case-studies/case-study-2.png" alt="Anonymisierte Meta Ads Übersicht mit Website-Käufen und Kosten pro Ergebnis." loading="lazy" decoding="async">
+              </span>
+              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+            </button>
+            <figcaption>Meta Ads: 214 Website-Käufe bei 6,95 € pro Kauf und 1.487,63 € eingesetztem Budget.</figcaption>
+          </figure>
+          <figure class="case-study-card">
+            <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-3.png" data-full-alt="Anonymisierter Meta Ads Bericht mit Leads und Kosten pro Lead.">
+              <span class="case-study-media">
+                <img src="./case-studies/case-study-3.png" alt="Anonymisierter Meta Ads Bericht mit Leads und Kosten pro Lead." loading="lazy" decoding="async">
+              </span>
+              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+            </button>
+            <figcaption>Lead-Kampagne: 107 Meta-Leads bei 34,85 € pro Lead und 3.728,91 € Ausgaben.</figcaption>
+          </figure>
+          <figure class="case-study-card">
+            <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-4.png" data-full-alt="Anonymisierter Kampagnenauszug mit Leads aus Formularen und ausgegebenem Betrag.">
+              <span class="case-study-media">
+                <img src="./case-studies/case-study-4.png" alt="Anonymisierter Kampagnenauszug mit Leads aus Formularen und ausgegebenem Betrag." loading="lazy" decoding="async">
+              </span>
+              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+            </button>
+            <figcaption>Formular-Lead-Setup: 118 Leads bei 39,69 € CPL und 4.683,28 € Gesamtbudget.</figcaption>
+          </figure>
+          <figure class="case-study-card">
+            <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-5.png" data-full-alt="Anonymisierte tabellarische Kampagnenanalyse mit Kosten, Conversion-Wert und Klicks.">
+              <span class="case-study-media">
+                <img src="./case-studies/case-study-5.png" alt="Anonymisierte tabellarische Kampagnenanalyse mit Kosten, Conversion-Wert und Klicks." loading="lazy" decoding="async">
+              </span>
+              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+            </button>
+            <figcaption>Skalierung in der Übersicht: 1.067,29 Conversions bei 1,75 € Kosten pro Conversion in einer Top-Kampagne.</figcaption>
+          </figure>
+          <figure class="case-study-card">
+            <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-6.png" data-full-alt="Anonymisierte Meta-Kontenübersicht mit Reichweite, Frequenz und Kosten pro Lead.">
+              <span class="case-study-media">
+                <img src="./case-studies/case-study-6.png" alt="Anonymisierte Meta-Kontenübersicht mit Reichweite, Frequenz und Kosten pro Lead." loading="lazy" decoding="async">
+              </span>
+              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+            </button>
+            <figcaption>Kontenübersicht: 763 Leads gesamt bei 13,29 € Kosten pro Ergebnis und 10.136,74 € Spend.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <div id="contactModal" class="contact-modal" role="dialog" aria-modal="true" aria-label="Kontaktformular">
+      <div class="contact-modal-panel">
+        <button type="button" class="contact-modal-close" id="closeContactModal" aria-label="Kontaktformular schließen">Schließen</button>
+        <aside class="hero-form" id="kontakt" aria-label="Kontaktformular">
+          <div class="contact-form-wrapper">
+            <div class="form-success" id="formSuccess" aria-live="polite" hidden>
+              <p class="form-success-title">Vielen Dank!</p>
+              <p>Wir melden uns in der Regel innerhalb von 24–48 Stunden.</p>
+            </div>
+
+            <form id="contactForm" novalidate>
+              <h2 class="form-title">Strategiegespräch anfragen</h2>
+              <p class="form-lead">Kurze Angaben genügen – wir melden uns mit einer ersten Einschätzung.</p>
+
+              <label>Name
+                <input name="fullname" type="text" autocomplete="name" required>
+              </label>
+
+              <label>Hotel / Unternehmen
+                <input name="company" type="text" autocomplete="organization" required>
+              </label>
+
+              <div class="grid two">
+                <label>E-Mail
+                  <input name="email" type="email" autocomplete="email" required>
+                </label>
+                <label>Telefon
+                  <input name="phone" type="tel" autocomplete="tel" required>
+                </label>
               </div>
 
-              <form id="contactForm" novalidate>
-                <h2 class="form-title">Strategiegespräch anfragen</h2>
-                <p class="form-lead">Kurze Angaben genügen – wir melden uns mit einer ersten Einschätzung.</p>
+              <label>Optional: Kurz Ihr Ziel / Kontext
+                <textarea name="message" rows="4" placeholder="z. B. Nebensaison füllen, mehr Direktbuchungen über Google, Standorte/Zimmerkategorien …"></textarea>
+              </label>
 
-                <label>Name
-                  <input name="fullname" type="text" autocomplete="name" required>
-                </label>
+              <label class="checkbox">
+                <input name="bookedAppointment" type="checkbox">
+                <span>Ich möchte direkt einen Terminlink erhalten.</span>
+              </label>
 
-                <label>Hotel / Unternehmen
-                  <input name="company" type="text" autocomplete="organization" required>
-                </label>
+              <input type="hidden" name="need" value="Mehr Direktbuchungen">
 
-                <div class="grid two">
-                  <label>E-Mail
-                    <input name="email" type="email" autocomplete="email" required>
-                  </label>
-                  <label>Telefon
-                    <input name="phone" type="tel" autocomplete="tel" required>
-                  </label>
-                </div>
+              <button type="submit" class="cta cta-primary">Anfrage senden</button>
+              <p id="formStatus" class="status" role="status" aria-live="polite"></p>
 
-                <label>Optional: Kurz Ihr Ziel / Kontext
-                  <textarea name="message" rows="4" placeholder="z. B. Nebensaison füllen, mehr Direktbuchungen über Google, Standorte/Zimmerkategorien …"></textarea>
-                </label>
-
-                <label class="checkbox">
-                  <input name="bookedAppointment" type="checkbox">
-                  <span>Ich möchte direkt einen Terminlink erhalten.</span>
-                </label>
-
-                <input type="hidden" name="need" value="Mehr Direktbuchungen">
-
-                <button type="submit" class="cta cta-primary">Anfrage senden</button>
-                <p id="formStatus" class="status" role="status" aria-live="polite"></p>
-
-                <p class="form-note">Mit dem Absenden stimmen Sie der Verarbeitung gemäß <a href="/datenschutz">Datenschutz</a> zu.</p>
-              </form>
-            </div>
-          </aside>
-        </div>
+              <p class="form-note">Mit dem Absenden stimmen Sie der Verarbeitung gemäß <a href="/datenschutz">Datenschutz</a> zu.</p>
+            </form>
+          </div>
+        </aside>
       </div>
-    </section>
+    </div>
 
-    <section class="trust-stats">
-      <div class="trust-stats-inner">
-        <p class="trust-line">Performance-Marketing, das Buchungen steuert – nicht nur Reichweite.</p>
-        <p class="stats-claim">Sauberes Setup, klare KPIs und laufende Optimierung – damit Direktbuchungen messbar wachsen.</p>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-value">50+</span>
-            <span class="stat-label">Hotels & Verbände</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-value">Google & Meta</span>
-            <span class="stat-label">zertifizierte Kampagnen</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-value">Messbar</span>
-            <span class="stat-label">Direktbuchungsquote & ROAS</span>
-          </div>
-        </div>
+    <div id="caseStudyModal" class="case-study-modal" role="dialog" aria-modal="true" aria-label="Case Study Vollansicht">
+      <div class="case-study-modal-panel">
+        <button type="button" class="case-study-modal-close" id="closeCaseStudyModal" aria-label="Vollansicht schließen">Schließen</button>
+        <img id="caseStudyModalImage" src="" alt="">
       </div>
-    </section>
+    </div>
 
     <section id="blueprint" class="blueprint">
       <div class="section-inner">
-        <h2>Ihr Direktbuchungs-Blueprint in 3 Schritten</h2>
-        <p class="section-lead">Ein Setup, das Nachfrage aufbaut, Direktbuchungen erhöht und kontinuierlich optimiert wird.</p>
+        <h2>In 3 Monaten zur planbaren Direktbuchung</h2>
+        <p class="section-lead">So arbeiten wir mit Hotels zusammen: erst sauberes Setup, dann datenbasierte Optimierung und danach Skalierung bzw. kontinuierliche Weiterführung.</p>
         <div class="blueprint-grid">
           <article class="step-card">
-            <p class="step-kicker">Schritt 1</p>
-            <h3>Analyse & Tracking</h3>
-            <p>Wir klären Ziele, Zielgruppen und Saisonlogik – und sorgen für belastbares Tracking als Grundlage für Entscheidungen.</p>
+            <p class="step-kicker">01</p>
+            <h3>Monat 1: Setup & Fundament</h3>
+            <p>Wir schaffen die Grundlage: Ziele, Tracking, Kanalstruktur und Kampagnen-Setup für ein sauberes Go-live auf Direktbuchungen.</p>
+            <div class="step-tags" aria-label="Fokus Monat 1">
+              <span>Tracking-Setup</span>
+              <span>Kampagnenstruktur</span>
+              <span>Messkonzept</span>
+            </div>
           </article>
           <article class="step-card">
-            <p class="step-kicker">Schritt 2</p>
-            <h3>Kampagnen-Setup</h3>
-            <p>Such- und Performance-Kampagnen (Google/Meta) werden so strukturiert, dass sie Direktbuchungen und Anfragen priorisieren.</p>
+            <p class="step-kicker">02</p>
+            <h3>Monat 2: Optimierung</h3>
+            <p>Auf Basis der ersten Daten optimieren wir Creatives, Zielgruppen, Gebote und Landing-Logik für mehr qualifizierte Anfragen und Buchungen.</p>
+            <div class="step-tags" aria-label="Fokus Monat 2">
+              <span>Creatives</span>
+              <span>A/B-Tests</span>
+              <span>Budgetsteuerung</span>
+            </div>
           </article>
           <article class="step-card">
-            <p class="step-kicker">Schritt 3</p>
-            <h3>ROAS-Optimierung</h3>
-            <p>Laufende Tests, Budgetsteuerung und saubere Auswertung – damit Sie weniger OTA-Abhängigkeit und mehr Direktbuchungen erzielen.</p>
+            <p class="step-kicker">03</p>
+            <h3>Monat 3: Skalierung & Fortführung</h3>
+            <p>Wir skalieren funktionierende Kampagnen kontrolliert und führen die Betreuung datenbasiert fort, damit Wachstum stabil und planbar bleibt.</p>
+            <div class="step-tags" aria-label="Fokus Monat 3">
+              <span>Skalierung</span>
+              <span>Reporting</span>
+              <span>Fortlaufende Betreuung</span>
+            </div>
           </article>
         </div>
       </div>

@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const contactModal = document.getElementById("contactModal");
+  const openContactModalButton = document.getElementById("openContactModal");
+  const closeContactModalButton = document.getElementById("closeContactModal");
+  const pageBody = document.body;
+  const modalFadeDurationMs = 240;
+  let modalCloseTimer = null;
+  const caseStudyModal = document.getElementById("caseStudyModal");
+  const closeCaseStudyModalButton = document.getElementById("closeCaseStudyModal");
+  const caseStudyModalImage = document.getElementById("caseStudyModalImage");
+  const caseStudyTriggers = document.querySelectorAll(".case-study-trigger");
   const form = document.getElementById("contactForm");
   const statusEl = document.getElementById("formStatus");
   const formWrapper = form && form.closest(".contact-form-wrapper");
@@ -6,6 +16,96 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitButton = form && form.querySelector('button[type="submit"]');
   const submitLabel = submitButton ? submitButton.textContent : "";
   let isSubmitting = false;
+
+  if (contactModal) contactModal.setAttribute("aria-hidden", "true");
+
+  const openContactModal = () => {
+    if (!contactModal) return;
+    if (modalCloseTimer) {
+      window.clearTimeout(modalCloseTimer);
+      modalCloseTimer = null;
+    }
+    contactModal.classList.add("is-visible");
+    contactModal.setAttribute("aria-hidden", "false");
+    pageBody && pageBody.classList.add("modal-open");
+  };
+
+  const closeContactModal = () => {
+    if (!contactModal) return;
+    contactModal.classList.remove("is-visible");
+    contactModal.setAttribute("aria-hidden", "true");
+    if (modalCloseTimer) window.clearTimeout(modalCloseTimer);
+    modalCloseTimer = window.setTimeout(() => {
+      pageBody && pageBody.classList.remove("modal-open");
+      modalCloseTimer = null;
+    }, modalFadeDurationMs);
+  };
+
+  const openCaseStudyModal = (imageSrc, imageAlt) => {
+    if (!caseStudyModal || !caseStudyModalImage || !imageSrc) return;
+    caseStudyModalImage.src = imageSrc;
+    caseStudyModalImage.alt = imageAlt || "Case Study Vollansicht";
+    caseStudyModal.classList.add("is-visible");
+    caseStudyModal.setAttribute("aria-hidden", "false");
+    pageBody && pageBody.classList.add("modal-open");
+  };
+
+  const closeCaseStudyModal = () => {
+    if (!caseStudyModal || !caseStudyModalImage) return;
+    caseStudyModal.classList.remove("is-visible");
+    caseStudyModal.setAttribute("aria-hidden", "true");
+    window.setTimeout(() => {
+      caseStudyModalImage.src = "";
+      caseStudyModalImage.alt = "";
+      if (!contactModal || !contactModal.classList.contains("is-visible")) {
+        pageBody && pageBody.classList.remove("modal-open");
+      }
+    }, modalFadeDurationMs);
+  };
+
+  if (openContactModalButton) {
+    openContactModalButton.addEventListener("click", openContactModal);
+  }
+
+  if (closeContactModalButton) {
+    closeContactModalButton.addEventListener("click", closeContactModal);
+  }
+
+  if (contactModal) {
+    contactModal.addEventListener("click", (event) => {
+      if (event.target === contactModal) closeContactModal();
+    });
+  }
+
+  if (caseStudyModal) {
+    caseStudyModal.setAttribute("aria-hidden", "true");
+    caseStudyModal.addEventListener("click", (event) => {
+      if (event.target === caseStudyModal) closeCaseStudyModal();
+    });
+  }
+
+  if (closeCaseStudyModalButton) {
+    closeCaseStudyModalButton.addEventListener("click", closeCaseStudyModal);
+  }
+
+  caseStudyTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const fullSrc = trigger.getAttribute("data-full-src");
+      const fullAlt = trigger.getAttribute("data-full-alt");
+      openCaseStudyModal(fullSrc, fullAlt);
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    if (caseStudyModal && caseStudyModal.classList.contains("is-visible")) {
+      closeCaseStudyModal();
+      return;
+    }
+    if (contactModal && contactModal.classList.contains("is-visible")) {
+      closeContactModal();
+    }
+  });
 
   if (!form || !window.FrancoFormAPI) return;
 
