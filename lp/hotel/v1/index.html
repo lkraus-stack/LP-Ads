@@ -9,18 +9,34 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body data-industry="hotel" data-variant="hotel_v1" data-form-version="hotel_form_v1">
+  <div class="floating-cta" id="floatingCta" aria-hidden="true">
+    <div class="floating-cta-copy">
+      <p class="floating-cta-kicker">Kostenlose Hotel-Analyse</p>
+      <strong>Mehr Direktbuchungen statt mehr OTA-Abhängigkeit.</strong>
+      <span>30 Minuten, klare Hebel für Auslastung, Marge und Nachfrage.</span>
+    </div>
+    <button class="cta cta-primary" type="button" data-open-contact>Strategiegespräch sichern</button>
+  </div>
+
   <main>
-    <section class="hero">
+    <section class="hero" id="top">
       <div class="hero-inner">
         <div class="hero-grid">
-          <div class="hero-copy">
+          <div class="hero-copy" data-reveal="up">
             <a class="brand" href="/">Franco Consulting</a>
-            <p class="kicker">Performance Marketing für Hotels & Tourismusverbände</p>
-            <h1>Mehr Direktbuchungen. Weniger Abhängigkeit von Booking & Co.</h1>
-            <p class="lead">Wir entwickeln und optimieren Google- und Meta-Kampagnen, die Direktbuchungen und Anfragen planbar erhöhen – mit sauberem Tracking und laufender ROAS-Optimierung.</p>
+            <p class="kicker">Performance Marketing für Hotels, Resorts & Tourismusmarken</p>
+            <h1>Mehr Direktbuchungen für Ihr Hotel. Weniger Abhängigkeit von OTAs.</h1>
+            <p class="lead">Wir entwickeln Google- und Meta-Kampagnen, die Nachfrage gezielt in profitable Direktbuchungen verwandeln – mit sauberem Tracking, klaren Reports und einer Strategie, die zu Saison, Marke und Auslastung passt.</p>
+
+            <div class="hero-benefits" aria-label="Wesentliche Vorteile">
+              <span>Weniger Provisionen an Booking & Co.</span>
+              <span>Mehr Nachfrage in Neben- und Zwischensaison</span>
+              <span>Klare Messung von Anfrage bis Buchung</span>
+            </div>
+
             <div class="hero-ctas">
-              <button class="cta cta-primary" type="button" id="openContactModal">Kostenloses Strategiegespräch</button>
-              <a class="cta cta-secondary" href="#blueprint">So arbeiten wir</a>
+              <button class="cta cta-primary" type="button" id="openContactModal" data-open-contact>Kostenlose Hotel-Analyse</button>
+              <a class="cta cta-secondary" href="#arbeiten">Ergebnisse ansehen</a>
             </div>
 
             <div class="hero-proof">
@@ -32,72 +48,202 @@
                 <span class="pill">Direktbuchungsquote</span>
               </div>
             </div>
+
+            <div class="hero-metrics" aria-label="Proof und Kennzahlen">
+              <article class="metric-card">
+                <strong class="metric-value" data-count="50" data-suffix="+">50+</strong>
+                <span>betreute Hotel- und Tourismusprojekte</span>
+              </article>
+              <article class="metric-card">
+                <strong class="metric-value" data-count="3" data-suffix=" Mon.">3 Mon.</strong>
+                <span>typischer Weg von Setup zu sauberer Optimierung</span>
+              </article>
+              <article class="metric-card">
+                <strong class="metric-value" data-count="48" data-suffix="h">48h</strong>
+                <span>bis zur ersten qualifizierten Rückmeldung</span>
+              </article>
+            </div>
           </div>
 
+          <div class="hero-visual">
+            <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+            <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+
+            <picture class="hero-main-media">
+              <img src="./hero-coast-luxury.png" width="1024" height="576" alt="Modernes Strandhotel mit Pool und direkter Strandlage bei Sonnenuntergang." fetchpriority="high" decoding="async">
+            </picture>
+
+            <article class="hero-insight-card">
+              <p class="hero-insight-kicker">Direktbuchungs-Fokus</p>
+              <h2>Performance, die nicht nur Reichweite kauft, sondern profitable Buchungen erzeugt.</h2>
+              <p>Wir verbinden Search, Remarketing und sauberes Tracking zu einem Setup, das Nachfrage kontrolliert auf die eigene Website lenkt.</p>
+            </article>
+
+            <article class="hero-float-card hero-float-card-top">
+              <img src="./hero-relax-view.png" width="1024" height="576" alt="Entspannter Blick von einer Hotelterrasse auf Wasser und Bergkulisse." loading="lazy" decoding="async">
+              <div class="hero-float-copy">
+                <span>Premium-Storytelling</span>
+                <strong>Markenerlebnis trifft Performance.</strong>
+              </div>
+            </article>
+
+            <article class="hero-float-card hero-float-card-bottom">
+              <img src="./hero-water-villas.png" width="1024" height="576" alt="Luxuriöse Wasserbungalows über türkisfarbenem Meer." loading="lazy" decoding="async">
+              <div class="hero-float-copy">
+                <span>Skalierbare Nachfrage</span>
+                <strong>Passend für Resort, Boutique und Destination.</strong>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="case-studies" id="arbeiten">
       <div class="section-inner">
-        <p class="section-eyebrow">Case Studies</p>
-        <h2>Ergebnisse aus erfolgreichen Hotel-Kampagnen</h2>
-        <p class="section-lead">Anonymisierte Auszüge aus unseren Reporting-Dashboards zeigen, wie wir für Hotels Leads und Direktbuchungen messbar steigern.</p>
+        <div class="section-heading" data-reveal="up">
+          <p class="section-eyebrow">Performance-Beweis</p>
+          <h2>Ergebnisse, die Hotelentscheider schnell einordnen können</h2>
+          <p class="section-lead">Statt einer reinen Screenshot-Galerie zeigen wir Ihnen, welche Ausgangslagen, Hebel und Resultate in echten Hotelkampagnen erzielt wurden. Die Dashboards bleiben als transparenter Beleg sichtbar.</p>
+        </div>
+
         <div class="case-studies-grid">
-          <figure class="case-study-card">
+          <figure class="case-study-card" data-reveal="up">
+            <div class="case-study-content">
+              <div class="case-study-badges">
+                <span>Alpenresort</span>
+                <span>Google Ads</span>
+              </div>
+              <h3>Direktbuchungen in der Nebensaison kontrolliert skaliert</h3>
+              <p class="case-study-text">Such- und Performance-Kampagnen für buchungsstarke Nachfrage mit Fokus auf profitable Abschlüsse über die eigene Website.</p>
+              <div class="case-study-kpis">
+                <div><span>Conversions</span><strong>2.821</strong></div>
+                <div><span>Wert</span><strong>2,23 Mio. €</strong></div>
+                <div><span>Kosten / Conv.</span><strong>19,16 €</strong></div>
+              </div>
+            </div>
             <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-1.png" data-full-alt="Anonymisierter Performance-Report mit ROAS-, Kosten- und Conversion-Werten aus einer Hotelkampagne.">
               <span class="case-study-media">
                 <img src="./case-studies/case-study-1.png" alt="Anonymisierter Performance-Report mit ROAS-, Kosten- und Conversion-Werten aus einer Hotelkampagne." loading="lazy" decoding="async">
               </span>
-              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+              <span class="case-study-zoom-hint">Dashboard ansehen</span>
             </button>
-            <figcaption>Kontoauswertung mit 2.821,62 Conversions bei 54.050,69 € Kosten und 2.233.602,48 Conversion-Wert.</figcaption>
           </figure>
-          <figure class="case-study-card">
+
+          <figure class="case-study-card" data-reveal="up">
+            <div class="case-study-content">
+              <div class="case-study-badges">
+                <span>Stadthotel</span>
+                <span>Meta Ads</span>
+              </div>
+              <h3>Remarketing in messbare Käufe überführt</h3>
+              <p class="case-study-text">Kompakte Meta-Logik für wiederkehrende Nachfrage, impulsstarke Angebote und eine bessere Verwertung warmer Zielgruppen.</p>
+              <div class="case-study-kpis">
+                <div><span>Website-Käufe</span><strong>214</strong></div>
+                <div><span>Budget</span><strong>1.487 €</strong></div>
+                <div><span>Pro Kauf</span><strong>6,95 €</strong></div>
+              </div>
+            </div>
             <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-2.png" data-full-alt="Anonymisierte Meta Ads Übersicht mit Website-Käufen und Kosten pro Ergebnis.">
               <span class="case-study-media">
                 <img src="./case-studies/case-study-2.png" alt="Anonymisierte Meta Ads Übersicht mit Website-Käufen und Kosten pro Ergebnis." loading="lazy" decoding="async">
               </span>
-              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+              <span class="case-study-zoom-hint">Dashboard ansehen</span>
             </button>
-            <figcaption>Meta Ads: 214 Website-Käufe bei 6,95 € pro Kauf und 1.487,63 € eingesetztem Budget.</figcaption>
           </figure>
-          <figure class="case-study-card">
+
+          <figure class="case-study-card" data-reveal="up">
+            <div class="case-study-content">
+              <div class="case-study-badges">
+                <span>Wellnesshotel</span>
+                <span>Lead Funnel</span>
+              </div>
+              <h3>Anfragen für hochwertige Aufenthalte effizient aufgebaut</h3>
+              <p class="case-study-text">Lead-orientiertes Kampagnensetup für beratungsintensivere Aufenthalte, Packages und buchungsnahe Erstkontakte.</p>
+              <div class="case-study-kpis">
+                <div><span>Leads</span><strong>107</strong></div>
+                <div><span>Spend</span><strong>3.728 €</strong></div>
+                <div><span>CPL</span><strong>34,85 €</strong></div>
+              </div>
+            </div>
             <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-3.png" data-full-alt="Anonymisierter Meta Ads Bericht mit Leads und Kosten pro Lead.">
               <span class="case-study-media">
                 <img src="./case-studies/case-study-3.png" alt="Anonymisierter Meta Ads Bericht mit Leads und Kosten pro Lead." loading="lazy" decoding="async">
               </span>
-              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+              <span class="case-study-zoom-hint">Dashboard ansehen</span>
             </button>
-            <figcaption>Lead-Kampagne: 107 Meta-Leads bei 34,85 € pro Lead und 3.728,91 € Ausgaben.</figcaption>
           </figure>
-          <figure class="case-study-card">
+
+          <figure class="case-study-card" data-reveal="up">
+            <div class="case-study-content">
+              <div class="case-study-badges">
+                <span>Boutiquehotel</span>
+                <span>Formular-Funnel</span>
+              </div>
+              <h3>Beratungsanfragen für buchungsnahe Gespräche stabilisiert</h3>
+              <p class="case-study-text">Saubere Form-Conversion-Logik für individuelle Angebote, Events oder Hotelanfragen mit höherem Abstimmungsbedarf.</p>
+              <div class="case-study-kpis">
+                <div><span>Leads</span><strong>118</strong></div>
+                <div><span>Gesamtbudget</span><strong>4.683 €</strong></div>
+                <div><span>CPL</span><strong>39,69 €</strong></div>
+              </div>
+            </div>
             <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-4.png" data-full-alt="Anonymisierter Kampagnenauszug mit Leads aus Formularen und ausgegebenem Betrag.">
               <span class="case-study-media">
                 <img src="./case-studies/case-study-4.png" alt="Anonymisierter Kampagnenauszug mit Leads aus Formularen und ausgegebenem Betrag." loading="lazy" decoding="async">
               </span>
-              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+              <span class="case-study-zoom-hint">Dashboard ansehen</span>
             </button>
-            <figcaption>Formular-Lead-Setup: 118 Leads bei 39,69 € CPL und 4.683,28 € Gesamtbudget.</figcaption>
           </figure>
-          <figure class="case-study-card">
+
+          <figure class="case-study-card" data-reveal="up">
+            <div class="case-study-content">
+              <div class="case-study-badges">
+                <span>Ferienanlage</span>
+                <span>Skalierung</span>
+              </div>
+              <h3>Top-Kampagnen profitabel weiter hochgefahren</h3>
+              <p class="case-study-text">Bestehende Nachfrage sauber skaliert, ohne die Profitabilität aus dem Blick zu verlieren. Fokus auf stabile Kosten pro Conversion.</p>
+              <div class="case-study-kpis">
+                <div><span>Conversions</span><strong>1.067</strong></div>
+                <div><span>Kosten / Conv.</span><strong>1,75 €</strong></div>
+                <div><span>Top-Hebel</span><strong>Skalierung</strong></div>
+              </div>
+            </div>
             <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-5.png" data-full-alt="Anonymisierte tabellarische Kampagnenanalyse mit Kosten, Conversion-Wert und Klicks.">
               <span class="case-study-media">
                 <img src="./case-studies/case-study-5.png" alt="Anonymisierte tabellarische Kampagnenanalyse mit Kosten, Conversion-Wert und Klicks." loading="lazy" decoding="async">
               </span>
-              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+              <span class="case-study-zoom-hint">Dashboard ansehen</span>
             </button>
-            <figcaption>Skalierung in der Übersicht: 1.067,29 Conversions bei 1,75 € Kosten pro Conversion in einer Top-Kampagne.</figcaption>
           </figure>
-          <figure class="case-study-card">
+
+          <figure class="case-study-card" data-reveal="up">
+            <div class="case-study-content">
+              <div class="case-study-badges">
+                <span>Hotelgruppe</span>
+                <span>Meta Demand</span>
+              </div>
+              <h3>Mehr Leads bei stabilen Kosten über mehrere Kampagnen</h3>
+              <p class="case-study-text">Demand-Aufbau und Remarketing über Meta für mehrere Angebote, Zielgruppen und Reiseanlässe innerhalb eines Kontos.</p>
+              <div class="case-study-kpis">
+                <div><span>Leads</span><strong>763</strong></div>
+                <div><span>Pro Ergebnis</span><strong>13,29 €</strong></div>
+                <div><span>Spend</span><strong>10.136 €</strong></div>
+              </div>
+            </div>
             <button type="button" class="case-study-trigger" data-full-src="./case-studies/case-study-6.png" data-full-alt="Anonymisierte Meta-Kontenübersicht mit Reichweite, Frequenz und Kosten pro Lead.">
               <span class="case-study-media">
                 <img src="./case-studies/case-study-6.png" alt="Anonymisierte Meta-Kontenübersicht mit Reichweite, Frequenz und Kosten pro Lead." loading="lazy" decoding="async">
               </span>
-              <span class="case-study-zoom-hint">Klicken zum Vergrößern</span>
+              <span class="case-study-zoom-hint">Dashboard ansehen</span>
             </button>
-            <figcaption>Kontenübersicht: 763 Leads gesamt bei 13,29 € Kosten pro Ergebnis und 10.136,74 € Spend.</figcaption>
           </figure>
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <p>Sie möchten wissen, welche Hebel in Ihrem Hotel am schnellsten auf Direktbuchungen einzahlen?</p>
+          <button class="cta cta-primary" type="button" data-open-contact>Analysegespräch anfragen</button>
         </div>
       </div>
     </section>
@@ -163,11 +309,15 @@
 
     <section id="blueprint" class="blueprint">
       <div class="section-inner">
-        <h2>In 3 Monaten zur planbaren Direktbuchung</h2>
-        <p class="section-lead">So arbeiten wir mit Hotels zusammen: erst sauberes Setup, dann datenbasierte Optimierung und danach Skalierung bzw. kontinuierliche Weiterführung.</p>
+        <div class="section-heading" data-reveal="up">
+          <p class="section-eyebrow">So entsteht Dynamik</p>
+          <h2>In 3 Monaten von sauberem Setup zu planbarer Direktbuchung</h2>
+          <p class="section-lead">Wir arbeiten nicht mit blindem Aktivismus, sondern in einer klaren Choreografie: zuerst Messbarkeit und Kampagnenstruktur, dann Optimierung und anschließend kontrollierte Skalierung.</p>
+        </div>
         <div class="blueprint-grid">
-          <article class="step-card">
+          <article class="step-card" data-reveal="up">
             <p class="step-kicker">01</p>
+            <p class="step-label">Setup</p>
             <h3>Monat 1: Setup & Fundament</h3>
             <p>Wir schaffen die Grundlage: Ziele, Tracking, Kanalstruktur und Kampagnen-Setup für ein sauberes Go-live auf Direktbuchungen.</p>
             <div class="step-tags" aria-label="Fokus Monat 1">
@@ -176,8 +326,9 @@
               <span>Messkonzept</span>
             </div>
           </article>
-          <article class="step-card">
+          <article class="step-card step-card-featured" data-reveal="up">
             <p class="step-kicker">02</p>
+            <p class="step-label">Optimierung</p>
             <h3>Monat 2: Optimierung</h3>
             <p>Auf Basis der ersten Daten optimieren wir Creatives, Zielgruppen, Gebote und Landing-Logik für mehr qualifizierte Anfragen und Buchungen.</p>
             <div class="step-tags" aria-label="Fokus Monat 2">
@@ -186,8 +337,9 @@
               <span>Budgetsteuerung</span>
             </div>
           </article>
-          <article class="step-card">
+          <article class="step-card" data-reveal="up">
             <p class="step-kicker">03</p>
+            <p class="step-label">Skalierung</p>
             <h3>Monat 3: Skalierung & Fortführung</h3>
             <p>Wir skalieren funktionierende Kampagnen kontrolliert und führen die Betreuung datenbasiert fort, damit Wachstum stabil und planbar bleibt.</p>
             <div class="step-tags" aria-label="Fokus Monat 3">
@@ -202,24 +354,43 @@
 
     <section id="leistungen" class="solutions">
       <div class="section-inner">
-        <h2>Für wen wir arbeiten</h2>
-        <p class="section-lead">Ob Stadthotel, Resort oder Tourismusverband – wir bringen Performance-Marketing in Einklang mit Ihren Buchungszielen und Ihrer Saison.</p>
+        <div class="section-heading" data-reveal="up">
+          <p class="section-eyebrow">Passung</p>
+          <h2>Für welche Hotels und Situationen das besonders gut funktioniert</h2>
+          <p class="section-lead">Ob Stadthotel, Resort, Boutique oder Verband: wir richten Kampagnen an echter Auslastungslogik aus, nicht an Standard-Templates.</p>
+        </div>
         <div class="solutions-grid">
-          <article class="solution-card">
+          <article class="solution-card solution-card-wide" data-reveal="up">
             <h3>Stadthotel</h3>
-            <p>Geschäftsreisen und Städtereisen gezielt ansprechen, Direktbuchungen steigern.</p>
+            <p>Geschäftsreisen, Wochenendtrips und Events gezielt in direkte Nachfrage übersetzen.</p>
+            <ul class="card-points">
+              <li>Suchnachfrage präzise abgreifen</li>
+              <li>Warme Zielgruppen mit Remarketing zurückholen</li>
+            </ul>
           </article>
-          <article class="solution-card">
+          <article class="solution-card" data-reveal="up">
             <h3>Resort & Ferienhotel</h3>
-            <p>Nebensaison und Last-Minute mit Kampagnen ausgleichen, Auslastung optimieren.</p>
+            <p>Nebensaison, Last-Minute und hochmargige Aufenthalte planbar besser aussteuern.</p>
+            <ul class="card-points">
+              <li>Packages sichtbar machen</li>
+              <li>Nachfrage zwischen Saisons glätten</li>
+            </ul>
           </article>
-          <article class="solution-card">
+          <article class="solution-card" data-reveal="up">
             <h3>Tourismusverband</h3>
-            <p>Destinationen und Regionen gemeinsam bewerben, messbare Buchungsanteile.</p>
+            <p>Destinationen messbar aufbauen und Leistung transparent auf Partnerangebote verteilen.</p>
+            <ul class="card-points">
+              <li>Regionale Kampagnen bündeln</li>
+              <li>Mehr Nachfrage für Partnerbetriebe</li>
+            </ul>
           </article>
-          <article class="solution-card">
+          <article class="solution-card" data-reveal="up">
             <h3>Nebensaison & Peak</h3>
-            <p>Nachfrage steuern statt abwarten – mit klaren KPIs pro Kanal.</p>
+            <p>Nachfrage aktiv verschieben statt nur reagieren, mit klaren Zielen pro Zeitraum und Kanal.</p>
+            <ul class="card-points">
+              <li>Auslastung gezielt stabilisieren</li>
+              <li>Budgets dort erhöhen, wo Marge entsteht</li>
+            </ul>
           </article>
         </div>
       </div>
@@ -227,24 +398,31 @@
 
     <section class="products">
       <div class="section-inner">
-        <h2>Was wir anbieten</h2>
-        <p class="section-lead">Von Google Ads über Meta bis zur kontinuierlichen Optimierung: ein klares Setup für mehr Direktbuchungen und weniger OTA-Abhängigkeit.</p>
+        <div class="section-heading" data-reveal="up">
+          <p class="section-eyebrow">Leistungsumfang</p>
+          <h2>Was wir konkret übernehmen, damit mehr Buchungen direkt bei Ihnen landen</h2>
+          <p class="section-lead">Wir verbinden Kanalsteuerung, Tracking und Angebotslogik zu einem System, das für Hotelteams verständlich bleibt und gleichzeitig performant arbeitet.</p>
+        </div>
         <div class="products-grid">
-          <article class="product-card">
+          <article class="product-card" data-reveal="up">
+            <p class="card-index">01</p>
             <h3>Google Ads</h3>
-            <p>Such- und Performance-Kampagnen für Buchungsanfragen mit messbarem ROAS.</p>
+            <p>Such- und Performance-Kampagnen für aktive Nachfrage mit Fokus auf Direktabschlüsse.</p>
           </article>
-          <article class="product-card">
+          <article class="product-card" data-reveal="up">
+            <p class="card-index">02</p>
             <h3>Meta Ads</h3>
-            <p>Zielgruppen und Remarketing für Urlaubs- und Städtereisen.</p>
+            <p>Storytelling, Zielgruppenaufbau und Remarketing für Urlaubs- und Städtereisen.</p>
           </article>
-          <article class="product-card">
+          <article class="product-card" data-reveal="up">
+            <p class="card-index">03</p>
             <h3>Kampagnen-Setup</h3>
-            <p>Struktur, Ziele und Tracking von Anfang an conversion-orientiert.</p>
+            <p>Struktur, Ziele, Tracking und Landing-Logik von Anfang an conversion-orientiert.</p>
           </article>
-          <article class="product-card">
+          <article class="product-card product-card-accent" data-reveal="up">
+            <p class="card-index">04</p>
             <h3>ROAS-Optimierung</h3>
-            <p>Bestehende Kanäle schärfen, Direktbuchungsquote und Marge im Blick.</p>
+            <p>Kontinuierliche Optimierung entlang von Direktbuchungsquote, Kosten, Marge und Auslastung.</p>
           </article>
         </div>
       </div>
@@ -252,22 +430,25 @@
 
     <section class="trust" id="vertrauen">
       <div class="section-inner">
-        <h2>Warum das für Hotels funktioniert</h2>
-        <p class="section-lead">Wir kombinieren Nachfrageaufbau über Google/Meta mit einer klaren Conversion-Logik – damit mehr Gäste direkt bei Ihnen buchen.</p>
+        <div class="section-heading" data-reveal="up">
+          <p class="section-eyebrow">Warum Entscheider zusagen</p>
+          <h2>Warum das für Hotels nicht nur gut aussieht, sondern wirtschaftlich funktioniert</h2>
+          <p class="section-lead">Die Seite soll nicht nur modern wirken, sondern die gleiche Klarheit transportieren wie unsere Arbeit: Transparenz, Profitabilität und ein Fokus auf Direktbuchung statt bloßer Reichweite.</p>
+        </div>
         <div class="trust-grid">
-          <article class="trust-card">
+          <article class="trust-card trust-card-featured" data-reveal="up">
             <h3>Weniger OTA-Abhängigkeit</h3>
-            <p>Wir priorisieren Direktbuchungen und Anfragen, statt nur Reichweite zu erzeugen.</p>
+            <p>Wir priorisieren Direktbuchungen und qualifizierte Anfragen, statt nur Klicks oder Reichweite zu produzieren.</p>
           </article>
-          <article class="trust-card">
+          <article class="trust-card" data-reveal="up">
             <h3>Saisonsteuerung</h3>
             <p>Peak, Shoulder oder Nebensaison: Kampagnen werden entlang Ihrer Auslastung optimiert.</p>
           </article>
-          <article class="trust-card">
+          <article class="trust-card" data-reveal="up">
             <h3>Sauberes Tracking</h3>
             <p>Ohne saubere Messung keine Optimierung: wir arbeiten KPI-getrieben und transparent.</p>
           </article>
-          <article class="trust-card">
+          <article class="trust-card" data-reveal="up">
             <h3>Klare Reports</h3>
             <p>Sie sehen, was wirkt – und warum. Fokus auf Direktbuchungsquote, ROAS und Marge.</p>
           </article>
@@ -277,24 +458,36 @@
 
     <section class="faq" id="faq">
       <div class="section-inner">
-        <h2>FAQ</h2>
+        <div class="section-heading" data-reveal="up">
+          <p class="section-eyebrow">Offene Fragen</p>
+          <h2>FAQ</h2>
+        </div>
         <div class="faq-list">
-          <details>
+          <details data-reveal="up">
             <summary>Für wen ist das Strategiegespräch geeignet?</summary>
             <p>Für Hotels und Tourismusverbände, die Direktbuchungen und Anfragen über Google/Meta planbarer steigern möchten – mit klarer Messbarkeit.</p>
           </details>
-          <details>
+          <details data-reveal="up">
             <summary>Wie schnell sind erste Ergebnisse möglich?</summary>
             <p>Das hängt von Ausgangslage und Budget ab. In der Regel sehen wir erste belastbare Signale nach wenigen Wochen, echte Skalierung folgt über iterative Optimierung.</p>
           </details>
-          <details>
+          <details data-reveal="up">
             <summary>Arbeitet ihr nur mit Google Ads?</summary>
             <p>Google ist häufig der stärkste Hebel für direkte Nachfrage. Ergänzend nutzen wir Meta für Zielgruppenaufbau, Remarketing und saisonale Impulse.</p>
           </details>
-          <details>
+          <details data-reveal="up">
             <summary>Wie läuft die Zusammenarbeit ab?</summary>
             <p>Nach dem Gespräch definieren wir Ziele und KPIs, setzen Kampagnen strukturiert auf und optimieren fortlaufend anhand der Daten.</p>
           </details>
+        </div>
+
+        <div class="faq-cta-panel" data-reveal="up">
+          <div>
+            <p class="section-eyebrow">Nächster Schritt</p>
+            <h3>Lassen Sie uns prüfen, wo in Ihrem Hotel kurzfristig mehr Direktbuchungen liegen.</h3>
+            <p>In einem kurzen Strategiegespräch schauen wir auf Saison, Kanäle, Nachfrage und die größten Profitabilitätshebel.</p>
+          </div>
+          <button class="cta cta-primary" type="button" data-open-contact>Strategiegespräch anfragen</button>
         </div>
       </div>
     </section>
