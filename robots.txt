@@ -1,16 +1,15 @@
-# robots.txt für Franco Consulting GmbH
-# https://www.robotstxt.org/
+# robots.txt für ads.franco-consulting.com
+# Kampagnen-Landingpages - bewusst NICHT für die organische Suche bestimmt.
+#
+# Crawling bleibt erlaubt, damit Suchmaschinen das noindex-Meta auf den
+# Seiten ueberhaupt lesen koennen. Ein Disallow wuerde genau das verhindern
+# und die Seiten blieben im Index.
+#
+# Keine Sitemap: Diese Subdomain soll nicht indexiert werden. Frueher stand
+# hier die Sitemap der Hauptdomain - das war falsch und hat Google URLs
+# gemeldet, die es auf diesem Host nie gab.
 
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://www.franco-consulting.com/sitemap.xml
-
-# Crawl-Delay (optional - für freundlicheres Crawling)
 Crawl-delay: 1
-
-# Spezifische Ausschlüsse (falls nötig)
-# Disallow: /admin/
-# Disallow: /private/
-
